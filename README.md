@@ -90,6 +90,41 @@ pthread_mutex_unlock(&mutex);
 pthread_mutex_destroy(&mutex);
 ```
 This code initializes a new mutex lock, locks it, enters a critical section, unlocks it, and then destroys it.
+</div>
+</details>
+
+<details>
+<summary>Overview</summary>
+<div markdown="1">
+1. Parsing Arguments
+- number_of_philosophers
+- time_to_die (in milliseconds)
+- time_to_eat (in milliseconds)
+- time_to_sleep (in milliseconds)
+- number_of_times_each_philosopher_must_eat (optional)
+
+2. Initialize Resources
+- pthread_mutex_init()
+- gettimeofday()
+
+3. Start Threads
+- pthread_create()
+- pthread_detach()
+- pthread_mutex_lock()
+- pthread_mutex_unlock()
+- life_of_Philo : think, eat, sleep, die
+	- Thinking
+	- Eating : take fork, eat, release fork
+	- Sleeping
+
+4. Monitor the Situation
+- If any philosopher starves to death, stop all the threads.
+- When all the philosophers have eaten, stop all the threads.
+
+5. Close and Free
+- pthread_join()
+- pthread_mutex_destroy()
+
 
 </div>
 </details>
