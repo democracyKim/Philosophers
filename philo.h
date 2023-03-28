@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/28 19:29:42 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/28 21:25:49 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,32 +28,42 @@ enum e_definition
 
 typedef struct s_monitoring
 {
-	pthread_t		*threads;
+	pthread_t		*philos;
 	pthread_mutex_t	*print;
 	pthread_mutex_t	*forks;
 	unsigned int	start_time;
 	int				number_of_philosophers;
-    int				time_to_die;
-    int				time_to_eat;
-    int				time_to_sleep;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
 	int				required_meal_count;
 	int				good_death_count;
 	int				all_live;
+	int				error;
 }	t_monitoring;
 
 typedef struct s_philo
 {
 	pthread_mutex_t	*eat;
 	t_monitoring	*moulinette;
-    int				id;
-    int				time_to_die;
-    int				time_to_eat;
-    int				time_to_sleep;
-    int				required_meal_count;
+	int				id;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
 	int				current_meal_count;
-    int				left_fork;
-    int				right_fork;
+	int				left_fork;
+	int				right_fork;
 	int				is_living;
+	unsigned int	last_eat;
 }	t_philo;
+
+//utils
+int				ft_atoi(const char *str);
+void			*ft_calloc(size_t count, size_t size);
+int				print_error(char *message, t_monitoring *moulinette);
+int				is_error(t_monitoring *moulinette);
+
+//init
+t_monitoring	*init(int argc, char *argv[]);
 
 #endif
