@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
+/*   By: minjukim <minjukim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 16:08:57 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/28 21:23:50 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/28 22:52:33 by minjukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ static int	init_resources(t_monitoring *monitoring)
 
 	if (is_error(monitoring) == ERROR)
 		return (ERROR);
-	monitoring->philos = \
+	monitoring->philosophers = \
 		ft_calloc(monitoring->number_of_philosophers, sizeof(pthread_t));
 	monitoring->print = \
 		ft_calloc(1, sizeof(pthread_mutex_t));
 	monitoring->forks = \
 		ft_calloc(monitoring->number_of_philosophers, sizeof(pthread_mutex_t));
-	if (!monitoring->philos || !monitoring->print || !monitoring->forks)
+	if (!monitoring->philosophers || !monitoring->print || !monitoring->forks)
 		return (print_error("Error: Memory allocation failed", monitoring));
 	if (pthread_mutex_init(monitoring->print, NULL) != 0)
 		return (print_error("Error: Failed to initialize print_mutex", \
@@ -82,7 +82,10 @@ static int	init_philosophers(t_monitoring *monitoring)
 	{
 		philo = ft_calloc(1, sizeof(t_philo));
 		if (!philo)
+		{
+			free_philos_to_index(monitoring, i);
 			return (print_error("Error: Memory allocation failed", monitoring));
+		}
 		philo->moulinette = monitoring;
 		philo->id = i + 1;
 		philo->time_to_die = monitoring->time_to_die;
@@ -91,7 +94,7 @@ static int	init_philosophers(t_monitoring *monitoring)
 		philo->left_fork = i;
 		philo->right_fork = (i + 1) % monitoring->number_of_philosophers;
 		philo->is_living = TRUE;
-		monitoring->philos[i] = (pthread_t)philo;
+		monitoring->philosophers[i] = (pthread_t)philo;
 	}
 	return (0);
 }
@@ -101,6 +104,8 @@ t_monitoring	*init(int argc, char *argv[])
 	t_monitoring	*monitoring;
 
 	monitoring = ft_calloc(1, sizeof(t_monitoring));
+	if (!monitoring)
+		return (NULL);
 	parse_arguments(monitoring, argc, argv);
 	init_resources(monitoring);
 	init_philosophers(monitoring);

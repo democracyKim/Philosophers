@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
+/*   By: minjukim <minjukim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/28 21:25:49 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/28 22:51:53 by minjukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ enum e_definition
 
 typedef struct s_monitoring
 {
-	pthread_t		*philos;
+	pthread_t		*philosophers;
 	pthread_mutex_t	*print;
 	pthread_mutex_t	*forks;
 	unsigned int	start_time;
@@ -62,6 +62,7 @@ int				ft_atoi(const char *str);
 void			*ft_calloc(size_t count, size_t size);
 int				print_error(char *message, t_monitoring *moulinette);
 int				is_error(t_monitoring *moulinette);
+void			free_philos_to_index(t_monitoring *monitoring, int index);
 
 //init
 t_monitoring	*init(int argc, char *argv[]);
