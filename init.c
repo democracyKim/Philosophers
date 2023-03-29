@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minjukim <minjukim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 16:08:57 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/28 22:52:33 by minjukim         ###   ########.fr       */
+/*   Updated: 2023/03/29 09:56:46 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ static int	check_number_is_plus(t_monitoring *monitoring)
 				|| monitoring->time_to_sleep <= 0)
 		return (print_error("Error: All args must be positive integers", \
 		monitoring));
+	else if (monitoring->required_meal_count != 0 && \
+		monitoring->required_meal_count <= 0)
+		return (print_error("Error: All args must be positive integers", \
+			monitoring));
 	return (0);
 }
 
@@ -34,11 +38,7 @@ static int	parse_arguments(t_monitoring *monitoring, int argc, char *argv[])
 	monitoring->time_to_eat = ft_atoi(argv[3]);
 	monitoring->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
-	{
 		monitoring->required_meal_count = ft_atoi(argv[5]);
-		if (monitoring->required_meal_count <= 0)
-			return (print_error("Error: All args must be positive integers"));
-	}
 	monitoring->all_live = TRUE;
 	gettimeofday(&tv, NULL);
 	monitoring->start_time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
