@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
+/*   By: minjukim <minjukim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:42:37 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/29 20:26:15 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/30 00:12:19 by minjukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ void	free_philos(t_philo ***philos, int index)
 
 void	free_thread_and_mutex(t_monitoring **monitoring)
 {
-	int	i;
-
-	i = -1;
 	if ((*monitoring)->threads)
 		free((*monitoring)->threads);
 	if ((*monitoring)->forks)
