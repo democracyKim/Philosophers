@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/29 20:28:29 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/29 20:33:54 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_monitoring
 	int				all_live;
 	int				well_dying;
 	int				error;
-	int				start;
 }	t_monitoring;
 
 typedef struct s_philo

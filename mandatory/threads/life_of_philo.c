@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:32:22 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/29 20:08:31 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/29 20:34:48 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,6 @@ void	life_of_philo(void *arg)
 		if (sleeping(philo) == FALSE)
 			break ;
 		if (thinking(philo) == FALSE)
-			break ;
-		if (monitor(monitoring) == ERROR)
 			break ;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 13:17:51 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/29 20:06:23 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/29 20:33:50 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@ int	monitor(t_monitoring *monitoring)
 {
 	int	i;
 
-	if (monitoring->start == TRUE)
-	{
-		monitoring->start = FALSE;
-		return (0);
-	}
 	while (1)
 	{
 		i = -1;
