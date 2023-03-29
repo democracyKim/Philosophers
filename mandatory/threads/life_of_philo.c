@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:32:22 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/29 20:34:48 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/29 20:41:46 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,11 @@ void	life_of_philo(void *arg)
 	monitoring = philo->monitoring;
 	while (1)
 	{
-		if (eating(philo) == FALSE)
+		if (eating(philo) == FALSE || monitor(monitoring) == ERROR)
 			break ;
-		if (sleeping(philo) == FALSE)
+		if (sleeping(philo) == FALSE || monitor(monitoring) == ERROR)
 			break ;
-		if (thinking(philo) == FALSE)
+		if (thinking(philo) == FALSE || monitor(monitoring) == ERROR)
 			break ;
 	}
 }
