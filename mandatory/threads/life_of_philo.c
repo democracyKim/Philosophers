@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:32:22 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/29 18:50:34 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/29 19:48:37 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static int	is_living(t_philo *philo)
 	if (time_since_last_eat >= (unsigned int)philo->time_to_die)
 	{
 		philo->is_living = FALSE;
+		philo->monitoring->all_live = FALSE;
 		print_state(philo, "died");
 		return (FALSE);
 	}
@@ -52,6 +53,14 @@ static int	eating(t_philo *philo)
 	print_state(philo, "is eating");
 	gettimeofday(&current_time, NULL);
 	philo->last_eat = current_time.tv_sec * 1000 + current_time.tv_usec / 1000;
+	philo->current_meal_count++;
+	if (philo->monitoring->required_meal_count \
+		&& philo->current_meal_count == philo->monitoring->required_meal_count)
+	{
+		philo->is_living = FALSE;
+		philo->monitoring->well_dying++;
+		return (FALSE);
+	}
 	usleep(monitoring->time_to_eat * 1000);
 	pthread_mutex_unlock(&monitoring->forks[philo->left_fork]);
 	pthread_mutex_unlock(&monitoring->forks[philo->right_fork]);

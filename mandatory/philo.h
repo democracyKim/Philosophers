@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/29 19:21:48 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/29 19:40:42 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_monitoring
 	int				time_to_sleep;
 	int				required_meal_count;
 	int				all_live;
+	int				well_dying;
 	int				error;
 }	t_monitoring;
 
