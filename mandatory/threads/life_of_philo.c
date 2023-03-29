@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   life_of_philo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
+/*   By: minjukim <minjukim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:32:22 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/29 21:04:13 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/30 00:35:46 by minjukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	eating(t_philo *philo)
 	t_monitoring	*monitoring;
 
 	monitoring = philo->monitoring;
-	if (philo->id == philo->monitoring->number_of_philosophers)
+	if (philo->id % 2)
 	{
 		pthread_mutex_lock(&monitoring->forks[philo->right_fork]);
 		print_state(philo, "has taken a fork");
@@ -47,6 +47,7 @@ static int	eating(t_philo *philo)
 	}
 	else
 	{
+		usleep(100);
 		pthread_mutex_lock(&monitoring->forks[philo->left_fork]);
 		print_state(philo, "has taken a fork");
 		pthread_mutex_lock(&monitoring->forks[philo->right_fork]);
@@ -92,14 +93,13 @@ void	life_of_philo(void *arg)
 
 	philo = (t_philo *)arg;
 	monitoring = philo->monitoring;
-	while (1)
+	while (monitoring->all_live)
 	{
 		if (eating(philo) == FALSE || monitor(monitoring) == ERROR)
-			break ;
+			return ;
 		if (sleeping(philo) == FALSE || monitor(monitoring) == ERROR)
-			break ;
+			return ;
 		if (thinking(philo) == FALSE || monitor(monitoring) == ERROR)
-			break ;
+			return ;
 	}
-	return ;
 }
