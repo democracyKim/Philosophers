@@ -6,11 +6,11 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:32:22 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/29 11:49:50 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/29 18:50:34 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 static int	is_living(t_philo *philo)
 {
@@ -20,7 +20,7 @@ static int	is_living(t_philo *philo)
 	gettimeofday(&current_time, NULL);
 	time_since_last_eat = (current_time.tv_sec * 1000 \
 		+ current_time.tv_usec / 1000) - philo->last_eat;
-	if (time_since_last_eat >= philo->time_to_die)
+	if (time_since_last_eat >= (unsigned int)philo->time_to_die)
 	{
 		philo->is_living = FALSE;
 		print_state(philo, "died");
@@ -34,8 +34,8 @@ static int	eating(t_philo *philo)
 	struct timeval	current_time;
 	t_monitoring	*monitoring;
 
-	monitoring = philo->moulinette;
-	if (philo->index % 2 == 0)
+	monitoring = philo->monitoring;
+	if (philo->id == philo->monitoring->number_of_philosophers)
 	{
 		pthread_mutex_lock(&monitoring->forks[philo->right_fork]);
 		print_state(philo, "has taken a fork");
@@ -44,7 +44,6 @@ static int	eating(t_philo *philo)
 	}
 	else
 	{
-		usleep(100);
 		pthread_mutex_lock(&monitoring->forks[philo->left_fork]);
 		print_state(philo, "has taken a fork");
 		pthread_mutex_lock(&monitoring->forks[philo->right_fork]);
@@ -63,7 +62,7 @@ static int	sleeping(t_philo *philo)
 {
 	print_state(philo, "is sleeping");
 	usleep(philo->time_to_sleep * 1000);
-	return(is_living(philo));
+	return (is_living(philo));
 }
 
 static int	thinking(t_philo *philo)

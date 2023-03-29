@@ -6,43 +6,29 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:42:37 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/29 10:49:02 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/29 15:43:27 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
-int	print_error(char *message, t_monitoring *moulinette)
+int	print_error(char *message, t_monitoring *monitoring)
 {
 	printf("%s\n", message);
-	free_philos_to_index(moulinette, moulinette->number_of_philosophers);
-	if (moulinette->philosophers)
-		free(moulinette->philosophers);
-	if (moulinette->forks)
-		free(moulinette->forks);
-	if (moulinette->print)
-		free(moulinette->print);
-	moulinette->philosophers = NULL;
-	moulinette->forks = NULL;
-	moulinette->print = NULL;
-	moulinette->error = ERROR;
+	if (monitoring->threads)
+		free(monitoring->threads);
+	if (monitoring->forks)
+		free(monitoring->forks);
+	if (monitoring->print)
+		free(monitoring->print);
+	monitoring->threads = NULL;
+	monitoring->forks = NULL;
+	monitoring->print = NULL;
+	monitoring->error = ERROR;
 	return (ERROR);
 }
 
-int	is_error(t_monitoring *moulinette)
+int	is_error(t_monitoring *monitoring)
 {
-	return (moulinette->error);
-}
-
-void	free_philos_to_index(t_monitoring *moulinette, int index)
-{
-	int	i;
-
-	i = -1;
-	while (++i < index)
-	{
-		if (moulinette->philosophers[i] != NULL)
-			free(moulinette->philosophers[i]);
-		moulinette->philosophers[i] = NULL;
-	}
+	return (monitoring->error);
 }
