@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:32:22 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/29 20:41:46 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/29 20:45:11 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static int	is_living(t_philo *philo)
 		philo->is_living = FALSE;
 		philo->monitoring->all_live = FALSE;
 		print_state(philo, "died");
+		pthread_mutex_unlock(&philo->monitoring->forks[philo->left_fork]);
+		pthread_mutex_unlock(&philo->monitoring->forks[philo->right_fork]);
 		return (FALSE);
 	}
 	return (TRUE);
