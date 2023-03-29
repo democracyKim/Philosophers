@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minjukim <minjukim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/28 22:51:53 by minjukim         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:05:36 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,12 @@ void			*ft_calloc(size_t count, size_t size);
 int				print_error(char *message, t_monitoring *moulinette);
 int				is_error(t_monitoring *moulinette);
 void			free_philos_to_index(t_monitoring *monitoring, int index);
+void			print_state(t_philo *philo, const char *state);
 
 //init
 t_monitoring	*init(int argc, char *argv[]);
+
+//manage threads
+void			start_threads(t_monitoring *monitoring);
 
 #endif
