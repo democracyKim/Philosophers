@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:32:22 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/29 21:02:10 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/29 21:04:13 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	eating(t_philo *philo)
 	{
 		philo->is_living = FALSE;
 		philo->monitoring->well_dying++;
-		print_state(philo, "died");
+		// print_state(philo, "died");
 		pthread_mutex_unlock(&philo->monitoring->forks[philo->left_fork]);
 		pthread_mutex_unlock(&philo->monitoring->forks[philo->right_fork]);
 		return (FALSE);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   manage_threads.c                                   :+:      :+:    :+:   */
+/*   start_and_close.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:01:56 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/29 20:29:29 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/29 21:05:20 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,12 @@ static int	destroy_mutexes(t_monitoring *monitoring)
 	while (++i < monitoring->number_of_philosophers)
 	{
 		if (pthread_mutex_destroy(&monitoring->forks[i]) != 0)
-			return (print_error("Error: pthread_mutex_destroy() failed", monitoring));
+			return (print_error("Error: pthread_mutex_destroy() failed", \
+				monitoring));
 	}
 	if (pthread_mutex_destroy(monitoring->print) != 0)
-		return (print_error("Error: pthread_mutex_destroy() failed", monitoring));
+		return (print_error("Error: pthread_mutex_destroy() failed", \
+			monitoring));
 	return (0);
 }
 
