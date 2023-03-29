@@ -18,6 +18,23 @@ printf("The current time is %ld seconds and %ld microseconds\n", tv.tv_sec, tv.t
 ```
 This code gets the current time and prints it to the console.
 
+The timeval structure is commonly used in C programming for time-related functions, such as measuring elapsed time, setting timeouts, or scheduling events. It is also used in networking and system programming to represent timestamps and time intervals.  
+```c
+#include <sys/time.h>
+#include <stdio.h>
+
+int main() {
+    struct timeval start, end, elapsed;
+    gettimeofday(&start, NULL);
+    // do some work here...
+    gettimeofday(&end, NULL);
+    timersub(&end, &start, &elapsed);
+    printf("Elapsed time: %ld.%06ld seconds\n", elapsed.tv_sec, elapsed.tv_usec);
+    return 0;
+}
+````
+In this example, gettimeofday() is used to get the current time into the start and end timeval structs, and timersub() is used to calculate the difference between them and store it in the elapsed timeval struct. The printf() statement then displays the elapsed time in seconds and microseconds.  
+
 **pthread_create()**: This function is used to create a new thread of execution. It takes four arguments: a pointer to a pthread_t variable that will be filled in with the ID of the new thread, a pthread_attr_t pointer that can be set to NULL, a function pointer that takes a single void* argument and returns a void*, and a void* argument to be passed to the function.  
 
 The pthread_create() function takes four arguments:
@@ -64,13 +81,13 @@ pthread_join(tid, &status);
 ```
 This code creates a new thread and waits for it to terminate, storing its exit status in the status variable.
 
-pthread_join() and pthread_detach() are two functions in the POSIX threading library that are used to manage the lifecycle of threads. The main difference between the two is how they handle the resources associated with a thread after it completes execution.
+pthread_join() and pthread_detach() are two functions in the POSIX threading library that are used to manage the lifecycle of threads. The main difference between the two is how they handle the resources associated with a thread after it completes execution.  
 
-pthread_join() is used to wait for a thread to complete execution and retrieve its return value (if any). When called, pthread_join() blocks the calling thread until the specified thread has completed execution. Once the thread has completed execution, pthread_join() frees the resources associated with the thread, including its pthread_t handle and any memory that was dynamically allocated within the thread. This ensures that the thread's resources are not leaked and that the thread's return value can be retrieved.
+pthread_join() is used to wait for a thread to complete execution and retrieve its return value (if any). When called, pthread_join() blocks the calling thread until the specified thread has completed execution. Once the thread has completed execution, pthread_join() frees the resources associated with the thread, including its pthread_t handle and any memory that was dynamically allocated within the thread. This ensures that the thread's resources are not leaked and that the thread's return value can be retrieved.  
 
-On the other hand, pthread_detach() is used to detach a thread from its calling thread and allow it to run independently. When called, pthread_detach() marks the specified thread as detached, which means that its resources will be automatically freed when the thread completes execution. However, unlike pthread_join(), pthread_detach() does not block the calling thread, and does not retrieve the thread's return value.
+On the other hand, pthread_detach() is used to detach a thread from its calling thread and allow it to run independently. When called, pthread_detach() marks the specified thread as detached, which means that its resources will be automatically freed when the thread completes execution. However, unlike pthread_join(), pthread_detach() does not block the calling thread, and does not retrieve the thread's return value.  
 
-In general, pthread_join() is used when the calling thread needs to wait for a specific thread to complete execution and retrieve its return value, while pthread_detach() is used when the calling thread does not need to wait for the thread to complete execution and does not need to retrieve its return value. Additionally, pthread_join() is often used in conjunction with dynamically allocated threads, while pthread_detach() is often used with threads that are statically allocated or have a long lifetime
+In general, pthread_join() is used when the calling thread needs to wait for a specific thread to complete execution and retrieve its return value, while pthread_detach() is used when the calling thread does not need to wait for the thread to complete execution and does not need to retrieve its return value. Additionally, pthread_join() is often used in conjunction with dynamically allocated threads, while pthread_detach() is often used with threads that are statically allocated or have a long lifetime.  
 
 **pthread_mutex_init()**: This function is used to initialize a mutex lock. It takes two arguments: a pointer to the mutex lock to be initialized, and a pthread_mutexattr_t pointer that can be set to NULL.
 ```c
