@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 16:08:57 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/29 19:27:50 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/29 20:30:18 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ static int	init_philos(t_monitoring *monitoring, t_philo ***philos)
 		(*philos)[i] = ft_calloc(1, sizeof(t_philo));
 		if (!(*philos)[i])
 		{
+			free_philos(philos, i);
 			printf("Error: Memory allocation failed");
 			return (ERROR);
 		}

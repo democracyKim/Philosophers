@@ -6,37 +6,29 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 13:17:51 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/29 19:48:47 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/29 20:06:23 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-static void	stop_threads(t_philo **philos, t_monitoring *monitoring)
-{
-	int		i;
-	t_philo	*philo;
-
-	i = -1;
-	while (++i < monitoring->number_of_philosophers)
-	{
-		philo = philos[i];
-		philo->is_living = FALSE;
-	}
-}
-
-void	monitor(t_monitoring *monitoring, t_philo **philos)
+int	monitor(t_monitoring *monitoring)
 {
 	int	i;
 
+	if (monitoring->start == TRUE)
+	{
+		monitoring->start = FALSE;
+		return (0);
+	}
 	while (1)
 	{
 		i = -1;
 		if (monitoring->all_live == FALSE)
-			break ;
+			return (ERROR);
 		if (monitoring->well_dying == monitoring->number_of_philosophers)
-			break ;
+			return (ERROR);
 		usleep(1000);
 	}
-	stop_threads(philos, monitoring);
+	return (0);
 }

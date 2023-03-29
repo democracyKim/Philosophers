@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/29 19:40:42 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/29 20:28:29 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_monitoring
 	int				all_live;
 	int				well_dying;
 	int				error;
+	int				start;
 }	t_monitoring;
 
 typedef struct s_philo
@@ -60,18 +61,20 @@ typedef struct s_philo
 //utils
 int				ft_atoi(const char *str);
 void			*ft_calloc(size_t count, size_t size);
-int				print_error(char *message, t_monitoring *moulinette);
+int				print_error(char *message, t_monitoring *monitoring);
 int				is_error(t_monitoring *moulinette);
 void			print_state(t_philo *philo, const char *state);
+void			free_thread_and_mutex(t_monitoring **monitoring);
+void			free_philos(t_philo ***philos, int index);
 
 //init
 int				init(int argc, char *argv[], \
 				t_monitoring **monitoring, t_philo ***philos);
-
+void			close_free(t_monitoring *monitoring, t_philo **philos);
 
 //threads
 int				start_threads(t_monitoring *monitoring, t_philo **philos);
 void			life_of_philo(void *arg);
-void			monitor(t_monitoring *monitoring, t_philo **philos);
+int				monitor(t_monitoring *monitoring);
 
 #endif
