@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:05:23 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/30 11:19:53 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/30 11:35:26 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	take_forks(t_philo *philo, t_monitoring *monitoring)
 	}
 	else
 	{
-		usleep(100);
+		usleep(monitoring->time_to_eat * 1000);
 		pthread_mutex_lock(&monitoring->forks[philo->left_fork]);
 		print_state(philo, "has taken a fork");
 		pthread_mutex_lock(&monitoring->forks[philo->right_fork]);
@@ -31,6 +31,19 @@ static void	take_forks(t_philo *philo, t_monitoring *monitoring)
 	}
 }
 
+static void	release_forks(t_philo *philo, t_monitoring *monitoring)
+{
+	if (philo->id % 2)
+	{
+		pthread_mutex_unlock(&monitoring->forks[philo->right_fork]);
+		pthread_mutex_unlock(&monitoring->forks[philo->left_fork]);
+	}
+	else
+	{
+		pthread_mutex_unlock(&monitoring->forks[philo->left_fork]);
+		pthread_mutex_unlock(&monitoring->forks[philo->right_fork]);
+	}
+}
 static void	update_last_eat(t_philo *philo)
 {
 	struct timeval	current_time;
@@ -43,13 +56,12 @@ static void	update_last_eat(t_philo *philo)
 static int	is_full(t_philo *philo)
 {
 	if (philo->monitoring->required_meal_count == 0 \
-		|| philo->current_meal_count == philo->monitoring->required_meal_count)
+		|| philo->current_meal_count != philo->monitoring->required_meal_count)
 		return (FALSE);
 	philo->is_living = FALSE;
 	philo->monitoring->well_dying++;
 	// print_state(philo, "died");
-	pthread_mutex_unlock(&philo->monitoring->forks[philo->left_fork]);
-	pthread_mutex_unlock(&philo->monitoring->forks[philo->right_fork]);
+	release_forks(philo, philo->monitoring);
 	return (TRUE);
 }
 
@@ -64,7 +76,6 @@ int	eating(t_philo *philo)
 	if (is_full(philo) == TRUE)
 		return (FALSE);
 	usleep(monitoring->time_to_eat * 1000);
-	pthread_mutex_unlock(&monitoring->forks[philo->left_fork]);
-	pthread_mutex_unlock(&monitoring->forks[philo->right_fork]);
+	release_forks(philo, monitoring);
 	return (is_living(philo));
 }
