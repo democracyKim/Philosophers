@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:01:56 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/29 21:05:20 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/30 14:33:31 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ int	start_threads(t_monitoring *monitoring, t_philo **philos)
 	int	i;
 
 	i = -1;
+	pthread_mutex_lock(monitoring->wait_before_start);
 	while (++i < monitoring->number_of_philosophers)
 	{
 		if (pthread_create(&monitoring->threads[i], NULL, \
 			(void *)life_of_philo, (void *)(philos[i])) != 0)
 			return (print_error("Error: pthread_create() failed", monitoring));
 	}
+	pthread_mutex_unlock(monitoring->wait_before_start);
 	return (0);
 }
 
