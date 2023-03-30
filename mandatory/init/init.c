@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
+/*   By: minjukim <minjukim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 16:08:57 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/30 15:49:55 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/31 02:16:40 by minjukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,19 @@ static int	init_philos(t_monitoring *monitoring, t_philo ***philos)
 			return (ERROR);
 		}
 		(*philos)[i]->monitoring = monitoring;
+		(*philos)[i]->status = ft_calloc(1, sizeof(pthread_mutex_t));
+		if (!(*philos)[i]->status)
+		{
+			free_philos(philos, i);
+			printf("Error: Memory allocation failed");
+			return (ERROR);
+		}
+		if (pthread_mutex_init((*philos)[i]->status, NULL) != 0)
+		{
+			free_philos(philos, i);
+			printf("Error: Failed to initialize status_mutex");
+			return (ERROR);
+		}
 		(*philos)[i]->id = i + 1;
 		(*philos)[i]->time_to_die = monitoring->time_to_die;
 		(*philos)[i]->time_to_eat = monitoring->time_to_eat;

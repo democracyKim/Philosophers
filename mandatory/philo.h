@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
+/*   By: minjukim <minjukim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/30 15:52:49 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/31 02:14:01 by minjukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_monitoring
 typedef struct s_philo
 {
 	pthread_mutex_t	*eat;
+	pthread_mutex_t	*status;
 	t_monitoring	*monitoring;
 	int				id;
 	int				time_to_die;

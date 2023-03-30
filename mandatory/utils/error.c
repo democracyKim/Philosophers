@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
+/*   By: minjukim <minjukim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:42:37 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/30 14:36:49 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/31 02:24:22 by minjukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@ void	free_philos(t_philo ***philos, int index)
 	i = -1;
 	while (++i < index)
 	{
+		if ((*philos)[i]->status)
+			free((*philos)[i]->status);
 		if ((*philos)[i])
 			free((*philos)[i]);
+		(*philos)[i]->status = NULL;
 		(*philos)[i] = NULL;
 	}
 	free(*philos);
