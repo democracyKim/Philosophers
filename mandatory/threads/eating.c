@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:05:23 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/30 15:27:43 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/30 15:55:33 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	eating(t_philo *philo)
 		update_last_eat(philo);
 	if (is_full(philo) == TRUE)
 		return (FALSE);
-	usleep(monitoring->time_to_eat * 1000);
+	time_lapse(monitoring->time_to_eat);
 	release_forks(philo, monitoring);
 	return (TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:37:55 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/30 15:52:37 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/30 15:58:07 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ void	time_lapse(long long time)
 			+ (current_time.tv_usec - start_time.tv_usec) / 1000LL;
 		if (elapsed_time >= time)
 			break ;
-		usleep(1000);
+		usleep(100);
 	}
 }
