@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:05:23 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/30 11:35:26 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/30 14:58:03 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static void	release_forks(t_philo *philo, t_monitoring *monitoring)
 		pthread_mutex_unlock(&monitoring->forks[philo->right_fork]);
 	}
 }
+
 static void	update_last_eat(t_philo *philo)
 {
 	struct timeval	current_time;
@@ -77,5 +78,5 @@ int	eating(t_philo *philo)
 		return (FALSE);
 	usleep(monitoring->time_to_eat * 1000);
 	release_forks(philo, monitoring);
-	return (is_living(philo));
+	return (TRUE);
 }

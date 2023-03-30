@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/30 14:20:29 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/30 14:57:03 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ enum e_definition
 	TRUE = 1,
 	FALSE = -1,
 	ERROR = -1,
+	FIN = -1
 };
 
 typedef struct s_monitoring
@@ -75,8 +76,8 @@ void			close_free(t_monitoring *monitoring, t_philo **philos);
 //threads
 int				start_threads(t_monitoring *monitoring, t_philo **philos);
 void			life_of_philo(void *arg);
-int				monitor(t_monitoring *monitoring);
+int				check_philosopher_status(t_monitoring *monitoring, \
+				t_philo **philos);
 int				eating(t_philo *philo);
-int				is_living(t_philo *philo);
 
 #endif
