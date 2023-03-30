@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/30 14:57:03 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/30 15:52:49 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,7 @@ void			life_of_philo(void *arg);
 int				check_philosopher_status(t_monitoring *monitoring, \
 				t_philo **philos);
 int				eating(t_philo *philo);
+void			time_lapse(long long time);
+
 
 #endif

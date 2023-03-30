@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 16:08:57 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/30 15:33:02 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/30 15:49:55 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ static int	init_resources(t_monitoring **monitoring)
 {
 	int	i;
 
-	if (is_error(*monitoring) == ERROR)
-		return (ERROR);
 	(*monitoring)->threads = \
 		ft_calloc((*monitoring)->number_of_philosophers, sizeof(pthread_t));
 	(*monitoring)->print = \
@@ -108,7 +106,8 @@ int	init(int argc, char *argv[], t_monitoring **monitoring, t_philo ***philos)
 	if (!*monitoring)
 		return (ERROR);
 	parse_arguments(monitoring, argc, argv);
-	init_resources(monitoring);
+	if (is_error(*monitoring) != ERROR)
+		init_resources(monitoring);
 	*philos = ft_calloc((*monitoring)->number_of_philosophers, \
 		sizeof(t_philo *));
 	if (!*philos)
