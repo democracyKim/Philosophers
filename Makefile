@@ -6,12 +6,12 @@
 #    By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/29 13:20:47 by minkim3           #+#    #+#              #
-#    Updated: 2023/03/30 15:51:49 by minkim3          ###   ########.fr        #
+#    Updated: 2023/03/30 16:19:31 by minkim3          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC              = cc
-CFLAGS          = -Wall -Wextra -Werror -MMD
+CFLAGS          = -Wall -Wextra -Werror -MMD -fsanitize=thread
 #CFLAGS          = -Wall -Wextra -Werror -MMD -fsanitize=address
 NAME            = philo
 RM              = rm -f
