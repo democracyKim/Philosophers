@@ -6,30 +6,11 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:05:23 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/30 14:58:03 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/30 15:27:43 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
-
-static void	take_forks(t_philo *philo, t_monitoring *monitoring)
-{
-	if (philo->id % 2)
-	{
-		pthread_mutex_lock(&monitoring->forks[philo->right_fork]);
-		print_state(philo, "has taken a fork");
-		pthread_mutex_lock(&monitoring->forks[philo->left_fork]);
-		print_state(philo, "has taken a fork");
-	}
-	else
-	{
-		usleep(monitoring->time_to_eat * 1000);
-		pthread_mutex_lock(&monitoring->forks[philo->left_fork]);
-		print_state(philo, "has taken a fork");
-		pthread_mutex_lock(&monitoring->forks[philo->right_fork]);
-		print_state(philo, "has taken a fork");
-	}
-}
 
 static void	release_forks(t_philo *philo, t_monitoring *monitoring)
 {
@@ -42,6 +23,34 @@ static void	release_forks(t_philo *philo, t_monitoring *monitoring)
 	{
 		pthread_mutex_unlock(&monitoring->forks[philo->left_fork]);
 		pthread_mutex_unlock(&monitoring->forks[philo->right_fork]);
+	}
+}
+
+static void	take_forks(t_philo *philo, t_monitoring *monitoring)
+{
+	if (philo->id % 2)
+	{
+		pthread_mutex_lock(&monitoring->forks[philo->right_fork]);
+		pthread_mutex_lock(&monitoring->forks[philo->left_fork]);
+		if (monitoring->all_live == FALSE)
+		{
+			release_forks(philo, monitoring);
+			return ;
+		}
+		print_state(philo, "has taken a fork");
+		print_state(philo, "has taken a fork");
+	}
+	else
+	{
+		pthread_mutex_lock(&monitoring->forks[philo->left_fork]);
+		pthread_mutex_lock(&monitoring->forks[philo->right_fork]);
+		if (monitoring->all_live == FALSE)
+		{
+			release_forks(philo, monitoring);
+			return ;
+		}
+		print_state(philo, "has taken a fork");
+		print_state(philo, "has taken a fork");
 	}
 }
 
@@ -61,7 +70,6 @@ static int	is_full(t_philo *philo)
 		return (FALSE);
 	philo->is_living = FALSE;
 	philo->monitoring->well_dying++;
-	// print_state(philo, "died");
 	release_forks(philo, philo->monitoring);
 	return (TRUE);
 }
@@ -72,8 +80,14 @@ int	eating(t_philo *philo)
 
 	monitoring = philo->monitoring;
 	take_forks(philo, monitoring);
+	if (monitoring->all_live == FALSE)
+	{
+		release_forks(philo, monitoring);
+		return (FALSE);
+	}
 	print_state(philo, "is eating");
-	update_last_eat(philo);
+	if (monitoring->all_live == TRUE)
+		update_last_eat(philo);
 	if (is_full(philo) == TRUE)
 		return (FALSE);
 	usleep(monitoring->time_to_eat * 1000);
