@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/29 20:33:54 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/30 11:20:13 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,7 @@ void			close_free(t_monitoring *monitoring, t_philo **philos);
 int				start_threads(t_monitoring *monitoring, t_philo **philos);
 void			life_of_philo(void *arg);
 int				monitor(t_monitoring *monitoring);
+int				eating(t_philo *philo);
+int				is_living(t_philo *philo);
 
 #endif
