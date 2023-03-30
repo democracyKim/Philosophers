@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 16:08:57 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/29 21:04:45 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/30 11:37:57 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ static int	init_philos(t_monitoring *monitoring, t_philo ***philos)
 		(*philos)[i]->left_fork = i;
 		(*philos)[i]->right_fork = (i + 1) % monitoring->number_of_philosophers;
 		(*philos)[i]->is_living = TRUE;
+		(*philos)[i]->last_eat = monitoring->start_time;
 	}
 	return (0);
 }
