@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:05:23 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/31 16:59:10 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/31 17:04:04 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,13 @@ int	eating(t_philo *philo)
 		release_forks(philo, monitoring);
 		return (FALSE);
 	}
+	pthread_mutex_lock(philo->eat);
 	print_state(philo, "is eating");
 	if (monitoring->all_live == TRUE)
 		update_last_eat(philo);
 	if (is_full(philo) == TRUE)
 		return (FALSE);
+	pthread_mutex_unlock(philo->eat);
 	time_lapse(monitoring->time_to_eat);
 	release_forks(philo, monitoring);
 	return (TRUE);
