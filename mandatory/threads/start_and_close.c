@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_and_close.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minjukim <minjukim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:01:56 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/31 02:25:52 by minjukim         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:57:49 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,14 @@ static int	join_threads(t_monitoring *monitoring)
 	return (0);
 }
 
-static int	destroy_mutexes(t_monitoring *monitoring, t_philo **philos)
+static int	destroy_mutexes(t_monitoring *monitoring)
 {
 	int	i;
 
 	i = -1;
 	while (++i < monitoring->number_of_philosophers)
 	{
-		if (pthread_mutex_destroy(&monitoring->forks[i]) != 0\
-			|| pthread_mutex_destroy(philos[i]->status) != 0)
+		if (pthread_mutex_destroy(&monitoring->forks[i]) != 0)
 			return (print_error("Error: pthread_mutex_destroy() failed", \
 				monitoring));
 	}
@@ -62,7 +61,7 @@ static int	destroy_mutexes(t_monitoring *monitoring, t_philo **philos)
 void	close_free(t_monitoring *monitoring, t_philo **philos)
 {
 	join_threads(monitoring);
-	destroy_mutexes(monitoring, philos);
+	destroy_mutexes(monitoring);
 	free_thread_and_mutex(&monitoring);
 	free_philos(&philos, monitoring->number_of_philosophers);
 	free(monitoring);

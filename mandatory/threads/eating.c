@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   eating.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minjukim <minjukim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:05:23 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/31 02:31:30 by minjukim         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:59:10 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ static void	take_forks(t_philo *philo, t_monitoring *monitoring)
 	{
 		pthread_mutex_lock(&monitoring->forks[philo->right_fork]);
 		pthread_mutex_lock(&monitoring->forks[philo->left_fork]);
-		pthread_mutex_lock(philo->status);
-		pthread_mutex_unlock(philo->status);
 		if (monitoring->all_live == FALSE)
 		{
 			release_forks(philo, monitoring);
@@ -60,11 +58,9 @@ static void	update_last_eat(t_philo *philo)
 {
 	struct timeval	current_time;
 
-	pthread_mutex_lock(philo->status);
 	gettimeofday(&current_time, NULL);
 	philo->last_eat = current_time.tv_sec * 1000 + current_time.tv_usec / 1000;
 	philo->current_meal_count++;
-	pthread_mutex_unlock(philo->status);
 }
 
 static int	is_full(t_philo *philo)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_philosopher_status.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minjukim <minjukim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 13:17:51 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/31 02:34:16 by minjukim         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:58:52 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,13 @@ static int	is_living(t_philo *philo)
 		+ current_time.tv_usec / 1000) - philo->last_eat;
 	if (time_since_last_eat >= (unsigned int)philo->time_to_die)
 	{
-		pthread_mutex_lock(philo->status);
 		philo->is_living = FALSE;
 		philo->monitoring->all_live = FALSE;
-		pthread_mutex_unlock(philo->status);
 		print_state(philo, "died");
 		pthread_mutex_unlock(&philo->monitoring->forks[philo->left_fork]);
 		pthread_mutex_unlock(&philo->monitoring->forks[philo->right_fork]);
 		return (FALSE);
 	}
-	pthread_mutex_unlock(philo->status);
 	return (TRUE);
 }
 
