@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:05:23 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/31 17:09:28 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/03/31 17:10:02 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ int	eating(t_philo *philo)
 		pthread_mutex_unlock(philo->eat);
 		return (FALSE);
 	}
+	time_lapse(philo->time_to_eat);
 	pthread_mutex_unlock(philo->eat);
-	time_lapse(monitoring->time_to_eat);
 	release_forks(philo, monitoring);
 	return (TRUE);
 }
