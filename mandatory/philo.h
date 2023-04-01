@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/31 17:12:19 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/01 20:37:29 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,7 @@ typedef struct s_monitoring
 
 typedef struct s_philo
 {
-	pthread_mutex_t	*eat;
-	pthread_mutex_t	*live;
-	pthread_mutex_t	*think;
+	pthread_mutex_t	*doing;
 	t_monitoring	*monitoring;
 	int				id;
 	int				time_to_die;
