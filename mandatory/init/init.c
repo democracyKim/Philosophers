@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 16:08:57 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/31 17:03:41 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/01 20:38:54 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,14 @@ static int	init_philos(t_monitoring *monitoring, t_philo ***philos)
 			printf("Error: Memory allocation failed");
 			return (ERROR);
 		}
-		(*philos)[i]->eat = ft_calloc(1, sizeof(pthread_mutex_t));
-		if (!(*philos)[i]->eat)
+		(*philos)[i]->doing = ft_calloc(1, sizeof(pthread_mutex_t));
+		if (!(*philos)[i]->doing)
 		{
 			free_philos(philos, i);
 			printf("Error: Memory allocation failed");
 			return (ERROR);
 		}
-		if (pthread_mutex_init((*philos)[i]->eat, NULL) != 0)
+		if (pthread_mutex_init((*philos)[i]->doing, NULL) != 0)
 		{
 			free_philos(philos, i);
 			printf("Error: Failed to initialize eat_mutex");
