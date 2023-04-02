@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   life_of_philo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
+/*   By: minjukim <minjukim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:32:22 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/01 21:02:51 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/02 10:57:53 by minjukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,29 +35,19 @@ void	life_of_philo(void *arg)
 	pthread_mutex_unlock(monitoring->wait_before_start);
 	if (philo->id % 2 == 0)
 		time_lapse(philo->time_to_eat / 2);
-	while (1)
+	while (philo->is_living)
 	{
-		pthread_mutex_lock(monitoring->wait_before_start);
-		if (monitoring->all_live == FALSE)
-		{
-			pthread_mutex_unlock(monitoring->wait_before_start);
+		if (is_living(philo) == FALSE)
 			return ;
-		}
 		if (eating(philo) == FALSE)
 			return ;
-		pthread_mutex_lock(monitoring->wait_before_start);
-		if (monitoring->all_live == FALSE)
-		{
-			pthread_mutex_unlock(monitoring->wait_before_start);
+		if (is_living(philo) == FALSE)
 			return ;
-		}
 		sleeping(philo);
-		pthread_mutex_lock(monitoring->wait_before_start);
-		if (monitoring->all_live == FALSE)
-		{
-			pthread_mutex_unlock(monitoring->wait_before_start);
+		if (is_living(philo) == FALSE)
 			return ;
-		}
 		thinking(philo);
+		if (is_living(philo) == FALSE)
+			return ;
 	}
 }

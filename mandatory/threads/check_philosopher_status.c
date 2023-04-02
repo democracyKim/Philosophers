@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   check_philosopher_status.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
+/*   By: minjukim <minjukim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 13:17:51 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/01 21:13:06 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/02 10:47:14 by minjukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-static int	is_living(t_philo *philo)
+int	is_living(t_philo *philo)
 {
 	struct timeval	current_time;
 	unsigned int	time_since_last_eat;

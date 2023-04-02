@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
+/*   By: minjukim <minjukim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/01 20:38:04 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/02 10:43:53 by minjukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int				check_philosopher_status(t_monitoring *monitoring, \
 				t_philo **philos);
 int				eating(t_philo *philo);
 void			time_lapse(long long time);
+int				is_living(t_philo *philo);
 
 
 #endif
