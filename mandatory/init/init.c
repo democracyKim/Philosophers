@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 16:08:57 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/01 20:38:54 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/02 13:36:26 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ static int	check_number_is_plus(t_monitoring *monitoring)
 
 static int	parse_arguments(t_monitoring **monitoring, int argc, char *argv[])
 {
-	struct timeval	tv;
-
 	if (argc < 5 || argc > 6)
 		return (print_error("Error: Invalid number of arguments", *monitoring));
 	(*monitoring)->number_of_philosophers = ft_atoi(argv[1]);
@@ -39,9 +37,8 @@ static int	parse_arguments(t_monitoring **monitoring, int argc, char *argv[])
 	(*monitoring)->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		(*monitoring)->required_meal_count = ft_atoi(argv[5]);
-	(*monitoring)->all_live = TRUE;
-	gettimeofday(&tv, NULL);
-	(*monitoring)->start_time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	(*monitoring)->live_all = TRUE;
+	(*monitoring)->start_time = get_time();
 	return (check_number_is_plus(*monitoring));
 }
 
@@ -85,19 +82,6 @@ static int	init_philos(t_monitoring *monitoring, t_philo ***philos)
 		{
 			free_philos(philos, i);
 			printf("Error: Memory allocation failed");
-			return (ERROR);
-		}
-		(*philos)[i]->doing = ft_calloc(1, sizeof(pthread_mutex_t));
-		if (!(*philos)[i]->doing)
-		{
-			free_philos(philos, i);
-			printf("Error: Memory allocation failed");
-			return (ERROR);
-		}
-		if (pthread_mutex_init((*philos)[i]->doing, NULL) != 0)
-		{
-			free_philos(philos, i);
-			printf("Error: Failed to initialize eat_mutex");
 			return (ERROR);
 		}
 		(*philos)[i]->monitoring = monitoring;

@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:38:42 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/30 15:58:51 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/02 13:41:26 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 void	print_state(t_philo *philo, const char *state)
 {
-	struct timeval	current_time;
 	unsigned int	elapsed_time;
 
-	gettimeofday(&current_time, NULL);
-	elapsed_time = current_time.tv_sec * 1000 + \
-		current_time.tv_usec / 1000 - philo->monitoring->start_time;
+	elapsed_time = get_time() - philo->monitoring->start_time;
 	pthread_mutex_lock(philo->monitoring->print);
-	printf("%u %d %s\n", elapsed_time, philo->id, state);
+	if (philo->monitoring->print_die == FALSE)
+		printf("%u %d %s\n", elapsed_time, philo->id, state);
 	pthread_mutex_unlock(philo->monitoring->print);
 }
