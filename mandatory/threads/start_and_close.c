@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:01:56 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/02 14:17:31 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/02 17:32:06 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,6 @@ static int	join_threads(t_monitoring *monitoring)
 		if (pthread_join(monitoring->threads[i], NULL) != 0)
 			return (print_error("Error: pthread_join() failed", monitoring));
 	}
-	return (0);
-}
-
-static int	destroy_mutexes(t_monitoring *monitoring, t_philo **philos)
-{
-	int	i;
-
-	i = -1;
-	while (++i < monitoring->number_of_philosophers)
-	{
-		if (pthread_mutex_destroy(&monitoring->forks[i]) != 0)
-			return (print_error("Error: pthread_mutex_destroy() failed", \
-				monitoring));
-		if (pthread_mutex_destroy(philos[i]->access_philo) != 0)
-			return (print_error("Error: pthread_mutex_destroy() failed", \
-				monitoring));
-	}
-	if (pthread_mutex_destroy(monitoring->access_monitoring) != 0)
-		return (print_error("Error: pthread_mutex_destroy() failed", \
-			monitoring));
 	return (0);
 }
 

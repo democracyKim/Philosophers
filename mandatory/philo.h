@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/02 14:58:00 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/02 17:33:37 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/time.h>
+
+# define RED "\033[1;31m"
+# define PINK "\033[1;35m"
+# define GREEN "\033[1;32m"
+# define YELLOW "\033[1;33m"
+# define BLUE "\033[1;34m"
+# define DEFAULT "\033[0m"
 
 enum e_definition
 {
@@ -31,48 +38,46 @@ typedef struct s_monitoring
 {
 	pthread_t		*threads;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	*print;
-	pthread_mutex_t	*access_monitoring;
+	pthread_mutex_t	*change_well_dying;
+	pthread_mutex_t	*change_starvation;
 	unsigned int	start_time;
 	int				number_of_philosophers;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				required_meal_count;
-	int				live_all;
 	int				well_dying;
-	int				error;
-	int				print_die;
+	int				starvation;
 }	t_monitoring;
 
 typedef struct s_philo
 {
 	t_monitoring	*monitoring;
-	pthread_mutex_t	*access_philo;
+	pthread_mutex_t	*change_last_meal_time;
+	pthread_mutex_t	*change_remaining_meal_count;
 	int				id;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				current_meal_count;
+	int				remaining_meal_count;
 	int				left_fork;
 	int				right_fork;
-	int				is_living;
-	unsigned int	last_eat;
+	unsigned int	last_meal_time;
 }	t_philo;
 
 //utils
 int				ft_atoi(const char *str);
 void			*ft_calloc(size_t count, size_t size);
 int				print_error(char *message, t_monitoring *monitoring);
-int				is_error(t_monitoring *moulinette);
-void			print_state(t_philo *philo, const char *state);
 void			free_thread_and_mutex(t_monitoring **monitoring);
 void			free_philos(t_philo ***philos, int index);
+void			free_philo_mutex(t_philo ***philos, int index);
+int				destroy_mutexes(t_monitoring *monitoring);
 
 //init
 int				init(int argc, char *argv[], \
 				t_monitoring **monitoring, t_philo ***philos);
-void			close_free(t_monitoring *monitoring, t_philo **philos);
+int				init_minotoring(t_monitoring **monitoring, int argc, char *argv[]);
 
 //threads
 int				start_threads(t_monitoring *monitoring, t_philo **philos);
@@ -84,7 +89,9 @@ void			time_lapse(long long time);
 unsigned int	get_time(void);
 int				all_live(t_philo *philo);
 void			release_forks(t_philo *philo, t_monitoring *monitoring);
+void			print_state(t_philo *philo, const char *state);
 
+void			close_free(t_monitoring *monitoring, t_philo **philos);
 
 
 #endif

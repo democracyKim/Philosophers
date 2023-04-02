@@ -6,7 +6,7 @@
 #    By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/29 13:20:47 by minkim3           #+#    #+#              #
-#    Updated: 2023/03/30 16:19:31 by minkim3          ###   ########.fr        #
+#    Updated: 2023/04/02 17:25:06 by minkim3          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,10 @@ SRCS			= main.c\
 				  utils/ft_calloc.c\
 				  utils/error.c\
 				  init/init.c\
+				  init/init_monitoring.c\
 				  threads/life_of_philo.c\
 				  threads/start_and_close.c\
-				  threads/check_philosopher_status.c\
+				  threads/check_status.c\
 				  threads/eating.c\
 				  threads/print.c\
 				  threads/time_lapse.c

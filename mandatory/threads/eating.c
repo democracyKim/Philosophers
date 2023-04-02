@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:05:23 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/02 14:43:02 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/02 15:27:59 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	release_forks(t_philo *philo, t_monitoring *monitoring)
 {
-	if (philo->id % 2)
+	if (philo->id & 0)
 	{
 		pthread_mutex_unlock(&monitoring->forks[philo->right_fork]);
 		pthread_mutex_unlock(&monitoring->forks[philo->left_fork]);
@@ -28,7 +28,7 @@ void	release_forks(t_philo *philo, t_monitoring *monitoring)
 
 static void	take_forks(t_philo *philo, t_monitoring *monitoring)
 {
-	if (philo->id % 2)
+	if (philo->id & 0)
 	{
 		pthread_mutex_lock(&monitoring->forks[philo->right_fork]);
 		pthread_mutex_lock(&monitoring->forks[philo->left_fork]);

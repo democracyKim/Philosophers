@@ -6,108 +6,65 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 16:08:57 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/02 14:59:51 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/02 17:22:02 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-static int	check_number_is_plus(t_monitoring *monitoring)
+static void	receive_arguments(t_monitoring *monitoring, t_philo **philo, int i)
 {
-	if (monitoring->number_of_philosophers <= 0 \
-				|| monitoring->time_to_die <= 0 \
-				|| monitoring->time_to_eat <= 0 \
-				|| monitoring->time_to_sleep <= 0)
-		return (print_error("Error: All args must be positive integers", \
-		monitoring));
-	else if (monitoring->required_meal_count != 0 && \
-		monitoring->required_meal_count <= 0)
-		return (print_error("Error: All args must be positive integers", \
-			monitoring));
+	(*philo)->monitoring = monitoring;
+	(*philo)->id = i + 1;
+	(*philo)->time_to_die = monitoring->time_to_die;
+	(*philo)->time_to_eat = monitoring->time_to_eat;
+	(*philo)->time_to_sleep = monitoring->time_to_sleep;
+	(*philo)->left_fork = i;
+	(*philo)->right_fork = (i + 1) % monitoring->number_of_philosophers;
+	(*philo)->last_meal_time = monitoring->start_time;
+}
+
+static int	create_mutex(t_philo *philo)
+{
+	philo->change_last_meal_time = ft_calloc(1, sizeof(pthread_mutex_t));
+	if (!philo->change_last_meal_time)
+		return (print_error("Error: Memory allocation failed", philo->monitoring));
+	philo->change_remaining_meal_count = ft_calloc(1, sizeof(pthread_mutex_t));
+	if (!philo->change_remaining_meal_count)
+		return (print_error("Error: Memory allocation failed", philo->monitoring));
 	return (0);
 }
 
-static int	init_minotoring(t_monitoring **monitoring, int argc, char *argv[])
+static int	init_mutex(t_philo *philo)
 {
-	if (argc < 5 || argc > 6)
-		return (print_error("Error: Invalid number of arguments", *monitoring));
-	(*monitoring)->number_of_philosophers = ft_atoi(argv[1]);
-	(*monitoring)->time_to_die = ft_atoi(argv[2]);
-	(*monitoring)->time_to_eat = ft_atoi(argv[3]);
-	(*monitoring)->time_to_sleep = ft_atoi(argv[4]);
-	if (argc == 6)
-		(*monitoring)->required_meal_count = ft_atoi(argv[5]);
-	(*monitoring)->live_all = TRUE;
-	(*monitoring)->start_time = get_time();
-	(*monitoring)->print_die = FALSE;
-	return (check_number_is_plus(*monitoring));
-}
-
-static int	init_resources(t_monitoring **monitoring)
-{
-	int	i;
-
-	(*monitoring)->threads = \
-		ft_calloc((*monitoring)->number_of_philosophers, sizeof(pthread_t));
-	(*monitoring)->access_monitoring = \
-		ft_calloc((*monitoring)->number_of_philosophers, \
-			sizeof(pthread_mutex_t));
-	(*monitoring)->forks = \
-		ft_calloc((*monitoring)->number_of_philosophers, sizeof(pthread_mutex_t));
-	(*monitoring)->print = ft_calloc(1, sizeof(pthread_mutex_t));
-	if (!(*monitoring)->threads || !(*monitoring)->access_monitoring\
-		|| !(*monitoring)->forks || !(*monitoring)->print)
-		return (print_error("Error: Memory allocation failed", (*monitoring)));
-	if (pthread_mutex_init((*monitoring)->access_monitoring, NULL) != 0)
-		return (print_error("Error: Failed to initialize print_mutex", \
-		(*monitoring)));
-	if (pthread_mutex_init((*monitoring)->print, NULL) != 0)
-		return (print_error("Error: Failed to initialize print_mutex", \
-		(*monitoring)));
-	i = -1;
-	while (++i < (*monitoring)->number_of_philosophers)
-		if (pthread_mutex_init(&((*monitoring)->forks[i]), NULL) != 0)
-			return (print_error("Error: Failed to initialize forks", \
-			(*monitoring)));
+	if (pthread_mutex_init(philo->change_last_meal_time, NULL) != 0)
+		return (print_error("Error: pthread_mutex_init() failed", philo->monitoring));
+	if (pthread_mutex_init(philo->change_remaining_meal_count, NULL) != 0)
+		return (print_error("Error: pthread_mutex_init() failed", philo->monitoring));
 	return (0);
 }
 
-static int	init_philos(t_monitoring *monitoring, t_philo ***philos)
+static int	init_philos(t_monitoring *monitoring, t_philo ***philo)
 {
 	int		i;
 
 	i = -1;
 	while (++i < monitoring->number_of_philosophers)
 	{
-		(*philos)[i] = ft_calloc(1, sizeof(t_philo));
-		if (!(*philos)[i])
+		(*philo)[i] = ft_calloc(1, sizeof(t_philo));
+		if (!(*philo)[i])
 		{
-			free_philos(philos, i);
-			printf("Error: Memory allocation failed");
-			return (ERROR);
+			free_philos(philo, i);
+			return (print_error("Error: Memory allocation failed", monitoring));
 		}
-		(*philos)[i]->monitoring = monitoring;
-		(*philos)[i]->access_philo = ft_calloc(1, sizeof(pthread_mutex_t));
-		if (!(*philos)[i]->access_philo)
+		receive_arguments(monitoring, philo[i], i);
+		if (create_mutex(*philo[i]) == ERROR \
+			||init_mutex(*philo[i]) == ERROR)
 		{
-			free_philos(philos, i);
-			printf("Error: Memory allocation failed");
-			return (ERROR);
+			free_philo_mutex(philo, i);
+			free_philos(philo, i);
+			return (print_error("Error: Memory allocation failed", monitoring));
 		}
-		if (pthread_mutex_init((*philos)[i]->access_philo, NULL) != 0)
-		{
-			free_philos(philos, i);
-			printf("Error: Failed to initialize access_philo");
-			return (ERROR);
-		}
-		(*philos)[i]->id = i + 1;
-		(*philos)[i]->time_to_die = monitoring->time_to_die;
-		(*philos)[i]->time_to_eat = monitoring->time_to_eat;
-		(*philos)[i]->time_to_sleep = monitoring->time_to_sleep;
-		(*philos)[i]->left_fork = i;
-		(*philos)[i]->right_fork = (i + 1) % monitoring->number_of_philosophers;
-		(*philos)[i]->is_living = TRUE;
-		(*philos)[i]->last_eat = monitoring->start_time;
 	}
 	return (0);
 }
@@ -117,9 +74,11 @@ int	init(int argc, char *argv[], t_monitoring **monitoring, t_philo ***philos)
 	*monitoring = ft_calloc(1, sizeof(t_monitoring));
 	if (!*monitoring)
 		return (ERROR);
-	init_minotoring(monitoring, argc, argv);
-	if (is_error(*monitoring) != ERROR)
-		init_resources(monitoring);
+	if (init_minotoring(monitoring, argc, argv) == ERROR)
+	{
+		free(*monitoring);
+		return (ERROR);
+	}
 	*philos = ft_calloc((*monitoring)->number_of_philosophers, \
 		sizeof(t_philo *));
 	if (!*philos)
@@ -127,12 +86,6 @@ int	init(int argc, char *argv[], t_monitoring **monitoring, t_philo ***philos)
 	if (init_philos(*monitoring, philos) == ERROR)
 	{
 		free(*monitoring);
-		return (ERROR);
-	}
-	if (is_error(*monitoring) == ERROR)
-	{
-		free(*monitoring);
-		free(*philos);
 		return (ERROR);
 	}
 	return (0);
