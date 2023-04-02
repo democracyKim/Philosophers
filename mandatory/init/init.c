@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 16:08:57 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/02 13:36:26 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/02 13:46:36 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ static int	init_resources(t_monitoring **monitoring)
 	(*monitoring)->forks = \
 		ft_calloc((*monitoring)->number_of_philosophers, \
 			sizeof(pthread_mutex_t));
-	(*monitoring)->wait_before_start = \
+	(*monitoring)->access_monitoring = \
 		ft_calloc((*monitoring)->number_of_philosophers, \
 			sizeof(pthread_mutex_t));
 	if (!(*monitoring)->threads || !(*monitoring)->print \
-		|| !(*monitoring)->forks || !(*monitoring)->wait_before_start)
+		|| !(*monitoring)->forks || !(*monitoring)->access_monitoring)
 		return (print_error("Error: Memory allocation failed", (*monitoring)));
 	if (pthread_mutex_init((*monitoring)->print, NULL) != 0)
 		return (print_error("Error: Failed to initialize print_mutex", \
@@ -85,6 +85,19 @@ static int	init_philos(t_monitoring *monitoring, t_philo ***philos)
 			return (ERROR);
 		}
 		(*philos)[i]->monitoring = monitoring;
+		(*philos)[i]->access_philo = ft_calloc(1, sizeof(pthread_mutex_t));
+		if (!(*philos)[i]->access_philo)
+		{
+			free_philos(philos, i);
+			printf("Error: Memory allocation failed");
+			return (ERROR);
+		}
+		if (pthread_mutex_init((*philos)[i]->access_philo, NULL) != 0)
+		{
+			free_philos(philos, i);
+			printf("Error: Failed to initialize access_philo");
+			return (ERROR);
+		}
 		(*philos)[i]->id = i + 1;
 		(*philos)[i]->time_to_die = monitoring->time_to_die;
 		(*philos)[i]->time_to_eat = monitoring->time_to_eat;

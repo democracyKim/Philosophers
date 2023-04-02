@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 13:17:51 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/02 13:42:27 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/02 13:49:31 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,19 @@ int	check_philosopher_status(t_monitoring *monitoring, t_philo **philos)
 	i = 0;
 	while (i < monitoring->number_of_philosophers)
 	{
-		pthread_mutex_lock(monitoring->wait_before_start);
+		pthread_mutex_lock(monitoring->access_monitoring);
 		is_full(philos[i]);
 		if (is_living(philos[i]) == FALSE)
 		{
-			pthread_mutex_unlock(monitoring->wait_before_start);
+			pthread_mutex_unlock(monitoring->access_monitoring);
 			return (ERROR);
 		}
 		else if (monitoring->well_dying == monitoring->number_of_philosophers)
 		{
-			pthread_mutex_unlock(monitoring->wait_before_start);
+			pthread_mutex_unlock(monitoring->access_monitoring);
 			return (FIN);
 		}
-		pthread_mutex_unlock(monitoring->wait_before_start);
+		pthread_mutex_unlock(monitoring->access_monitoring);
 		i++;
 	}
 	return (0);

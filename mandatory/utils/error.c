@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:42:37 by minkim3           #+#    #+#             */
-/*   Updated: 2023/03/31 16:57:08 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/02 13:48:33 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ void	free_philos(t_philo ***philos, int index)
 	i = -1;
 	while (++i < index)
 	{
+		if ((*philos)[i]->access_philo)
+		{
+			free((*philos)[i]->access_philo);
+			(*philos)[i]->access_philo = NULL;
+		}
 		if ((*philos)[i])
 			free((*philos)[i]);
 		(*philos)[i] = NULL;
@@ -34,12 +39,12 @@ void	free_thread_and_mutex(t_monitoring **monitoring)
 		free((*monitoring)->forks);
 	if ((*monitoring)->print)
 		free((*monitoring)->print);
-	if ((*monitoring)->wait_before_start)
-		free((*monitoring)->wait_before_start);
+	if ((*monitoring)->access_monitoring)
+		free((*monitoring)->access_monitoring);
 	(*monitoring)->threads = NULL;
 	(*monitoring)->forks = NULL;
 	(*monitoring)->print = NULL;
-	(*monitoring)->wait_before_start = NULL;
+	(*monitoring)->access_monitoring = NULL;
 }
 
 int	print_error(char *message, t_monitoring *monitoring)
