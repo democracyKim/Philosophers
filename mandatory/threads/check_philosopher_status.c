@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 13:17:51 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/02 14:01:21 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/02 14:32:08 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,8 @@ int	check_philosopher_status(t_monitoring *monitoring, t_philo **philos)
 		pthread_mutex_unlock(monitoring->access_monitoring);
 		i++;
 	}
+	if (monitoring->well_dying == monitoring->number_of_philosophers) // Add this condition
+		return (FIN);
+	printf("well_dying: %d, number_of_philosophers: %d\n", monitoring->well_dying, monitoring->number_of_philosophers);
 	return (0);
 }

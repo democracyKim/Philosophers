@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 16:08:57 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/02 13:59:28 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/02 14:04:06 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	check_number_is_plus(t_monitoring *monitoring)
 	return (0);
 }
 
-static int	parse_arguments(t_monitoring **monitoring, int argc, char *argv[])
+static int	init_minotoring(t_monitoring **monitoring, int argc, char *argv[])
 {
 	if (argc < 5 || argc > 6)
 		return (print_error("Error: Invalid number of arguments", *monitoring));
@@ -39,6 +39,7 @@ static int	parse_arguments(t_monitoring **monitoring, int argc, char *argv[])
 		(*monitoring)->required_meal_count = ft_atoi(argv[5]);
 	(*monitoring)->live_all = TRUE;
 	(*monitoring)->start_time = get_time();
+	(*monitoring)->print_die = FALSE;
 	return (check_number_is_plus(*monitoring));
 }
 
@@ -111,7 +112,7 @@ int	init(int argc, char *argv[], t_monitoring **monitoring, t_philo ***philos)
 	*monitoring = ft_calloc(1, sizeof(t_monitoring));
 	if (!*monitoring)
 		return (ERROR);
-	parse_arguments(monitoring, argc, argv);
+	init_minotoring(monitoring, argc, argv);
 	if (is_error(*monitoring) != ERROR)
 		init_resources(monitoring);
 	*philos = ft_calloc((*monitoring)->number_of_philosophers, \

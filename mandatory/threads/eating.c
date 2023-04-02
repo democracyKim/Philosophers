@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:05:23 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/02 14:00:50 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/02 14:31:50 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	release_forks(t_philo *philo, t_monitoring *monitoring)
 {
+	printf("release_forks: philo->id: %d\n", philo->id);
 	if (philo->id % 2)
 	{
 		pthread_mutex_unlock(&monitoring->forks[philo->right_fork]);
@@ -62,8 +63,8 @@ int	eating(t_philo *philo)
 	monitoring = philo->monitoring;
 	take_forks(philo, monitoring);
 	print_state(philo, "is eating");
-	update_last_eat(philo);
 	time_lapse(philo->time_to_eat);
+	update_last_eat(philo);
 	release_forks(philo, monitoring);
 	if (philo->is_living == FALSE)
 		return (FALSE);
