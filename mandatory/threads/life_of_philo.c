@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:32:22 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/02 14:28:20 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/02 14:33:26 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ void	life_of_philo(void *arg)
 			if (sleeping(philo) == TRUE)
 				thinking(philo);
 		if (all_live(philo) == FALSE) // Add is_full check
+		{
+			printf("philo %d is dead\n", philo->id);
 			return;
+		}
 	}
 }

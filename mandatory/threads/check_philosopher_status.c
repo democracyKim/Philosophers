@@ -6,24 +6,11 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 13:17:51 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/02 14:32:08 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/02 14:35:12 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
-
-static int	is_full(t_philo *philo)
-{
-	if (philo->monitoring->required_meal_count == 0 \
-		|| philo->current_meal_count != philo->monitoring->required_meal_count)
-	{
-		return (FALSE);
-	}
-	philo->is_living = FALSE;
-	philo->monitoring->well_dying++;
-	release_forks(philo, philo->monitoring);
-	return (TRUE);
-}
 
 static int	is_living(t_philo *philo)
 {
@@ -54,7 +41,6 @@ int	check_philosopher_status(t_monitoring *monitoring, t_philo **philos)
 	while (i < monitoring->number_of_philosophers)
 	{
 		pthread_mutex_lock(monitoring->access_monitoring);
-		is_full(philos[i]);
 		if (is_living(philos[i]) == FALSE)
 		{
 			pthread_mutex_unlock(monitoring->access_monitoring);
