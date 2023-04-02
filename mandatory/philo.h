@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/02 14:31:12 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/02 14:58:00 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_monitoring
 {
 	pthread_t		*threads;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	*print;
 	pthread_mutex_t	*access_monitoring;
 	unsigned int	start_time;
 	int				number_of_philosophers;

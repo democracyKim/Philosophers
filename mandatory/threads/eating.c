@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:05:23 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/02 14:34:54 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/02 14:43:02 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	release_forks(t_philo *philo, t_monitoring *monitoring)
 {
-	printf("release_forks: philo->id: %d\n", philo->id);
 	if (philo->id % 2)
 	{
 		pthread_mutex_unlock(&monitoring->forks[philo->right_fork]);

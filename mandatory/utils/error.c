@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:42:37 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/02 13:54:44 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/02 14:59:34 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,13 @@ void	free_thread_and_mutex(t_monitoring **monitoring)
 		free((*monitoring)->threads);
 	if ((*monitoring)->forks)
 		free((*monitoring)->forks);
+	if ((*monitoring)->print)
+		free((*monitoring)->print);
 	if ((*monitoring)->access_monitoring)
 		free((*monitoring)->access_monitoring);
 	(*monitoring)->threads = NULL;
 	(*monitoring)->forks = NULL;
+	(*monitoring)->print = NULL;
 	(*monitoring)->access_monitoring = NULL;
 }
 
