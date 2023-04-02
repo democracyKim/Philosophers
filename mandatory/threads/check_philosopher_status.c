@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 13:17:51 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/02 13:49:31 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/02 14:01:21 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static int	is_living(t_philo *philo)
 {
 	unsigned int	time_since_last_eat;
 
+	pthread_mutex_lock(philo->monitoring->access_monitoring);
 	time_since_last_eat = get_time() - philo->last_eat;
 	printf("time_since_last_eat: %u\n", time_since_last_eat);
 	if (time_since_last_eat >= (unsigned int)philo->time_to_die)
@@ -38,8 +39,10 @@ static int	is_living(t_philo *philo)
 		print_state(philo, "died");
 		philo->monitoring->print_die = TRUE;
 		release_forks(philo, philo->monitoring);
+		pthread_mutex_unlock(philo->monitoring->access_monitoring);
 		return (FALSE);
 	}
+	pthread_mutex_unlock(philo->monitoring->access_monitoring);
 	return (TRUE);
 }
 

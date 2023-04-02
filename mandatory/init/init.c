@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 16:08:57 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/02 13:46:36 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/02 13:59:28 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,14 @@ static int	init_resources(t_monitoring **monitoring)
 
 	(*monitoring)->threads = \
 		ft_calloc((*monitoring)->number_of_philosophers, sizeof(pthread_t));
-	(*monitoring)->print = \
-		ft_calloc(1, sizeof(pthread_mutex_t));
-	(*monitoring)->forks = \
-		ft_calloc((*monitoring)->number_of_philosophers, \
-			sizeof(pthread_mutex_t));
 	(*monitoring)->access_monitoring = \
 		ft_calloc((*monitoring)->number_of_philosophers, \
 			sizeof(pthread_mutex_t));
-	if (!(*monitoring)->threads || !(*monitoring)->print \
-		|| !(*monitoring)->forks || !(*monitoring)->access_monitoring)
+	(*monitoring)->forks = \
+		ft_calloc((*monitoring)->number_of_philosophers, sizeof(pthread_mutex_t));
+	if (!(*monitoring)->threads || !(*monitoring)->access_monitoring)
 		return (print_error("Error: Memory allocation failed", (*monitoring)));
-	if (pthread_mutex_init((*monitoring)->print, NULL) != 0)
+	if (pthread_mutex_init((*monitoring)->access_monitoring, NULL) != 0)
 		return (print_error("Error: Failed to initialize print_mutex", \
 		(*monitoring)));
 	i = -1;

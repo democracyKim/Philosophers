@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:05:23 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/02 13:37:29 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/02 14:00:50 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ static void	update_last_eat(t_philo *philo)
 	struct timeval	current_time;
 
 	gettimeofday(&current_time, NULL);
+	pthread_mutex_lock(philo->access_philo);
 	philo->last_eat = current_time.tv_sec * 1000 + current_time.tv_usec / 1000;
 	philo->current_meal_count++;
+	pthread_mutex_unlock(philo->access_philo);
 }
 
 int	eating(t_philo *philo)
