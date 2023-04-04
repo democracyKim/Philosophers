@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 15:25:21 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 15:54:00 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 16:19:56 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,6 @@ int	destroy_mutexes(t_monitoring *monitoring, t_philo *philos)
 	if (pthread_mutex_destroy(philos->change_last_meal_time) != 0)
 		return (print_error("Error: pthread_mutex_destroy() failed", monitoring));
 	if (pthread_mutex_destroy(philos->change_remaining_meal_count) != 0)
-		return (print_error("Error: pthread_mutex_destroy() failed", monitoring));
-	if (pthread_mutex_destroy(philos->change_living) != 0)
 		return (print_error("Error: pthread_mutex_destroy() failed", monitoring));
 	return (0);
 }

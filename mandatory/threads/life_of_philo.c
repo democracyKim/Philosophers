@@ -6,11 +6,20 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:32:22 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 16:12:28 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 16:22:59 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
+
+static int	is_full(t_monitoring *monitoring, t_philo *philo)
+{
+	if (monitoring->required_meal_count == 0)
+		return (FALSE);
+	if (philo->remaining_meal_count == 0)
+		return (TRUE);
+	return (FALSE);
+}
 
 int	stop_thread(t_monitoring *monitoring, t_philo *philo)
 {
@@ -21,13 +30,8 @@ int	stop_thread(t_monitoring *monitoring, t_philo *philo)
 		return (TRUE);
 	}
 	pthread_mutex_unlock(monitoring->change_finish);
-	pthread_mutex_lock(philo->change_living);
-	if (philo->living == FALSE)
-	{
-		pthread_mutex_unlock(philo->change_living);
+	if (is_full(monitoring, philo) == TRUE)
 		return (TRUE);
-	}
-	pthread_mutex_unlock(philo->change_living);
 	return (FALSE);
 }
 
