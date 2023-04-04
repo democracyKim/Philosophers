@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 13:17:51 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 16:26:01 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 16:27:54 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,18 @@ static int	is_starving(t_philo *philo, t_monitoring *monitoring)
 	return (TRUE);
 }
 
+static int	is_fin(t_monitoring *monitoring)
+{
+	pthread_mutex_lock(monitoring->change_finish);
+	if (monitoring->finish == TRUE)
+	{
+		pthread_mutex_unlock(monitoring->change_finish);
+		return (TRUE);
+	}
+	pthread_mutex_unlock(monitoring->change_finish);
+	return (FALSE);
+}
+
 int	check_philosopher_status(t_monitoring *monitoring, t_philo **philos)
 {
 	int	i;
@@ -75,6 +87,8 @@ int	check_philosopher_status(t_monitoring *monitoring, t_philo **philos)
 			return (FIN);
 		is_full(philos[i], monitoring);
 		i++;
+		if (is_fin(monitoring) == TRUE)
+			return (FIN);
 	}
 	if (is_all_full(monitoring) == FIN)
 		return (FIN);
