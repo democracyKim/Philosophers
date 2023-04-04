@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 13:17:51 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 12:27:28 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 13:55:39 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static int	is_living(t_philo *philo)
 		return (FALSE);
 	}
 	pthread_mutex_unlock(philo->monitoring->change_starvation);
+	pthread_mutex_lock(philo->change_last_meal_time);
 	current = get_time();
 	if (current >= philo->last_meal_time + philo->time_to_die)
 	{
@@ -30,8 +31,10 @@ static int	is_living(t_philo *philo)
 		pthread_mutex_lock(philo->monitoring->change_starvation);
 		philo->monitoring->starvation = TRUE;
 		pthread_mutex_unlock(philo->monitoring->change_starvation);
+		pthread_mutex_unlock(philo->change_last_meal_time);
 		return (FALSE);
 	}
+	pthread_mutex_unlock(philo->change_last_meal_time);
 	return (TRUE);
 }
 
