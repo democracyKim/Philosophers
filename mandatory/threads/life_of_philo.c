@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:32:22 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 11:24:17 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 14:06:11 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,10 @@ static int	stop_thread(t_monitoring *monitoring)
 	if (monitoring->starvation == TRUE)
 	{
 		pthread_mutex_unlock(monitoring->change_starvation);
-		return (FALSE);
+		return (TRUE);
 	}
 	pthread_mutex_unlock(monitoring->change_starvation);
-	// current = get_time();
-	// if (current >= philo->last_eat + philo->time_to_die)
-	// {
-	// 	print_state(philo, "died");
-	// 	pthread_mutex_lock(monitoring->change_starvation);
-	// 	monitoring->starvation = TRUE;
-	// 	pthread_mutex_unlock(monitoring->change_starvation);
-	// 	return (FALSE);
-	// }
-	return (TRUE);
+	return (FALSE);
 }
 
 
@@ -63,7 +54,7 @@ void	life_of_philo(void *arg)
 		if (sleeping(philo) == FALSE)
 			break ;
 		thinking(philo);
-		if (stop_thread(monitoring) == FALSE)
+		if (stop_thread(monitoring) == TRUE)
 			return;
 	}
 }

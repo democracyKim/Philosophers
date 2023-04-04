@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:05:23 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 13:53:50 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 14:06:35 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,6 @@ static void	update_last_eat(t_philo *philo)
 		pthread_mutex_unlock(philo->change_remaining_meal_count);
 }
 
-static int	is_full(t_philo *philo)
-{
-	pthread_mutex_lock(philo->change_remaining_meal_count);
-	if (philo->remaining_meal_count != 0)
-	{
-		pthread_mutex_unlock(philo->change_remaining_meal_count);
-		return (FALSE);
-	}
-	pthread_mutex_unlock(philo->change_remaining_meal_count);
-	pthread_mutex_lock(philo->monitoring->change_well_dying);
-	philo->monitoring->well_dying++;
-	pthread_mutex_unlock(philo->monitoring->change_well_dying);
-	return (TRUE);
-}
-
 int	eating(t_philo *philo)
 {
 	t_monitoring	*monitoring;
@@ -80,7 +65,5 @@ int	eating(t_philo *philo)
 	time_lapse(philo->time_to_eat);
 	update_last_eat(philo);
 	release_forks(philo, monitoring);
-	if (is_full(philo) == TRUE)
-		return (FALSE);
 	return (TRUE);
 }
