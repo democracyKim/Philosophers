@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 13:17:51 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 15:52:09 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 16:00:39 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 static void	is_full(t_philo *philo)
 {
+	if (philo->monitoring->required_meal_count == 0 || philo->living == FALSE)
+		return ;
 	pthread_mutex_lock(philo->change_remaining_meal_count);
 	pthread_mutex_lock(philo->change_living);
-	if (philo->remaining_meal_count == 0 && philo->living != FALSE)
+	if (philo->remaining_meal_count == 0)
 	{
 		pthread_mutex_lock(philo->monitoring->change_well_dying);
 		philo->monitoring->well_dying++;
