@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/02 17:33:37 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 11:05:12 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ enum e_definition
 typedef struct s_monitoring
 {
 	pthread_t		*threads;
+	pthread_mutex_t	*print;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*change_well_dying;
 	pthread_mutex_t	*change_starvation;

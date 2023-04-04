@@ -6,15 +6,30 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:32:22 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/02 17:45:04 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 11:24:17 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-int	is_living(t_monitoring *monitoring, t_philo)
+static int	stop_thread(t_monitoring *monitoring)
 {
-	if (monitoring->starvation == 0 &&
+	pthread_mutex_lock(monitoring->change_starvation);
+	if (monitoring->starvation == TRUE)
+	{
+		pthread_mutex_unlock(monitoring->change_starvation);
+		return (FALSE);
+	}
+	pthread_mutex_unlock(monitoring->change_starvation);
+	// current = get_time();
+	// if (current >= philo->last_eat + philo->time_to_die)
+	// {
+	// 	print_state(philo, "died");
+	// 	pthread_mutex_lock(monitoring->change_starvation);
+	// 	monitoring->starvation = TRUE;
+	// 	pthread_mutex_unlock(monitoring->change_starvation);
+	// 	return (FALSE);
+	// }
 	return (TRUE);
 }
 
@@ -23,8 +38,6 @@ static int	sleeping(t_philo *philo)
 {
 	print_state(philo, "is sleeping");
 	time_lapse(philo->time_to_sleep);
-	if (philo->is_living == FALSE)
-		return (FALSE);
 	return (TRUE);
 }
 
@@ -41,9 +54,7 @@ void	life_of_philo(void *arg)
 	
 	philo = (t_philo *)arg;
 	monitoring = philo->monitoring;
-	// pthread_mutex_lock(monitoring->access_monitoring);
-	// pthread_mutex_unlock(monitoring->access_monitoring);
-	if (philo->id % 2 == 0)
+	if (philo->id & 0)
 		time_lapse(philo->time_to_eat / 2);
 	while (1)
 	{
@@ -52,9 +63,7 @@ void	life_of_philo(void *arg)
 		if (sleeping(philo) == FALSE)
 			break ;
 		thinking(philo);
-		if (is_living(philo) == FALSE)
-		{
+		if (stop_thread(monitoring) == FALSE)
 			return;
-		}
 	}
 }

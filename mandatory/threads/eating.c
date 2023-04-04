@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:05:23 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/02 15:27:59 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 11:17:37 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,27 +46,29 @@ static void	take_forks(t_philo *philo, t_monitoring *monitoring)
 
 static void	update_last_eat(t_philo *philo)
 {
-	struct timeval	current_time;
-
-	gettimeofday(&current_time, NULL);
-	pthread_mutex_lock(philo->access_philo);
-	philo->last_eat = current_time.tv_sec * 1000 + current_time.tv_usec / 1000;
-	philo->current_meal_count++;
-	pthread_mutex_unlock(philo->access_philo);
+	pthread_mutex_lock(philo->change_last_meal_time);
+	philo->last_eat = get_time();
+	pthread_mutex_unlock(philo->change_last_meal_time);
+	if (philo->monitoring->required_meal_count != 0)
+	{
+		pthread_mutex_lock(philo->change_remaining_meal_count);
+		philo->remaining_meal_count--;
+		pthread_mutex_unlock(philo->change_remaining_meal_count);
+	}
 }
 
 static int	is_full(t_philo *philo)
 {
-	if (philo->monitoring->required_meal_count == 0 \
-		|| philo->current_meal_count != philo->monitoring->required_meal_count)
+	pthread_mutex_lock(philo->change_remaining_meal_count);
+	if (philo->remaining_meal_count != 0)
 	{
+		pthread_mutex_unlock(philo->change_remaining_meal_count);
 		return (FALSE);
 	}
-	philo->is_living = FALSE;
+	pthread_mutex_unlock(philo->change_remaining_meal_count);
+	pthread_mutex_lock(philo->monitoring->change_well_dying);
 	philo->monitoring->well_dying++;
-	pthread_mutex_lock(philo->monitoring->access_monitoring);
-	philo->monitoring->live_all = FALSE;
-	pthread_mutex_unlock(philo->monitoring->access_monitoring);
+	pthread_mutex_unlock(philo->monitoring->change_well_dying);
 	return (TRUE);
 }
 

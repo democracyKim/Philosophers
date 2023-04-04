@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 13:17:51 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/02 17:24:39 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 11:22:36 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,24 @@
 
 static int	is_living(t_philo *philo)
 {
-	unsigned int	time_since_last_eat;
+	unsigned int	current;
 
-	pthread_mutex_lock(philo->access_philo);
-	time_since_last_eat = get_time() - philo->last_eat;
-	if (time_since_last_eat >= (unsigned int)philo->time_to_die)
+	pthread_mutex_lock(monitoring->change_starvation);
+	if (monitoring->starvation == TRUE)
 	{
-		printf("time_since_last_eat: %u\n", time_since_last_eat);
-		printf("philo->time_to_die: %d\n", philo->time_to_die);
-		printf("philo->id: %d\n", philo->id);
-		philo->is_living = FALSE;
-		printf("ok1\n");
-		pthread_mutex_lock(philo->monitoring->access_monitoring);
-		printf("ok2\n");
-		philo->monitoring->live_all = FALSE;
-		print_state(philo, "died");
-		philo->monitoring->print_die = TRUE;
-		pthread_mutex_unlock(philo->monitoring->access_monitoring);
-		pthread_mutex_unlock(philo->access_philo);
-		release_forks(philo, philo->monitoring);
+		pthread_mutex_unlock(monitoring->change_starvation);
 		return (FALSE);
 	}
-	pthread_mutex_unlock(philo->access_philo);
+	pthread_mutex_unlock(monitoring->change_starvation);
+	current = get_time();
+	if (current >= philo->last_eat + philo->time_to_die)
+	{
+		print_state(philo, "died");
+		pthread_mutex_lock(monitoring->change_starvation);
+		monitoring->starvation = TRUE;
+		pthread_mutex_unlock(monitoring->change_starvation);
+		return (FALSE);
+	}
 	return (TRUE);
 }
 
@@ -46,18 +42,15 @@ int	check_philosopher_status(t_monitoring *monitoring, t_philo **philos)
 	i = 0;
 	while (i < monitoring->number_of_philosophers)
 	{
-		pthread_mutex_lock(monitoring->access_monitoring);
 		if (is_living(philos[i]) == FALSE)
-		{
-			pthread_mutex_unlock(monitoring->access_monitoring);
 			return (ERROR);
-		}
+		pthread_mutex_lock(monitoring->change_well_dying);
 		else if (monitoring->well_dying == monitoring->number_of_philosophers)
 		{
-			pthread_mutex_unlock(monitoring->access_monitoring);
+			pthread_mutex_unlock(monitoring->change_well_dying);
 			return (FIN);
 		}
-		pthread_mutex_unlock(monitoring->access_monitoring);
+		pthread_mutex_unlock(monitoring->change_well_dying);
 		i++;
 	}
 	return (0);

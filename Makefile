@@ -6,7 +6,7 @@
 #    By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/29 13:20:47 by minkim3           #+#    #+#              #
-#    Updated: 2023/04/02 17:25:06 by minkim3          ###   ########.fr        #
+#    Updated: 2023/04/04 11:04:19 by minkim3          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRCS			= main.c\
 				  threads/start_and_close.c\
 				  threads/check_status.c\
 				  threads/eating.c\
-				  threads/print.c\
+				  threads/print_state.c\
 				  threads/time_lapse.c
 SOURCES			= $(addprefix $(SRCS_PATH), $(SRCS))
 OBJECTS         = $(SOURCES:.c=.o)
