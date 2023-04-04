@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 14:39:09 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 14:44:33 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_monitoring
 	pthread_t		*threads;
 	pthread_mutex_t	*print;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	*change_starvation;
+	pthread_mutex_t	*change_finish;
 	unsigned int	start_time;
 	int				number_of_philosophers;
 	int				time_to_die;
@@ -48,7 +48,7 @@ typedef struct s_monitoring
 	int				time_to_sleep;
 	int				required_meal_count;
 	int				well_dying;
-	int				starvation;
+	int				finish;
 }	t_monitoring;
 
 typedef struct s_philo

@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:24:12 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 14:39:49 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 14:45:27 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ static int	create_threads_and_mutex(t_monitoring **monitoring)
 		free((*monitoring)->threads);
 		return (print_error("Error: Memory allocation failed", *monitoring));
 	}
-	(*monitoring)->change_starvation = ft_calloc(1, sizeof(pthread_mutex_t));
-	if (!(*monitoring)->change_starvation)
+	(*monitoring)->change_finish = ft_calloc(1, sizeof(pthread_mutex_t));
+	if (!(*monitoring)->change_finish)
 	{
 		free((*monitoring)->threads);
 		free((*monitoring)->print);
@@ -53,7 +53,7 @@ static int	create_threads_and_mutex(t_monitoring **monitoring)
 	{
 		free((*monitoring)->threads);
 		free((*monitoring)->print);
-		free((*monitoring)->change_starvation);
+		free((*monitoring)->change_finish);
 		return (print_error("Error: Memory allocation failed", *monitoring));
 	}
 	return (0);
@@ -66,7 +66,7 @@ static int	init_mutex(t_monitoring **monitoring)
 	i = -1;
 	if (pthread_mutex_init((*monitoring)->print, NULL))
 		return (print_error("Error: Failed to initialize mutex", *monitoring));
-	if (pthread_mutex_init((*monitoring)->change_starvation, NULL))
+	if (pthread_mutex_init((*monitoring)->change_finish, NULL))
 		return (print_error("Error: Failed to initialize mutex", *monitoring));
 	while (++i < (*monitoring)->number_of_philosophers)
 	{
@@ -88,7 +88,7 @@ static int	get_args(t_monitoring **monitoring, int argc, char *argv[])
 	if (argc == 6)
 		(*monitoring)->required_meal_count = ft_atoi(argv[5]);
 	(*monitoring)->start_time = get_time();
-	(*monitoring)->starvation = FALSE;
+	(*monitoring)->finish = FALSE;
 	return (check_number_is_plus(*monitoring));
 }
 

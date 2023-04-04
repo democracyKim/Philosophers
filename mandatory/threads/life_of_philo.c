@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:32:22 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 14:06:11 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 14:55:10 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static int	stop_thread(t_monitoring *monitoring)
 {
-	pthread_mutex_lock(monitoring->change_starvation);
-	if (monitoring->starvation == TRUE)
+	pthread_mutex_lock(monitoring->change_finish);
+	if (monitoring->finish == TRUE)
 	{
-		pthread_mutex_unlock(monitoring->change_starvation);
+		pthread_mutex_unlock(monitoring->change_finish);
 		return (TRUE);
 	}
-	pthread_mutex_unlock(monitoring->change_starvation);
+	pthread_mutex_unlock(monitoring->change_finish);
 	return (FALSE);
 }
 
@@ -55,6 +55,9 @@ void	life_of_philo(void *arg)
 			break ;
 		thinking(philo);
 		if (stop_thread(monitoring) == TRUE)
-			return;
+		{
+			printf("stop_thread\n");
+			return ;
+		}
 	}
 }

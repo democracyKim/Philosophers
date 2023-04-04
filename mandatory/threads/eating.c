@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:05:23 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 14:06:35 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 15:07:09 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static void	update_last_eat(t_philo *philo)
 	pthread_mutex_lock(philo->change_remaining_meal_count);
 	if (philo->remaining_meal_count != 0)
 		philo->remaining_meal_count--;
-		pthread_mutex_unlock(philo->change_remaining_meal_count);
 }
 
 int	eating(t_philo *philo)
