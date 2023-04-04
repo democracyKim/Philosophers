@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 12:49:05 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 14:39:09 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ enum e_definition
 	TRUE = 1,
 	FALSE = -1,
 	ERROR = -1,
-	FIN = -1
+	FIN = -1,
+	CONTINUE = 1
 };
 
 typedef struct s_monitoring
@@ -39,7 +40,6 @@ typedef struct s_monitoring
 	pthread_t		*threads;
 	pthread_mutex_t	*print;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	*change_well_dying;
 	pthread_mutex_t	*change_starvation;
 	unsigned int	start_time;
 	int				number_of_philosophers;
@@ -64,6 +64,7 @@ typedef struct s_philo
 	int				left_fork;
 	int				right_fork;
 	unsigned int	last_meal_time;
+	int				living;
 }	t_philo;
 
 //utils

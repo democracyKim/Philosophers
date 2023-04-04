@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:30:35 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/02 13:29:46 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 14:35:55 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	main(int argc, char *argv[])
 		return (1);
 	if (start_threads(monitoring, philos) == ERROR)
 		return (1);
-	while (check_philosopher_status(monitoring, philos) == 0)
-		usleep(50);
+	while (check_philosopher_status(monitoring, philos) == CONTINUE)
+		time_lapse(50);
 	close_free(monitoring, philos);
 	return (0);
 }

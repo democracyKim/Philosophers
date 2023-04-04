@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:24:12 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 12:41:53 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 14:39:49 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,27 @@ static int	create_threads_and_mutex(t_monitoring **monitoring)
 		return (print_error("Error: Memory allocation failed", *monitoring));
 	(*monitoring)->print = ft_calloc(1, sizeof(pthread_mutex_t));
 	if (!(*monitoring)->print)
+	{
+		free((*monitoring)->threads);
 		return (print_error("Error: Memory allocation failed", *monitoring));
-	(*monitoring)->change_well_dying = ft_calloc(1, sizeof(pthread_mutex_t));
-	if (!(*monitoring)->change_well_dying)
-		return (print_error("Error: Memory allocation failed", *monitoring));
+	}
 	(*monitoring)->change_starvation = ft_calloc(1, sizeof(pthread_mutex_t));
 	if (!(*monitoring)->change_starvation)
+	{
+		free((*monitoring)->threads);
+		free((*monitoring)->print);
 		return (print_error("Error: Memory allocation failed", *monitoring));
+	}
 	(*monitoring)->forks = \
 		ft_calloc((*monitoring)->number_of_philosophers, \
 			sizeof(pthread_mutex_t));
 	if (!(*monitoring)->forks)
+	{
+		free((*monitoring)->threads);
+		free((*monitoring)->print);
+		free((*monitoring)->change_starvation);
 		return (print_error("Error: Memory allocation failed", *monitoring));
+	}
 	return (0);
 }
 
@@ -56,8 +65,6 @@ static int	init_mutex(t_monitoring **monitoring)
 
 	i = -1;
 	if (pthread_mutex_init((*monitoring)->print, NULL))
-		return (print_error("Error: Failed to initialize mutex", *monitoring));
-	if (pthread_mutex_init((*monitoring)->change_well_dying, NULL))
 		return (print_error("Error: Failed to initialize mutex", *monitoring));
 	if (pthread_mutex_init((*monitoring)->change_starvation, NULL))
 		return (print_error("Error: Failed to initialize mutex", *monitoring));
