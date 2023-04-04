@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 15:50:32 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 16:08:27 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ unsigned int	get_time(void);
 int				all_live(t_philo *philo);
 void			release_forks(t_philo *philo, t_monitoring *monitoring);
 void			print_state(t_philo *philo, const char *state);
-
 void			close_free(t_monitoring *monitoring, t_philo **philos);
 
 

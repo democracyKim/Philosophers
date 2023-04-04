@@ -6,13 +6,13 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:32:22 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 15:53:28 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 16:12:28 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-static int	stop_thread(t_monitoring *monitoring, t_philo *philo)
+int	stop_thread(t_monitoring *monitoring, t_philo *philo)
 {
 	pthread_mutex_lock(monitoring->change_finish);
 	if (monitoring->finish == TRUE)
@@ -56,12 +56,12 @@ void	life_of_philo(void *arg)
 		time_lapse(philo->time_to_eat / 2);
 	while (1)
 	{
-		if (eating(philo) == FALSE)
+		if (eating(philo) == FALSE || stop_thread(monitoring, philo) == TRUE)
+			return ;
+		if (sleeping(philo) == FALSE || stop_thread(monitoring, philo) == TRUE)
 			break ;
 		if (stop_thread(monitoring, philo) == TRUE)
 			return ;
-		if (sleeping(philo) == FALSE)
-			break ;
 		thinking(philo);
 		if (stop_thread(monitoring, philo) == TRUE)
 			return ;
