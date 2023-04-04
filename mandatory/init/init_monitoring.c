@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:24:12 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 11:07:47 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 12:41:53 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static int	init_mutex(t_monitoring **monitoring)
 	{
 		if (pthread_mutex_init(&((*monitoring)->forks[i]), NULL) != 0)
 		{
-			destroy_mutexes(*monitoring);
 			return (print_error("Error: Failed to initialize forks", \
 			(*monitoring)));
 		}

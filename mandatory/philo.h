@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 11:05:12 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 12:49:05 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,9 @@ int				print_error(char *message, t_monitoring *monitoring);
 void			free_thread_and_mutex(t_monitoring **monitoring);
 void			free_philos(t_philo ***philos, int index);
 void			free_philo_mutex(t_philo ***philos, int index);
-int				destroy_mutexes(t_monitoring *monitoring);
+int				destroy_mutexes(t_monitoring *monitoring, t_philo *philos);
+int				ft_strcmp(const char *s1, const char *s2);
+void			free_monitoring_thread_and_mutex(t_monitoring **monitoring);
 
 //init
 int				init(int argc, char *argv[], \

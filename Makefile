@@ -6,7 +6,7 @@
 #    By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/29 13:20:47 by minkim3           #+#    #+#              #
-#    Updated: 2023/04/04 11:04:19 by minkim3          ###   ########.fr        #
+#    Updated: 2023/04/04 12:29:35 by minkim3          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS			= main.c\
 				  utils/ft_atoi.c\
 				  utils/ft_calloc.c\
 				  utils/error.c\
+				  utils/ft_strcmp.c\
 				  init/init.c\
 				  init/init_monitoring.c\
 				  threads/life_of_philo.c\

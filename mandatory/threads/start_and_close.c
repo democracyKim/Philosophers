@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:01:56 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/02 17:32:06 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 12:49:34 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ static int	join_threads(t_monitoring *monitoring)
 void	close_free(t_monitoring *monitoring, t_philo **philos)
 {
 	join_threads(monitoring);
-	destroy_mutexes(monitoring, philos);
-	free_thread_and_mutex(&monitoring);
+	destroy_mutexes(monitoring, *philos);
+	free_monitoring_thread_and_mutex(&monitoring);
+	free_philo_mutex(&philos, monitoring->number_of_philosophers);
 	free_philos(&philos, monitoring->number_of_philosophers);
 	free(monitoring);
 }

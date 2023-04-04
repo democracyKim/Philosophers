@@ -6,23 +6,23 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 16:08:57 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 11:14:58 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 13:41:00 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-static void	receive_arguments(t_monitoring *monitoring, t_philo **philo, int i)
+static void	receive_arguments(t_monitoring *monitoring, t_philo *philo, int i)
 {
-	(*philo)->monitoring = monitoring;
-	(*philo)->id = i + 1;
-	(*philo)->time_to_die = monitoring->time_to_die;
-	(*philo)->time_to_eat = monitoring->time_to_eat;
-	(*philo)->time_to_sleep = monitoring->time_to_sleep;
-	(*philo)->left_fork = i;
-	(*philo)->right_fork = (i + 1) % monitoring->number_of_philosophers;
-	(*philo)->last_meal_time = monitoring->start_time;
-	(*philo)->remaining_meal_count = monitoring->required_meal_count;
+	philo->monitoring = monitoring;
+	philo->id = i + 1;
+	philo->time_to_die = monitoring->time_to_die;
+	philo->time_to_eat = monitoring->time_to_eat;
+	philo->time_to_sleep = monitoring->time_to_sleep;
+	philo->left_fork = i;
+	philo->right_fork = (i + 1) % monitoring->number_of_philosophers;
+	philo->last_meal_time = monitoring->start_time;
+	philo->remaining_meal_count = monitoring->required_meal_count;
 }
 
 static int	create_mutex(t_philo *philo)
@@ -58,9 +58,9 @@ static int	init_philos(t_monitoring *monitoring, t_philo ***philo)
 			free_philos(philo, i);
 			return (print_error("Error: Memory allocation failed", monitoring));
 		}
-		receive_arguments(monitoring, philo[i], i);
-		if (create_mutex(*philo[i]) == ERROR \
-			||init_mutex(*philo[i]) == ERROR)
+		receive_arguments(monitoring, (*philo)[i], i);
+		if (create_mutex((*philo)[i]) == ERROR \
+			||init_mutex((*philo)[i]) == ERROR)
 		{
 			free_philo_mutex(philo, i);
 			free_philos(philo, i);
