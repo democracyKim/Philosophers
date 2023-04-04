@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 13:17:51 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 16:27:54 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 16:38:41 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ static int	is_starving(t_philo *philo, t_monitoring *monitoring)
 	current = get_time();
 	if (current >= philo->last_meal_time + philo->time_to_die)
 	{
+		pthread_mutex_unlock(philo->change_last_meal_time);
 		print_state(philo, "died");
 		pthread_mutex_lock(monitoring->change_finish);
 		monitoring->finish = TRUE;
 		pthread_mutex_unlock(monitoring->change_finish);
-		pthread_mutex_unlock(philo->change_last_meal_time);
 		return (FALSE);
 	}
 	pthread_mutex_unlock(philo->change_last_meal_time);
