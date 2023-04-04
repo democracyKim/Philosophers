@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:24:12 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 14:45:27 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 15:17:22 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,14 @@ static int	create_threads_and_mutex(t_monitoring **monitoring)
 		free((*monitoring)->print);
 		return (print_error("Error: Memory allocation failed", *monitoring));
 	}
+	(*monitoring)->change_well_dying = ft_calloc(1, sizeof(pthread_mutex_t));
+	if (!(*monitoring)->change_well_dying)
+	{
+		free((*monitoring)->threads);
+		free((*monitoring)->print);
+		free((*monitoring)->change_finish);
+		return (print_error("Error: Memory allocation failed", *monitoring));
+	}
 	(*monitoring)->forks = \
 		ft_calloc((*monitoring)->number_of_philosophers, \
 			sizeof(pthread_mutex_t));
@@ -67,6 +75,8 @@ static int	init_mutex(t_monitoring **monitoring)
 	if (pthread_mutex_init((*monitoring)->print, NULL))
 		return (print_error("Error: Failed to initialize mutex", *monitoring));
 	if (pthread_mutex_init((*monitoring)->change_finish, NULL))
+		return (print_error("Error: Failed to initialize mutex", *monitoring));
+	if (pthread_mutex_init((*monitoring)->change_well_dying, NULL))
 		return (print_error("Error: Failed to initialize mutex", *monitoring));
 	while (++i < (*monitoring)->number_of_philosophers)
 	{
