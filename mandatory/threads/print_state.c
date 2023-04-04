@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:38:42 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 15:23:58 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 15:37:36 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	print_state(t_philo *philo, const char *state)
 			pthread_mutex_unlock(philo->monitoring->change_finish);
             printf(RED "%u %d %s" DEFAULT "\n", elapsed_time, philo->id, state);
         }
-        if (ft_strcmp(state, "is eating") == 0)
+        else if (ft_strcmp(state, "is eating") == 0)
             printf(GREEN "%u %d %s" DEFAULT "\n", elapsed_time, philo->id, state);
         else
             printf("%u %d %s\n", elapsed_time, philo->id, state);

@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 16:08:57 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 13:41:00 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 15:51:27 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ static int	create_mutex(t_philo *philo)
 	philo->change_remaining_meal_count = ft_calloc(1, sizeof(pthread_mutex_t));
 	if (!philo->change_remaining_meal_count)
 		return (print_error("Error: Memory allocation failed", philo->monitoring));
+	philo->change_living = ft_calloc(1, sizeof(pthread_mutex_t));
+	if (!philo->change_living)
+		return (print_error("Error: Memory allocation failed", philo->monitoring));
 	return (0);
 }
 
@@ -41,6 +44,8 @@ static int	init_mutex(t_philo *philo)
 	if (pthread_mutex_init(philo->change_last_meal_time, NULL) != 0)
 		return (print_error("Error: pthread_mutex_init() failed", philo->monitoring));
 	if (pthread_mutex_init(philo->change_remaining_meal_count, NULL) != 0)
+		return (print_error("Error: pthread_mutex_init() failed", philo->monitoring));
+	if (pthread_mutex_init(philo->change_living, NULL) != 0)
 		return (print_error("Error: pthread_mutex_init() failed", philo->monitoring));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:32:22 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 15:24:08 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 15:53:28 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,13 @@ static int	stop_thread(t_monitoring *monitoring, t_philo *philo)
 		return (TRUE);
 	}
 	pthread_mutex_unlock(monitoring->change_finish);
+	pthread_mutex_lock(philo->change_living);
 	if (philo->living == FALSE)
+	{
+		pthread_mutex_unlock(philo->change_living);
 		return (TRUE);
+	}
+	pthread_mutex_unlock(philo->change_living);
 	return (FALSE);
 }
 

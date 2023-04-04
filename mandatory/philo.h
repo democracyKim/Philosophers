@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 15:16:23 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 15:50:32 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_philo
 	t_monitoring	*monitoring;
 	pthread_mutex_t	*change_last_meal_time;
 	pthread_mutex_t	*change_remaining_meal_count;
+	pthread_mutex_t	*change_living;
 	int				id;
 	int				time_to_die;
 	int				time_to_eat;

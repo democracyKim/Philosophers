@@ -6,7 +6,7 @@
 #    By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/29 13:20:47 by minkim3           #+#    #+#              #
-#    Updated: 2023/04/04 12:29:35 by minkim3          ###   ########.fr        #
+#    Updated: 2023/04/04 15:28:22 by minkim3          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,11 +26,12 @@ SRCS			= main.c\
 				  init/init.c\
 				  init/init_monitoring.c\
 				  threads/life_of_philo.c\
-				  threads/start_and_close.c\
 				  threads/check_status.c\
 				  threads/eating.c\
 				  threads/print_state.c\
-				  threads/time_lapse.c
+				  threads/time_lapse.c\
+				  threads/start_threads.c\
+				  threads/destroy_threads.c
 SOURCES			= $(addprefix $(SRCS_PATH), $(SRCS))
 OBJECTS         = $(SOURCES:.c=.o)
 S_HEADER  	    = philo.h
