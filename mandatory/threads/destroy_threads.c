@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 15:25:21 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 16:49:33 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 17:07:11 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,11 @@ void	free_monitoring_thread_and_mutex(t_monitoring **monitoring)
 		free((*monitoring)->threads);
 	if ((*monitoring)->forks)
 		free((*monitoring)->forks);
-	if ((*monitoring)->change_finish)
-		free((*monitoring)->change_finish);
-	if ((*monitoring)->print)
-		free((*monitoring)->print);
-	if ((*monitoring)->change_well_dying)
-		free((*monitoring)->change_well_dying);
+	if ((*monitoring)->print_and_finish)
+		free((*monitoring)->print_and_finish);
 	(*monitoring)->threads = NULL;
 	(*monitoring)->forks = NULL;
-	(*monitoring)->change_finish = NULL;
-	(*monitoring)->print = NULL;
-	(*monitoring)->change_well_dying = NULL;
+	(*monitoring)->print_and_finish = NULL;
 }
 
 int	destroy_mutexes(t_monitoring *monitoring, t_philo *philos)
@@ -82,11 +76,7 @@ int	destroy_mutexes(t_monitoring *monitoring, t_philo *philos)
 			return (print_error("Error: pthread_mutex_destroy() failed", \
 				monitoring));
 	}
-	if (pthread_mutex_destroy(monitoring->change_finish) != 0)
-		return (print_error("Error: pthread_mutex_destroy() failed", monitoring));
-	if (pthread_mutex_destroy(monitoring->print) != 0)
-		return (print_error("Error: pthread_mutex_destroy() failed", monitoring));
-	if (pthread_mutex_destroy(monitoring->change_well_dying) != 0)
+	if (pthread_mutex_destroy(monitoring->print_and_finish) != 0)
 		return (print_error("Error: pthread_mutex_destroy() failed", monitoring));
 	if (pthread_mutex_destroy(philos->change_meal_info) != 0)
 		return (print_error("Error: pthread_mutex_destroy() failed", monitoring));

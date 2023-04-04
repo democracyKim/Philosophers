@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:32:22 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 16:51:15 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 17:06:22 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ static int	is_full(t_monitoring *monitoring, t_philo *philo)
 
 int	stop_thread(t_monitoring *monitoring, t_philo *philo)
 {
-	pthread_mutex_lock(monitoring->change_finish);
+	pthread_mutex_lock(monitoring->print_and_finish);
 	if (monitoring->finish == TRUE)
 	{
-		pthread_mutex_unlock(monitoring->change_finish);
+		pthread_mutex_unlock(monitoring->print_and_finish);
 		return (TRUE);
 	}
-	pthread_mutex_unlock(monitoring->change_finish);
+	pthread_mutex_unlock(monitoring->print_and_finish);
 	if (is_full(monitoring, philo) == TRUE)
 		return (TRUE);
 	return (FALSE);

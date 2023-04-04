@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:24:12 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 16:42:31 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 16:59:25 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,10 @@ static int	create_threads_and_mutex(t_monitoring **monitoring)
 		ft_calloc((*monitoring)->number_of_philosophers, sizeof(pthread_t));
 	if (!(*monitoring)->threads)
 		return (print_error("Error: Memory allocation failed", *monitoring));
-	(*monitoring)->print = ft_calloc(1, sizeof(pthread_mutex_t));
-	if (!(*monitoring)->print)
+	(*monitoring)->print_and_finish = ft_calloc(1, sizeof(pthread_mutex_t));
+	if (!(*monitoring)->print_and_finish)
 	{
 		free((*monitoring)->threads);
-		return (print_error("Error: Memory allocation failed", *monitoring));
-	}
-	(*monitoring)->change_finish = ft_calloc(1, sizeof(pthread_mutex_t));
-	if (!(*monitoring)->change_finish)
-	{
-		free((*monitoring)->threads);
-		free((*monitoring)->print);
-		return (print_error("Error: Memory allocation failed", *monitoring));
-	}
-	(*monitoring)->change_well_dying = ft_calloc(1, sizeof(pthread_mutex_t));
-	if (!(*monitoring)->change_well_dying)
-	{
-		free((*monitoring)->threads);
-		free((*monitoring)->print);
-		free((*monitoring)->change_finish);
 		return (print_error("Error: Memory allocation failed", *monitoring));
 	}
 	(*monitoring)->forks = \
@@ -60,8 +45,7 @@ static int	create_threads_and_mutex(t_monitoring **monitoring)
 	if (!(*monitoring)->forks)
 	{
 		free((*monitoring)->threads);
-		free((*monitoring)->print);
-		free((*monitoring)->change_finish);
+		free((*monitoring)->print_and_finish);
 		return (print_error("Error: Memory allocation failed", *monitoring));
 	}
 	return (0);
@@ -72,11 +56,7 @@ static int	init_mutex(t_monitoring **monitoring)
 	int	i;
 
 	i = -1;
-	if (pthread_mutex_init((*monitoring)->print, NULL))
-		return (print_error("Error: Failed to initialize mutex", *monitoring));
-	if (pthread_mutex_init((*monitoring)->change_finish, NULL))
-		return (print_error("Error: Failed to initialize mutex", *monitoring));
-	if (pthread_mutex_init((*monitoring)->change_well_dying, NULL))
+	if (pthread_mutex_init((*monitoring)->print_and_finish, NULL))
 		return (print_error("Error: Failed to initialize mutex", *monitoring));
 	while (++i < (*monitoring)->number_of_philosophers)
 	{
@@ -96,9 +76,12 @@ static int	get_args(t_monitoring **monitoring, int argc, char *argv[])
 	(*monitoring)->time_to_eat = ft_atoi(argv[3]);
 	(*monitoring)->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
+	{
 		(*monitoring)->required_meal_count = ft_atoi(argv[5]);
+	}
 	(*monitoring)->start_time = get_time();
-	(*monitoring)->finish = FALSE;
+	if (argc != 6)
+		(*monitoring)->finish = FALSE;
 	return (check_number_is_plus(*monitoring));
 }
 

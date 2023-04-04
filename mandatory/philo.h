@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 16:48:04 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 17:05:32 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,15 @@ enum e_definition
 typedef struct s_monitoring
 {
 	pthread_t		*threads;
-	pthread_mutex_t	*print;
+	pthread_mutex_t	*print_and_finish;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	*change_finish; // if fin = required - 1
-	pthread_mutex_t	*change_well_dying;
 	unsigned int	start_time;
 	int				number_of_philosophers;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				required_meal_count;
-	int				well_dying;
-	int				finish;
+	int				finish; // if required_meal_count == FALSE, fin == TRUE. else, fin == number_of_philosophers
 }	t_monitoring;
 
 typedef struct s_philo
@@ -64,6 +61,7 @@ typedef struct s_philo
 	int				right_fork;
 	int				remaining_meal_count;
 	unsigned int	last_meal_time;
+	int				is_full;
 }	t_philo;
 
 //utils
