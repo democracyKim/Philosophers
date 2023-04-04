@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 15:25:21 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 16:19:56 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 16:49:33 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,9 @@ void	free_philo_mutex(t_philo ***philos, int index)
 	i = -1;
 	while(++i < index)
 	{
-		if ((*philos)[i]->change_last_meal_time)
-			free((*philos)[i]->change_last_meal_time);
-		(*philos)[i]->change_last_meal_time = NULL;
-		if ((*philos)[i]->change_remaining_meal_count)
-			free((*philos)[i]->change_remaining_meal_count);
-		(*philos)[i]->change_remaining_meal_count = NULL;
+		if ((*philos)[i]->change_meal_info)
+			free((*philos)[i]->change_meal_info);
+		(*philos)[i]->change_meal_info = NULL;
 	}
 }
 
@@ -91,9 +88,7 @@ int	destroy_mutexes(t_monitoring *monitoring, t_philo *philos)
 		return (print_error("Error: pthread_mutex_destroy() failed", monitoring));
 	if (pthread_mutex_destroy(monitoring->change_well_dying) != 0)
 		return (print_error("Error: pthread_mutex_destroy() failed", monitoring));
-	if (pthread_mutex_destroy(philos->change_last_meal_time) != 0)
-		return (print_error("Error: pthread_mutex_destroy() failed", monitoring));
-	if (pthread_mutex_destroy(philos->change_remaining_meal_count) != 0)
+	if (pthread_mutex_destroy(philos->change_meal_info) != 0)
 		return (print_error("Error: pthread_mutex_destroy() failed", monitoring));
 	return (0);
 }

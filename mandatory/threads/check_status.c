@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 13:17:51 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 16:38:41 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 16:50:15 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static void	is_full(t_philo *philo, t_monitoring *monitoring)
 {
 	if (monitoring->required_meal_count == 0)
 		return ;
-	pthread_mutex_lock(philo->change_remaining_meal_count);
+	pthread_mutex_lock(philo->change_meal_info);
 	if (philo->remaining_meal_count == 0)
 	{
-		pthread_mutex_unlock(philo->change_remaining_meal_count);
+		pthread_mutex_unlock(philo->change_meal_info);
 		pthread_mutex_lock(monitoring->change_well_dying);
 		monitoring->well_dying++;
 		pthread_mutex_unlock(monitoring->change_well_dying);
@@ -27,7 +27,7 @@ static void	is_full(t_philo *philo, t_monitoring *monitoring)
 		monitoring->finish = TRUE;
 		pthread_mutex_unlock(monitoring->change_finish);
 	}
-	pthread_mutex_unlock(philo->change_remaining_meal_count);
+	pthread_mutex_unlock(philo->change_meal_info);
 	return ;
 }
 
@@ -49,18 +49,18 @@ static int	is_starving(t_philo *philo, t_monitoring *monitoring)
 {
 	unsigned int	current;
 
-	pthread_mutex_lock(philo->change_last_meal_time);
+	pthread_mutex_lock(philo->change_meal_info);
 	current = get_time();
 	if (current >= philo->last_meal_time + philo->time_to_die)
 	{
-		pthread_mutex_unlock(philo->change_last_meal_time);
+		pthread_mutex_unlock(philo->change_meal_info);
 		print_state(philo, "died");
 		pthread_mutex_lock(monitoring->change_finish);
 		monitoring->finish = TRUE;
 		pthread_mutex_unlock(monitoring->change_finish);
 		return (FALSE);
 	}
-	pthread_mutex_unlock(philo->change_last_meal_time);
+	pthread_mutex_unlock(philo->change_meal_info);
 	return (TRUE);
 }
 

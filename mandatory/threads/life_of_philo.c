@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:32:22 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/04 16:22:59 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/04 16:51:15 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,13 @@ static int	is_full(t_monitoring *monitoring, t_philo *philo)
 {
 	if (monitoring->required_meal_count == 0)
 		return (FALSE);
+	pthread_mutex_lock(philo->change_meal_info);
 	if (philo->remaining_meal_count == 0)
+	{
+		pthread_mutex_lock(philo->change_meal_info);
 		return (TRUE);
+	}
+	pthread_mutex_lock(philo->change_meal_info);
 	return (FALSE);
 }
 
