@@ -6,13 +6,13 @@
 #    By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/29 13:20:47 by minkim3           #+#    #+#              #
-#    Updated: 2023/04/25 17:22:07 by minkim3          ###   ########.fr        #
+#    Updated: 2023/04/25 20:12:24 by minkim3          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC              = cc
-# CFLAGS          = -Wall -Wextra -Werror -MMD -fsanitize=thread
-CFLAGS          = -Wall -Wextra -Werror -MMD -fsanitize=address
+CFLAGS          = -Wall -Wextra -Werror -MMD -fsanitize=thread
+# CFLAGS          = -Wall -Wextra -Werror -MMD -fsanitize=address
 NAME            = philo
 RM              = rm -f
 
@@ -28,11 +28,11 @@ INIT_SRCS       = init.c get_info.c
 INIT            = $(addprefix $(INIT_PATH), $(INIT_SRCS))
 
 UTILS_PATH      = ./utils/
-UTILS_SRCS      = ft_atoi.c ft_calloc.c ft_strcmp.c
+UTILS_SRCS      = ft_atoi.c ft_calloc.c ft_strcmp.c get_time.c print.c
 UTILS           = $(addprefix $(UTILS_PATH), $(UTILS_SRCS))
 
 PHILO_PATH      = ./philo/
-PHILO_SRCS      = 
+PHILO_SRCS      = life_of_philo.c start_threads.c monitoring.c fin_philo.c eating.c
 PHILO           = $(addprefix $(PHILO_PATH), $(PHILO_SRCS))
 
 SOURCES			= $(addprefix $(SRCS_PATH), $(MAIN))\
