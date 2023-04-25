@@ -6,13 +6,13 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:34:12 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/25 21:08:19 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/25 21:29:19 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	time_lapse(int time)
+void	time_lapse(unsigned int time)
 {
 	unsigned int	start_time;
 

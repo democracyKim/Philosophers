@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:11:55 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/25 20:38:31 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/25 21:20:14 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ enum e_definition
 typedef struct s_info
 {
 	int				number_of_philosophers;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
+	unsigned int	time_to_die;
+	unsigned int	time_to_eat;
+	unsigned int	time_to_sleep;
 	int				must_eat_times;
-	int				start_time;
+	unsigned int	start_time;
 }	t_info;
 
 typedef struct s_resources

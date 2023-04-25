@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/25 20:55:32 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/25 21:18:15 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int				ft_atoi(const char *str);
 void			*ft_calloc(size_t count, size_t size);
 int				ft_strcmp(const char *s1, const char *s2);
 unsigned int	get_time(void);
-void			time_lapse(int time);
+void			time_lapse(unsigned int time);
 void			fin_philo(t_philo **philo);
 
 #endif

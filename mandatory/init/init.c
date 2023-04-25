@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:12:21 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/25 20:38:51 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/25 21:28:40 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int init_philosophers(t_info *info, t_resources *resources, t_philo **phi
 		(*philo)[i].id = i + 1;
 		(*philo)[i].left_fork = i;
 		(*philo)[i].right_fork = (i + 1) % info->number_of_philosophers;
-		(*philo)[i].last_meal_time = 0;
+		(*philo)[i].last_meal_time = get_time();
 		(*philo)[i].eat_count = 0;
 		i++;
 	}
@@ -59,7 +59,7 @@ static int init_philosophers(t_info *info, t_resources *resources, t_philo **phi
 int init(t_info *info, t_resources *resources, t_philo **philo)
 {
 	info->start_time = get_time();
-	if (info->start_time == ERROR)
+	if ((int)info->start_time == ERROR)
 	{
 		printf("Error: Failed to get start time.\n");
 		return (ERROR);
