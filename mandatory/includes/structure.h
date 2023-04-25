@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:11:55 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/25 21:20:14 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/25 21:54:30 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ enum e_definition
 	FALSE = -1,
 	ERROR = -1,
 	FIN = -1,
-	CONTINUE = 1
+	FULL = 1
 };
 
 typedef struct s_info
