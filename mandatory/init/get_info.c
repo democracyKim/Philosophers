@@ -6,12 +6,15 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:18:02 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/25 17:18:59 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/25 21:03:26 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+/*
+** if is_integer() == true, ft_atoi. 
+*/
 int	get_info(int argc, char *argv[], t_info *info)
 {
 	if (argc < 5 || argc > 6)
