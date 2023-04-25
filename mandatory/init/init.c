@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:12:21 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/25 21:28:40 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/25 21:32:35 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,15 @@ static int init_philosophers(t_info *info, t_resources *resources, t_philo **phi
 
 int init(t_info *info, t_resources *resources, t_philo **philo)
 {
+	if (init_mutexes(resources, info->number_of_philosophers) == ERROR)
+	{
+		printf("Error: Failed to initialize mutexes.\n");
+		return (ERROR);
+	}
 	info->start_time = get_time();
 	if ((int)info->start_time == ERROR)
 	{
 		printf("Error: Failed to get start time.\n");
-		return (ERROR);
-	}
-	if (init_mutexes(resources, info->number_of_philosophers) == ERROR)
-	{
-		printf("Error: Failed to initialize mutexes.\n");
 		return (ERROR);
 	}
 	if (init_philosophers(info, resources, philo) == ERROR)
