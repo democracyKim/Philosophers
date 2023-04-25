@@ -6,36 +6,45 @@
 #    By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/29 13:20:47 by minkim3           #+#    #+#              #
-#    Updated: 2023/04/04 15:28:22 by minkim3          ###   ########.fr        #
+#    Updated: 2023/04/25 17:22:07 by minkim3          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC              = cc
-CFLAGS          = -Wall -Wextra -Werror -MMD -fsanitize=thread
-#CFLAGS          = -Wall -Wextra -Werror -MMD -fsanitize=address
+# CFLAGS          = -Wall -Wextra -Werror -MMD -fsanitize=thread
+CFLAGS          = -Wall -Wextra -Werror -MMD -fsanitize=address
 NAME            = philo
 RM              = rm -f
 
 EXEC            = philo
-SRCS_PATH	   = ./mandatory/
-SRCS			= main.c\
-				  utils/ft_atoi.c\
-				  utils/ft_calloc.c\
-				  utils/error.c\
-				  utils/ft_strcmp.c\
-				  init/init.c\
-				  init/init_monitoring.c\
-				  threads/life_of_philo.c\
-				  threads/check_status.c\
-				  threads/eating.c\
-				  threads/print_state.c\
-				  threads/time_lapse.c\
-				  threads/start_threads.c\
-				  threads/destroy_threads.c
-SOURCES			= $(addprefix $(SRCS_PATH), $(SRCS))
+SRCS_PATH	    = ./mandatory/
+
+MAIN_PATH  	    = ./main/
+MAIN_SRCS       = main.c
+MAIN            = $(addprefix $(MAIN_PATH), $(MAIN_SRCS))
+
+INIT_PATH  	    = ./init/
+INIT_SRCS       = init.c get_info.c
+INIT            = $(addprefix $(INIT_PATH), $(INIT_SRCS))
+
+UTILS_PATH      = ./utils/
+UTILS_SRCS      = ft_atoi.c ft_calloc.c ft_strcmp.c
+UTILS           = $(addprefix $(UTILS_PATH), $(UTILS_SRCS))
+
+PHILO_PATH      = ./philo/
+PHILO_SRCS      = 
+PHILO           = $(addprefix $(PHILO_PATH), $(PHILO_SRCS))
+
+SOURCES			= $(addprefix $(SRCS_PATH), $(MAIN))\
+				  $(addprefix $(SRCS_PATH), $(INIT))\
+				  $(addprefix $(SRCS_PATH), $(UTILS))\
+				  $(addprefix $(SRCS_PATH), $(PHILO))
+
 OBJECTS         = $(SOURCES:.c=.o)
-S_HEADER  	    = philo.h
-HEADER			= $(addprefix $(SRCS_PATH), $(S_HEADER))
+
+HEADER_PATH     = ./includes/
+S_HEADER        = philo.h
+HEADER          = $(addprefix $(HEADER_PATH), $(S_HEADER))
 
 all: $(NAME)
 
@@ -49,14 +58,16 @@ $(NAME): $(OBJECTS)
 bonus:
 	@make -C $(BONUS)
 	@$(CP) $(BONUS)/$(NAME) $(NAME)
-	@echo -e "$(BLUE)copied!$(DEFAULT)"
+	@echo -e "$(BLUE)bonus compiled!$(DEFAULT)"
 
 clean:
 	$(RM) $(OBJECTS)
 	$(RM) $(OBJECTS:.o=.d)
+	@echo -e "$(PINK)delete object files!$(DEFAULT)"
 
 fclean: clean
 	@$(RM) $(EXEC)
+	@echo -e "$(YELLOW)delete all!$(DEFAULT)"
 
 re:
 	@make fclean
