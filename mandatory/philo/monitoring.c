@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 19:39:55 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/25 21:29:41 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/26 16:45:21 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@ static int	is_philo_dead(t_philo *philo)
 	return (0);
 }
 
-static int	is_enough(t_philo *philo)
+static int is_everyone_full(t_philo *philo)
 {
+	if (philo->info.must_eat_times < 1)
+		return (0);
 	pthread_mutex_lock(&(philo)->resources->stop);
-	if (philo->eat_count >= philo->info.must_eat_times)
+	if (philo->resources->full == philo->info.number_of_philosophers)
 	{
 		pthread_mutex_unlock(&(philo)->resources->stop);
 		return (1);
@@ -41,19 +43,22 @@ static int	is_enough(t_philo *philo)
 	return (0);
 }
 
-static int	check_philo_state(t_philo *philo, int *philo_count)
+static int	check_philo_state(t_philo *philo)
 {
 	if (is_philo_dead(philo))
 	{
+		pthread_mutex_lock(&(philo)->resources->stop);
+		if (philo->fin == TRUE)
+		{
+			pthread_mutex_unlock(&(philo)->resources->stop);
+			return (0);
+		}
+		pthread_mutex_unlock(&(philo)->resources->stop);
 		print_state(philo, "died");
 		return (FIN);
 	}
-	if (philo->info.must_eat_times > 0 && is_enough(philo))
-	{
-		(*philo_count)--;
-		if (*philo_count == 0)
-			return (FIN);
-	}
+	if (is_everyone_full(philo))
+		return (FIN);
 	return (0);
 }
 
@@ -70,7 +75,7 @@ void	monitoring(t_philo *philo)
 		i = 0;
 		while (i < philo_count)
 		{
-			if (check_philo_state(&philo[i], &philo_count) == FIN)
+			if (check_philo_state(&philo[i]) == FIN)
 			{
 				pthread_mutex_lock(&philo[i].resources->stop);
 				philo[i].resources->stop_all = TRUE;
@@ -80,4 +85,5 @@ void	monitoring(t_philo *philo)
 			i++;
 		}
 	}
+	usleep(1000);
 }

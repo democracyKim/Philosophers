@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:11:55 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/25 21:54:30 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/26 16:18:17 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_resources
 	pthread_mutex_t print;
 	pthread_mutex_t	stop;
 	int				stop_all;
+	int				full;
 }	t_resources;
 
 typedef struct s_philo
@@ -63,6 +64,7 @@ typedef struct s_philo
 	int				right_fork;
 	unsigned int	last_meal_time;
 	int				eat_count;
+	int				fin;
 }	t_philo;
 
 #endif

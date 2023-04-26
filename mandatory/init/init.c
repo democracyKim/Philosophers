@@ -6,13 +6,13 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:12:21 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/25 21:32:35 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/26 16:44:56 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static int	init_mutexes(t_resources *resources, int number_of_philosophers)
+static int	init_resources(t_resources *resources, int number_of_philosophers)
 {
 	int	i;
 
@@ -31,6 +31,8 @@ static int	init_mutexes(t_resources *resources, int number_of_philosophers)
 		return (ERROR);
 	if (pthread_mutex_init(&resources->stop, NULL) != 0)
 		return (ERROR);
+	resources->stop_all = 0;
+	resources->full = 0;
 	return (0);
 }
 
@@ -58,7 +60,7 @@ static int init_philosophers(t_info *info, t_resources *resources, t_philo **phi
 
 int init(t_info *info, t_resources *resources, t_philo **philo)
 {
-	if (init_mutexes(resources, info->number_of_philosophers) == ERROR)
+	if (init_resources(resources, info->number_of_philosophers) == ERROR)
 	{
 		printf("Error: Failed to initialize mutexes.\n");
 		return (ERROR);

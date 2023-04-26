@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 19:10:16 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/25 21:56:59 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/26 16:18:38 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,28 +26,50 @@ static void	release_forks(t_philo *philo)
 	}
 }
 
-static int	take_forks(t_philo *philo)
+static int take_forks(t_philo *philo)
 {
-	if (philo->id & 0)
-	{
-		pthread_mutex_lock(&philo->resources->forks[philo->right_fork]);
-		pthread_mutex_lock(&philo->resources->forks[philo->left_fork]);
-		if (print_state(philo, "has taken a fork") == ERROR)
-			return (ERROR);
-		if (print_state(philo, "has taken a fork") == ERROR)
-			return (ERROR);
-	}
-	else
-	{
-		pthread_mutex_lock(&philo->resources->forks[philo->left_fork]);
-		pthread_mutex_lock(&philo->resources->forks[philo->right_fork]);
-		if (print_state(philo, "has taken a fork") == ERROR)
-			return (ERROR);
-		if (print_state(philo, "has taken a fork") == ERROR)
-			return (ERROR);
-	}
-	return (0);
+    if (philo->left_fork < philo->right_fork)
+    {
+        pthread_mutex_lock(&philo->resources->forks[philo->left_fork]);
+        pthread_mutex_lock(&philo->resources->forks[philo->right_fork]);
+    }
+    else
+    {
+        pthread_mutex_lock(&philo->resources->forks[philo->right_fork]);
+        pthread_mutex_lock(&philo->resources->forks[philo->left_fork]);
+    }
+
+    if (print_state(philo, "has taken a fork") == ERROR)
+        return (ERROR);
+    if (print_state(philo, "has taken a fork") == ERROR)
+        return (ERROR);
+
+    return (0);
 }
+
+// static int	take_forks(t_philo *philo)
+// {
+// 	if (philo->id & 1)
+// 	{
+// 		pthread_mutex_lock(&philo->resources->forks[philo->right_fork]);
+// 		pthread_mutex_lock(&philo->resources->forks[philo->left_fork]);
+// 		if (print_state(philo, "has taken a fork") == ERROR)
+// 			return (ERROR);
+// 		if (print_state(philo, "has taken a fork") == ERROR)
+// 			return (ERROR);
+// 	}
+// 	else
+// 	{
+// 		printf("philo->id : %d\n", philo->id);
+// 		pthread_mutex_lock(&philo->resources->forks[philo->left_fork]);
+// 		pthread_mutex_lock(&philo->resources->forks[philo->right_fork]);
+// 		if (print_state(philo, "has taken a fork") == ERROR)
+// 			return (ERROR);
+// 		if (print_state(philo, "has taken a fork") == ERROR)
+// 			return (ERROR);
+// 	}
+// 	return (0);
+// }
 
 static int	start_eating(t_philo *philo)
 {
@@ -60,6 +82,8 @@ static int	start_eating(t_philo *philo)
 		philo->eat_count++;
 		if (philo->eat_count == philo->info.must_eat_times)
 		{
+			philo->resources->full++;
+			philo->fin = 1;
 			pthread_mutex_unlock(&philo->resources->stop);
 			release_forks(philo);
 			return (FULL);
