@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:34:12 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/25 21:29:19 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/26 16:58:14 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	time_lapse(unsigned int time)
 	start_time = get_time();
 	while (get_time() < start_time + (unsigned int)time)
 	{
-		usleep(1000);
+		usleep(100);
 	}
 }
 
