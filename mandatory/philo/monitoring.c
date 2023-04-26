@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 19:39:55 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/26 16:45:21 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/26 18:13:43 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	monitoring(t_philo *philo)
 				pthread_mutex_lock(&philo[i].resources->stop);
 				philo[i].resources->stop_all = TRUE;
 				pthread_mutex_unlock(&philo[i].resources->stop);
+				pthread_mutex_lock(&philo[i].resources->print);
 				return ;
 			}
 			i++;

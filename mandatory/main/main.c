@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:30:35 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/26 16:04:03 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/26 18:16:36 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int argc, char *argv[])
 	if (start_threads(philo) == ERROR)
 		return (1);
 	monitoring(philo);
+	// pthread_mutex_unlock(&resources.print);
 	fin_philo(&philo);
 	return (0);
 }
