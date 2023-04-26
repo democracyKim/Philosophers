@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:58:36 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/26 18:41:10 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/26 18:54:06 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 static void sleeping(t_philo *philo)
 {
+	usleep(10);
     print_state(philo, "is sleeping");
     time_lapse(philo->info.time_to_sleep);
 }
 
 static void thinking(t_philo *philo)
 {
+	usleep(10);
     print_state(philo, "is thinking");
 }
 
@@ -34,8 +36,6 @@ void	*life_of_philo(void *arg)
 			return (NULL);
 		sleeping(philo);
 		thinking(philo);
-		if (philo->id & 1)
-			usleep(100);
 	}
 	return (NULL);
 }
