@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/25 21:18:15 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/26 19:00:09 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int				print_state(t_philo *philo, const char *statement);
 int				start_threads(t_philo *philo);
 void			monitoring(t_philo *philo);
 int				eating(t_philo *philo);
+void			give_usleep(int num);
 
 int				ft_atoi(const char *str);
 void			*ft_calloc(size_t count, size_t size);

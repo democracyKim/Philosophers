@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 19:10:16 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/26 18:48:39 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/26 19:00:54 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ static int	take_forks(t_philo *philo)
 	{
 		pthread_mutex_lock(&philo->resources->forks[philo->right_fork]);
 		pthread_mutex_lock(&philo->resources->forks[philo->left_fork]);
-		usleep(10);
+		give_usleep(philo->id);
 		if (print_state(philo, "has taken a fork") == ERROR)
 			return (ERROR);
-		usleep(10);
+		give_usleep(philo->id);
 		if (print_state(philo, "has taken a fork") == ERROR)
 			return (ERROR);
 	}
@@ -43,10 +43,10 @@ static int	take_forks(t_philo *philo)
 	{
 		pthread_mutex_lock(&philo->resources->forks[philo->left_fork]);
 		pthread_mutex_lock(&philo->resources->forks[philo->right_fork]);
-		usleep(10);
+		give_usleep(philo->id);
 		if (print_state(philo, "has taken a fork") == ERROR)
 			return (ERROR);
-		usleep(10);
+		give_usleep(philo->id);
 		if (print_state(philo, "has taken a fork") == ERROR)
 			return (ERROR);
 	}
@@ -55,7 +55,7 @@ static int	take_forks(t_philo *philo)
 
 static int	start_eating(t_philo *philo)
 {
-	usleep(10);
+	give_usleep(philo->id);
 	if (print_state(philo, "is eating") == ERROR)
 		return (ERROR);
 	time_lapse(philo->info.time_to_eat);
