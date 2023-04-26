@@ -6,23 +6,21 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:58:36 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/26 18:22:13 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/26 18:29:24 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static int sleeping(t_philo *philo)
+static void sleeping(t_philo *philo)
 {
-    if (print_state(philo, "is sleeping") == ERROR)
-		return (ERROR);
+    print_state(philo, "is sleeping");
     time_lapse(philo->info.time_to_sleep);
-    return (0);
 }
 
-static int thinking(t_philo *philo)
+static void thinking(t_philo *philo)
 {
-    return (print_state(philo, "is thinking"));
+    print_state(philo, "is thinking");
 }
 
 void	*life_of_philo(void *arg)
