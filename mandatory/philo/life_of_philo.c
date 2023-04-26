@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:58:36 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/26 19:11:10 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/26 19:38:40 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,16 @@ void	give_usleep(int num)
 {
 	if (num < 20)
 		usleep(10);
-	else if (num < 30)
+	else if (num < 25)
 		usleep(num);
 	else if (num < 30)
 		usleep(num * 2);
+	else if (num < 40)
+		usleep(num * 2.5);
+	else if (num < 50)
+		usleep(num * 3);
+	else if (num < 60)
+		usleep(num * 3.5);
 }
 
 void	*life_of_philo(void *arg)
@@ -46,6 +52,7 @@ void	*life_of_philo(void *arg)
 			return (NULL);
 		sleeping(philo);
 		thinking(philo);
+		give_usleep(philo->id);
 	}
 	return (NULL);
 }
