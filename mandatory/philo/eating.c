@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 19:10:16 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/28 15:22:50 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/28 15:32:39 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,27 +32,22 @@ static int	take_forks(t_philo *philo)
 	{
 		pthread_mutex_lock(&philo->resources->forks[philo->left_fork]);
 		pthread_mutex_lock(&philo->resources->forks[philo->right_fork]);
-		if (print_state(philo, "has taken a fork") == ERROR)
-			return (ERROR);
-		if (print_state(philo, "has taken a fork") == ERROR)
-			return (ERROR);
+		print_state(philo, "has taken a fork");
+		print_state(philo, "has taken a fork");
 	}
 	else
 	{
 		pthread_mutex_lock(&philo->resources->forks[philo->right_fork]);
 		pthread_mutex_lock(&philo->resources->forks[philo->left_fork]);
-		if (print_state(philo, "has taken a fork") == ERROR)
-			return (ERROR);
-		if (print_state(philo, "has taken a fork") == ERROR)
-			return (ERROR);
+		print_state(philo, "has taken a fork");
+		print_state(philo, "has taken a fork");
 	}
 	return (0);
 }
 
 static int	start_eating(t_philo *philo)
 {
-	if (print_state(philo, "is eating") == ERROR)
-		return (ERROR);
+	print_state(philo, "is eating");
 	time_lapse(philo->info.time_to_eat);
 	if (philo->info.must_eat_times != -1)
 	{
