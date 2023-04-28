@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:11:55 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/26 16:18:17 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/28 16:09:01 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 # include <pthread.h>
 # include <stdio.h>
-# include <unistd.h>
 # include <stdlib.h>
 # include <sys/time.h>
+# include <unistd.h>
 
 # define RED "\033[1;31m"
 # define PINK "\033[1;35m"
@@ -26,7 +26,7 @@
 # define BLUE "\033[1;34m"
 # define DEFAULT "\033[0m"
 
-enum e_definition
+enum				e_definition
 {
 	TRUE = 1,
 	FALSE = -1,
@@ -43,16 +43,16 @@ typedef struct s_info
 	unsigned int	time_to_sleep;
 	int				must_eat_times;
 	unsigned int	start_time;
-}	t_info;
+}					t_info;
 
 typedef struct s_resources
 {
 	pthread_mutex_t	*forks;
-	pthread_mutex_t print;
+	pthread_mutex_t	print;
 	pthread_mutex_t	stop;
 	int				stop_all;
 	int				full;
-}	t_resources;
+}					t_resources;
 
 typedef struct s_philo
 {
@@ -65,6 +65,6 @@ typedef struct s_philo
 	unsigned int	last_meal_time;
 	int				eat_count;
 	int				fin;
-}	t_philo;
+}					t_philo;
 
 #endif

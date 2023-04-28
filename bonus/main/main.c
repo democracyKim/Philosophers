@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/28 19:30:35 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/28 16:08:13 by minkim3          ###   ########.fr       */
+/*   Created: 2023/04/28 16:08:29 by minkim3           #+#    #+#             */
+/*   Updated: 2023/04/28 16:08:37 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/philo_bonus.h"
 
 int	main(int argc, char *argv[])
 {

@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 20:03:58 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/25 21:02:09 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/28 16:10:03 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	join_threads(t_philo **philo)
 {
-	int			i;
-	t_info		*info;
+	int		i;
+	t_info	*info;
 
 	info = &((*philo)[0].info);
 	i = 0;
@@ -47,7 +47,7 @@ static void	free_memory(t_philo **philo, t_resources *resources)
 	*philo = NULL;
 }
 
-void fin_philo(t_philo **philo)
+void	fin_philo(t_philo **philo)
 {
 	t_info		*info;
 	t_resources	*resources;

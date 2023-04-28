@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 19:39:55 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/26 19:40:45 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/28 16:10:21 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	is_philo_dead(t_philo *philo)
 	return (0);
 }
 
-static int is_everyone_full(t_philo *philo)
+static int	is_everyone_full(t_philo *philo)
 {
 	if (philo->info.must_eat_times < 1)
 		return (0);

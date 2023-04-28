@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:12:21 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/26 16:44:56 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/28 16:09:53 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	init_resources(t_resources *resources, int number_of_philosophers)
 	int	i;
 
 	resources->forks = ft_calloc(number_of_philosophers, \
-			sizeof(pthread_mutex_t));
+									sizeof(pthread_mutex_t));
 	if (!resources->forks)
 		return (ERROR);
 	i = 0;
@@ -36,9 +36,10 @@ static int	init_resources(t_resources *resources, int number_of_philosophers)
 	return (0);
 }
 
-static int init_philosophers(t_info *info, t_resources *resources, t_philo **philo)
+static int	init_philosophers(t_info *info, t_resources *resources,
+		t_philo **philo)
 {
-	int i;
+	int	i;
 
 	*philo = (t_philo *)malloc(sizeof(t_philo) * info->number_of_philosophers);
 	if (!*philo)
@@ -58,7 +59,7 @@ static int init_philosophers(t_info *info, t_resources *resources, t_philo **phi
 	return (0);
 }
 
-int init(t_info *info, t_resources *resources, t_philo **philo)
+int	init(t_info *info, t_resources *resources, t_philo **philo)
 {
 	if (init_resources(resources, info->number_of_philosophers) == ERROR)
 	{

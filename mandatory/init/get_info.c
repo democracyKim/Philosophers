@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:18:02 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/25 21:09:19 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/28 16:09:27 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	get_info(int argc, char *argv[], t_info *info)
 		printf("Error: Invalid number of arguments.\n");
 		return (ERROR);
 	}
-	if (!is_integer(argv[1]) || !is_integer(argv[2]) ||
-		!is_integer(argv[3]) || !is_integer(argv[4]) ||
+	if (!is_integer(argv[1]) || !is_integer(argv[2]) || \
+		!is_integer(argv[3]) || !is_integer(argv[4]) || \
 		(argc == 6 && !is_integer(argv[5])))
 	{
 		printf("Error: Invalid argument values.\n");

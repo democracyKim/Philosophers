@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 19:11:32 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/26 18:30:56 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/28 16:10:38 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	print_state(t_philo *philo, const char *statement)
 {
-	unsigned int philo_time;
+	unsigned int	philo_time;
 
 	pthread_mutex_lock(&philo->resources->print);
 	philo_time = get_time() - philo->info.start_time;

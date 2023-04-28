@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:56:37 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/26 15:41:34 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/28 16:11:17 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	start_odd_philo(t_philo *philo, t_info *info)
 	{
 		if (i % 2 == 0)
 		{
-			if (pthread_create(&(philo[i].threads), NULL, life_of_philo, \
+			if (pthread_create(&(philo[i].threads), NULL, life_of_philo,
 					&philo[i]) != 0)
 			{
 				printf("Error: Failed to start thread \
@@ -43,7 +43,7 @@ static int	start_even_philo(t_philo *philo, t_info *info)
 	{
 		if (i & 1)
 		{
-			if (pthread_create(&(philo[i].threads), NULL, life_of_philo, \
+			if (pthread_create(&(philo[i].threads), NULL, life_of_philo,
 					&philo[i]) != 0)
 			{
 				printf("Error: Failed to start \
@@ -67,24 +67,3 @@ int	start_threads(t_philo *philo)
 		return (ERROR);
 	return (0);
 }
-
-// int	start_threads(t_philo *philo)
-// {
-// 	int		i;
-// 	t_info	*info;
-
-// 	info = &(philo[0].info);
-// 	i = 0;
-// 	while (i < info->number_of_philosophers)
-// 	{
-// 		if (pthread_create(&(philo[i].threads), NULL, \
-// 			life_of_philo, &philo[i]) != 0)
-// 		{
-// 			printf("Error: Failed to start thread \
-// 				for philosopher %d.\n", i + 1);
-// 			return (ERROR);
-// 		}
-// 		i++;
-// 	}
-// 	return (0);
-// }
