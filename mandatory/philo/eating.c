@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 19:10:16 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/27 13:39:17 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/28 15:22:50 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 static void	release_forks(t_philo *philo)
 {
-	if (philo->id & 0)
+	if (philo->id & 1)
 	{
-		pthread_mutex_unlock(&philo->resources->forks[philo->right_fork]);
 		pthread_mutex_unlock(&philo->resources->forks[philo->left_fork]);
+		pthread_mutex_unlock(&philo->resources->forks[philo->right_fork]);
 	}
 	else
 	{
-		pthread_mutex_unlock(&philo->resources->forks[philo->left_fork]);
 		pthread_mutex_unlock(&philo->resources->forks[philo->right_fork]);
+		pthread_mutex_unlock(&philo->resources->forks[philo->left_fork]);
 	}
 }
 
@@ -30,8 +30,8 @@ static int	take_forks(t_philo *philo)
 {
 	if (philo->id & 1)
 	{
-		pthread_mutex_lock(&philo->resources->forks[philo->right_fork]);
 		pthread_mutex_lock(&philo->resources->forks[philo->left_fork]);
+		pthread_mutex_lock(&philo->resources->forks[philo->right_fork]);
 		if (print_state(philo, "has taken a fork") == ERROR)
 			return (ERROR);
 		if (print_state(philo, "has taken a fork") == ERROR)
@@ -39,8 +39,8 @@ static int	take_forks(t_philo *philo)
 	}
 	else
 	{
-		pthread_mutex_lock(&philo->resources->forks[philo->left_fork]);
 		pthread_mutex_lock(&philo->resources->forks[philo->right_fork]);
+		pthread_mutex_lock(&philo->resources->forks[philo->left_fork]);
 		if (print_state(philo, "has taken a fork") == ERROR)
 			return (ERROR);
 		if (print_state(philo, "has taken a fork") == ERROR)

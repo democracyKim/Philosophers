@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:58:36 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/27 13:40:15 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/28 15:28:24 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void sleeping(t_philo *philo)
 static void thinking(t_philo *philo)
 {
     print_state(philo, "is thinking");
+	usleep(500);
 }
 
 void	*life_of_philo(void *arg)
