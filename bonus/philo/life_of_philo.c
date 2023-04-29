@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:15:39 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/29 16:50:26 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/29 17:17:22 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	*life_of_philo(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	philo->info.start_time = get_time();
 	philo->last_meal_time = get_time();
 	while (TRUE)
 	{
