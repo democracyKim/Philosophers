@@ -1,7 +1,7 @@
 # Eat, Sleep and Think: Philosophers with Threads and Mutexes
 
 <details>
-<summary>External functions</summary>
+<summary>External functions : usleep, gettimeofday</summary>
 <div markdown="1">
 
 ### usleep()
@@ -34,8 +34,15 @@ int main() {
     printf("Elapsed time: %ld.%06ld seconds\n", elapsed.tv_sec, elapsed.tv_usec);
     return 0;
 }
-````
+```
 In this example, gettimeofday() is used to get the current time into the start and end timeval structs, and timersub() is used to calculate the difference between them and store it in the elapsed timeval struct. The printf() statement then displays the elapsed time in seconds and microseconds.  
+
+</div>
+</details>
+
+<details>
+<summary> External functions : pthread_create, pthread_detach, pthread_join </summary>
+<div markdown="1">
 
 **pthread_create()**: This function is used to create a new thread of execution. It takes four arguments: a pointer to a pthread_t variable that will be filled in with the ID of the new thread, a pthread_attr_t pointer that can be set to NULL, a function pointer that takes a single void* argument and returns a void*, and a void* argument to be passed to the function.  
 
@@ -93,6 +100,15 @@ On the other hand, pthread_detach() is used to detach a thread from its calling 
 
 In general, pthread_join() is used when the calling thread needs to wait for a specific thread to complete execution and retrieve its return value, while pthread_detach() is used when the calling thread does not need to wait for the thread to complete execution and does not need to retrieve its return value. Additionally, pthread_join() is often used in conjunction with dynamically allocated threads, while pthread_detach() is often used with threads that are statically allocated or have a long lifetime.  
 
+
+</div>
+</details>
+
+
+<details>
+<summary> External functions : pthread_mutex_init, pthread_mutex_destroy, pthread_mutex_lock, pthread_mutex_unlock </summary>
+<div markdown="1">
+
 ### pthread_mutex_init()
 This function is used to initialize a mutex lock. It takes two arguments: a pointer to the mutex lock to be initialized, and a pthread_mutexattr_t pointer that can be set to NULL.
 ```c
@@ -136,6 +152,144 @@ This code initializes a new mutex lock, locks it, enters a critical section, unl
 </div>
 </details>
 
+
+<details>
+<summary> External functions : sem_open, sem_close, sem_post, sem_wait, sem_unlink </summary>
+<div markdown="1">
+
+### sem_open
+The sem_open function creates a new named POSIX semaphore or opens an existing one.   
+```c
+#include <fcntl.h>
+#include <semaphore.h>
+#include <stdio.h>
+
+int main() {
+    sem_t *semaphore = sem_open("/example_semaphore", O_CREAT | O_EXCL, 0644, 1);
+    if (semaphore == SEM_FAILED) {
+        perror("sem_open failed");
+        return 1;
+    }
+    printf("Semaphore created successfully.\n");
+    sem_close(semaphore);
+    sem_unlink("/example_semaphore");
+    return 0;
+}
+```
+
+### sem_close
+The sem_close function is used to close the file descriptor of a named POSIX semaphore.   
+```c
+#include <fcntl.h>
+#include <semaphore.h>
+#include <stdio.h>
+
+int main() {
+    sem_t *semaphore = sem_open("/example_semaphore", O_CREAT | O_EXCL, 0644, 1);
+    if (semaphore == SEM_FAILED) {
+        perror("sem_open failed");
+        return 1;
+    }
+    printf("Semaphore created successfully.\n");
+
+    if (sem_close(semaphore) != 0) {
+        perror("sem_close failed");
+        return 1;
+    }
+    printf("Semaphore closed successfully.\n");
+
+    sem_unlink("/example_semaphore");
+    return 0;
+}
+```
+
+### sem_post
+The sem_post function increments (unlocks) the semaphore. If the semaphore's value is 0 before the call, it will become 1, and other waiting threads can acquire the semaphore.   
+```c
+#include <fcntl.h>
+#include <semaphore.h>
+#include <stdio.h>
+
+int main() {
+    sem_t *semaphore = sem_open("/example_semaphore", O_CREAT | O_EXCL, 0644, 0);
+    if (semaphore == SEM_FAILED) {
+        perror("sem_open failed");
+        return 1;
+    }
+    printf("Semaphore created successfully.\n");
+
+    if (sem_post(semaphore) != 0) {
+        perror("sem_post failed");
+        return 1;
+    }
+    printf("Semaphore incremented (unlocked) successfully.\n");
+
+    sem_close(semaphore);
+    sem_unlink("/example_semaphore");
+    return 0;
+}
+```
+
+
+### sem_wait
+The sem_wait function decrements (locks) the semaphore. If the semaphore's value is greater than 0, it will be decremented. If the semaphore's value is 0, the calling thread will block until the semaphore's value becomes greater than 0.  
+
+```c
+#include <fcntl.h>
+#include <semaphore.h>
+#include <stdio.h>
+
+int main() {
+    sem_t *semaphore = sem_open("/example_semaphore", O_CREAT | O_EXCL, 0644, 1);
+    if (semaphore == SEM_FAILED) {
+        perror("sem_open failed");
+        return 1;
+    }
+    printf("Semaphore created successfully.\n");
+
+    if (sem_wait(semaphore) != 0) {
+        perror("sem_wait failed");
+        return 1;
+    }
+    printf("Semaphore decremented (locked) successfully.\n");
+
+    sem_close(semaphore);
+    sem_unlink("/example_semaphore");
+    return 0;
+}
+```
+
+### sem_unlink
+The sem_unlink function is used to remove a named semaphore.   
+
+```c
+#include <fcntl.h>
+#include <semaphore.h>
+#include <stdio.h>
+
+int main() {
+    sem_t *semaphore = sem_open("/example_semaphore", O_CREAT | O_EXCL, 0644, 1);
+    if (semaphore == SEM_FAILED) {
+        perror("sem_open failed");
+        return 1;
+    }
+    printf("Semaphore created successfully.\n");
+
+    if (sem_unlink("/example_semaphore") != 0) {
+        perror("sem_unlink failed");
+        return 1;
+    }
+    printf("Semaphore unlinked successfully.\n");
+
+    sem_close(semaphore);
+    return 0;
+}
+```
+
+
+</div>
+</details>
+
 <details>
 <summary>Overview</summary>
 <div markdown="1">
@@ -169,6 +323,44 @@ This code initializes a new mutex lock, locks it, enters a critical section, unl
 - pthread_join()
 - pthread_mutex_destroy()
 
+</div>
+</details>
+
+</div>
+</details>
+
+<details>
+<summary>Overview : Bonus</summary>
+<div markdown="1">
+
+1. Parsing Arguments
+- number_of_philosophers
+- time_to_die (in milliseconds)
+- time_to_eat (in milliseconds)
+- time_to_sleep (in milliseconds)
+- number_of_times_each_philosopher_must_eat (optional)
+
+2. Initialize Resources
+- pthread_mutex_init()
+- gettimeofday()
+
+3. Start Threads
+- pthread_create()
+- pthread_detach()
+- pthread_mutex_lock()
+- pthread_mutex_unlock()
+- life_of_Philo : think, eat, sleep, die
+	- Thinking
+	- Eating : take fork, eat, release fork
+	- Sleeping
+
+4. Monitor the Situation
+- If any philosopher starves to death, stop all the threads.
+- When all the philosophers have eaten, stop all the threads.
+
+5. Close and Free
+- pthread_join()
+- pthread_mutex_destroy()
 
 </div>
 </details>

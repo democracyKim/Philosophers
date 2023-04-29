@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_time.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/28 16:08:29 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/29 16:07:49 by minkim3          ###   ########.fr       */
+/*   Created: 2023/04/25 17:34:12 by minkim3           #+#    #+#             */
+/*   Updated: 2023/04/28 19:43:17 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int	main(int argc, char *argv[])
+void	time_lapse(unsigned int time)
 {
-	t_info		info;
-	t_resources	resources;
-	t_philo		*philo;
+	unsigned int	start_time;
 
-	if (get_info(argc, argv, &info) == ERROR)
-		return (1);
-	if (init(&info, &resources, &philo) == ERROR)
-		return (1);
-	if (start_philo(philo) == ERROR)
-		return (1);
-	monitoring(philo);
-	fin_philo(&philo);
-	return (0);
+	start_time = get_time();
+	while (get_time() < start_time + (unsigned int)time)
+	{
+		usleep(100);
+	}
+}
+
+unsigned int	get_time(void)
+{
+	struct timeval	current_time;
+	unsigned int	time;
+
+	gettimeofday(&current_time, NULL);
+	time = (current_time.tv_sec * 1000 + current_time.tv_usec / 1000);
+	return (time);
 }

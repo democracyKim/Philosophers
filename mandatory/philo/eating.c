@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 19:10:16 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/28 15:34:39 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/28 16:13:27 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	start_eating(t_philo *philo)
 	return (0);
 }
 
-void	update_last_meal_time(t_philo *philo)
+static void	update_last_meal_time(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->resources->stop);
 	philo->last_meal_time = get_time();

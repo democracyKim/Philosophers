@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/28 16:08:29 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/29 16:07:49 by minkim3          ###   ########.fr       */
+/*   Created: 2023/04/04 12:29:02 by minkim3           #+#    #+#             */
+/*   Updated: 2023/04/04 12:29:06 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
-
-int	main(int argc, char *argv[])
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	t_info		info;
-	t_resources	resources;
-	t_philo		*philo;
-
-	if (get_info(argc, argv, &info) == ERROR)
-		return (1);
-	if (init(&info, &resources, &philo) == ERROR)
-		return (1);
-	if (start_philo(philo) == ERROR)
-		return (1);
-	monitoring(philo);
-	fin_philo(&philo);
-	return (0);
+	while (*s1 && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
+	return ((unsigned char)*s1 - (unsigned char)*s2);
 }

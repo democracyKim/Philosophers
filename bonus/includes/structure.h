@@ -4,9 +4,11 @@
 
 # include <pthread.h>
 # include <semaphore.h>
+# include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
+# include <sys/types.h>
 # include <unistd.h>
 
 # define RED "\033[1;31m"
@@ -16,7 +18,7 @@
 # define BLUE "\033[1;34m"
 # define DEFAULT "\033[0m"
 
-enum				e_definition
+enum			e_definition
 {
 	TRUE = 1,
 	FALSE = -1,
@@ -38,24 +40,18 @@ typedef struct s_info
 typedef struct s_resources
 {
 	sem_t			*forks;
-	sem_t			print;
-	sem_t			stop;
-	int				stop_all;
-	int				full;
+	sem_t			*print;
+	sem_t			*stop;
 }					t_resources;
 
 typedef struct s_philo
 {
 	pid_t			pid;
-	pthread_t		threads;
-	t_resources		*resources;
+	t_resources		resources;
 	t_info			info;
 	int				id;
-	int				left_fork;
-	int				right_fork;
 	unsigned int	last_meal_time;
 	int				eat_count;
-	int				fin;
 }					t_philo;
 
 #endif

@@ -1,30 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/28 16:08:29 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/29 16:07:49 by minkim3          ###   ########.fr       */
+/*   Created: 2023/03/28 19:51:43 by minkim3           #+#    #+#             */
+/*   Updated: 2023/04/28 19:40:00 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int	main(int argc, char *argv[])
+static void	*ft_memset(void *b, int c, size_t len)
 {
-	t_info		info;
-	t_resources	resources;
-	t_philo		*philo;
+	size_t			count;
+	unsigned char	*ptr;
 
-	if (get_info(argc, argv, &info) == ERROR)
-		return (1);
-	if (init(&info, &resources, &philo) == ERROR)
-		return (1);
-	if (start_philo(philo) == ERROR)
-		return (1);
-	monitoring(philo);
-	fin_philo(&philo);
-	return (0);
+	count = 0;
+	ptr = (unsigned char *)b;
+	while (count < len)
+	{
+		*(ptr + count) = (unsigned char)c;
+		count++;
+	}
+	return (b);
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void		*res;
+	size_t		space;
+
+	space = size * count;
+	res = (void *)malloc(space);
+	if (!res)
+		return (NULL);
+	ft_memset(res, 0, count * size);
+	return ((void *)res);
 }
