@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:14:22 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/29 19:49:56 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/29 21:21:53 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,16 @@
 
 static void release_forks(t_philo *philo)
 {
-	sem_post(philo->resources.forks);
-	sem_post(philo->resources.forks);
+	sem_post(philo->resources->forks);
+	sem_post(philo->resources->forks);
 }
 
-static int take_forks(t_philo *philo)
+static void take_forks(t_philo *philo)
 {
-	sem_wait(philo->resources.forks);
+	sem_wait(philo->resources->forks);
 	print_state(philo, "has taken a fork");
-	sem_wait(philo->resources.forks);
+	sem_wait(philo->resources->forks);
 	print_state(philo, "has taken a fork");
-    return (0);
 }
 
 static int start_eating(t_philo *philo)
@@ -33,33 +32,26 @@ static int start_eating(t_philo *philo)
     time_lapse(philo->info.time_to_eat);
     if (philo->info.must_eat_times != -1)
     {
-        sem_wait(philo->resources.stop);
         philo->eat_count++;
         if (philo->eat_count == philo->info.must_eat_times)
         {
-            sem_post(philo->resources.stop);
             release_forks(philo);
             return (FULL);
         }
-        sem_post(philo->resources.stop);
     }
     return (0);
 }
 
 void update_last_meal_time(t_philo *philo)
 {
-    sem_wait(philo->resources.stop);
+    sem_wait(philo->resources->last_meal);
     philo->last_meal_time = get_time();
-    sem_post(philo->resources.stop);
+    sem_post(philo->resources->last_meal);
 }
 
 int eating(t_philo *philo)
 {
-    int error;
-
-    error = 0;
-    if (take_forks(philo) == ERROR)
-        exit(1);
+    take_forks(philo);
 	update_last_meal_time(philo);
 	if (start_eating(philo) == FULL)
 		exit(0);

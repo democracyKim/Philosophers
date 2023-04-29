@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:15:39 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/29 19:52:37 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/29 21:20:50 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,12 @@ static void	thinking(t_philo *philo)
 	print_state(philo, "is thinking");
 }
 
-void	*life_of_philo(void *arg)
+void	*life_of_philo(t_philo	*philo)
 {
-	t_philo	*philo;
-
-	philo = (t_philo *)arg;
-	if (pthread_create(philo->monitor, NULL, monitoring, (void *)philo) == -1)
+	if (pthread_create(philo->monitor, NULL, monitoring, \
+		(void *)philo) == -1)
 		return (NULL);
+	sem_wait(philo->resources->start_sem);
 	while (TRUE)
 	{
 		if (eating(philo) != 0)

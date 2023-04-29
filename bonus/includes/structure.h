@@ -41,13 +41,14 @@ typedef struct s_resources
 {
 	sem_t			*forks;
 	sem_t			*print;
-	sem_t			*stop;
+	sem_t			*last_meal;
+	sem_t			*start_sem;
 }					t_resources;
 
 typedef struct s_philo
 {
 	pid_t			pid;
-	t_resources		resources;
+	t_resources		*resources;
 	pthread_t		*monitor;
 	t_info			info;
 	int				id;
