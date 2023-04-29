@@ -48,6 +48,7 @@ typedef struct s_philo
 {
 	pid_t			pid;
 	t_resources		resources;
+	pthread_t		*monitor;
 	t_info			info;
 	int				id;
 	unsigned int	last_meal_time;

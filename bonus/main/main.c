@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:08:29 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/29 16:07:49 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/29 19:33:18 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	main(int argc, char *argv[])
 		return (1);
 	if (start_philo(philo) == ERROR)
 		return (1);
-	monitoring(philo);
 	fin_philo(&philo);
 	return (0);
 }

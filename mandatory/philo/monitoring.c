@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 19:39:55 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/28 16:10:21 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/29 19:59:39 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,11 @@ static int	is_philo_dead(t_philo *philo)
 	pthread_mutex_lock(&(philo)->resources->stop);
 	current_time = get_time();
 	time_since_last_meal = current_time - philo->last_meal_time;
+	pthread_mutex_unlock(&(philo)->resources->stop);
 	if (time_since_last_meal > philo->info.time_to_die)
 	{
-		pthread_mutex_unlock(&(philo)->resources->stop);
 		return (1);
 	}
-	pthread_mutex_unlock(&(philo)->resources->stop);
 	return (0);
 }
 

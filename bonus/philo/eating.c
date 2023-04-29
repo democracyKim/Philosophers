@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:14:22 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/29 16:18:07 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/29 19:49:56 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,10 @@ int eating(t_philo *philo)
 
     error = 0;
     if (take_forks(philo) == ERROR)
-        error = 1;
-    if (error == 0)
-    {
-        update_last_meal_time(philo);
-        if (start_eating(philo) == FULL)
-            exit(0);
-    }
+        exit(1);
+	update_last_meal_time(philo);
+	if (start_eating(philo) == FULL)
+		exit(0);
     release_forks(philo);
     return (0);
 }

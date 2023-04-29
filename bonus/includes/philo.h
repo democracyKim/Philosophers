@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/28 19:39:20 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/29 18:54:49 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int				init(t_info *info, t_resources *resources, t_philo **philo);
 void			*life_of_philo(void *arg);
 int				print_state(t_philo *philo, const char *statement);
 int				start_philo(t_philo *philo);
-void			monitoring(t_philo *philo);
+void			*monitoring(void *arg);
 int				eating(t_philo *philo);
 void			give_usleep(int num);
 int				ft_atoi(const char *str);

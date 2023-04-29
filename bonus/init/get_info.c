@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:12:07 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/29 16:33:50 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/29 19:47:34 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ int	get_info(int argc, char *argv[], t_info *info)
 		info->must_eat_times = ft_atoi(argv[5]);
 	else
 		info->must_eat_times = -1;
+	info->start_time = get_time();
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:06:36 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/29 16:50:14 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/29 19:47:15 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@ static int init_philosophers(t_info *info, t_resources *resources, t_philo **phi
         (*philo)[i].resources = *resources;
         (*philo)[i].id = i + 1;
         (*philo)[i].eat_count = 0;
+		(*philo)[i].monitor = (pthread_t *)malloc(sizeof(pthread_t));
+		if (!(*philo)[i].monitor)
+		{
+			free(*philo);
+			return (ERROR);
+		}
+		(*philo)[i].last_meal_time = get_time();
         i++;
     }
     return (0);
