@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:18:46 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/29 21:21:11 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/29 22:36:44 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,12 @@ static int start_even_philo(t_philo *philo, t_info *info)
 int start_philo(t_philo *philo)
 {
     t_info *info;
-	int i;
 
     info = &(philo[0].info);
     if (start_odd_philo(philo, info) == ERROR)
         return (ERROR);
     if (start_even_philo(philo, info) == ERROR)
         return (ERROR);
-	i = -1;
-    while (++i < info->number_of_philosophers)
-        sem_post(philo->resources->start_sem);
+    sem_post(philo->resources->start);
     return (0);
 }

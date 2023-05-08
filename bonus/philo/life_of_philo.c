@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:15:39 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/29 21:20:50 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/29 22:40:42 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ void	*life_of_philo(t_philo	*philo)
 	if (pthread_create(philo->monitor, NULL, monitoring, \
 		(void *)philo) == -1)
 		return (NULL);
-	sem_wait(philo->resources->start_sem);
+	sem_wait(philo->resources->start);
+	philo->info.start_time = get_time();
+	philo->last_meal_time = philo->info.start_time;
 	while (TRUE)
 	{
 		if (eating(philo) != 0)

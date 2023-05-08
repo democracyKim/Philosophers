@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:06:36 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/29 21:26:40 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/04/29 22:39:54 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static int init_resources(t_resources *resources, int number_of_philosophers)
     resources->last_meal = sem_open("last_meal", O_CREAT | O_EXCL, 0644, 1);
     if (resources->last_meal == SEM_FAILED)
         return (ERROR);
-	resources->start_sem = sem_open("start_sem", O_CREAT | O_EXCL, 0644, number_of_philosophers);
-    if (resources->start_sem == SEM_FAILED)
+	resources->start = sem_open("start_sem", O_CREAT | O_EXCL, 0644, 1);
+    if (resources->start == SEM_FAILED)
         return (ERROR);
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:58:36 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/29 22:33:22 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/08 14:51:04 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,13 @@ void	*life_of_philo(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	pthread_mutex_lock(&philo->resources->stop);
-	pthread_mutex_unlock(&philo->resources->stop);
 	while (TRUE)
 	{
 		if (eating(philo) != 0)
 			return (NULL);
 		sleeping(philo);
 		thinking(philo);
+		usleep(50);
 	}
 	return (NULL);
 }

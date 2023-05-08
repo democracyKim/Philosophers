@@ -42,7 +42,7 @@ typedef struct s_resources
 	sem_t			*forks;
 	sem_t			*print;
 	sem_t			*last_meal;
-	sem_t			*start_sem;
+	sem_t			*start;
 }					t_resources;
 
 typedef struct s_philo
