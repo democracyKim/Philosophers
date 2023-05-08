@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:12:21 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/08 18:31:40 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/08 18:33:43 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static int	init_mutex(t_resources *resources, int number_of_philosophers)
 		return (ERROR);
 	if (pthread_mutex_init(&resources->living, NULL) != 0)
 		return (ERROR);
+	return (0);
 }
 
 static int	init_resources(t_resources *resources, int number_of_philosophers)
@@ -41,7 +42,8 @@ static int	init_resources(t_resources *resources, int number_of_philosophers)
 									sizeof(pthread_mutex_t));
 	if (!resources->forks)
 		return (ERROR);
-	init_mutex(resources, number_of_philosophers);
+	if (init_mutex(resources, number_of_philosophers) == ERROR)
+		return (ERROR);
 	resources->stop_all_philos = 0;
 	resources->full_count = 0;
 	return (0);
