@@ -6,13 +6,13 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 19:10:16 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/08 15:04:15 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/08 15:31:08 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static void	release_forks(t_philo *philo)
+void	release_forks(t_philo *philo)
 {
 	if (philo->id & 1)
 	{
