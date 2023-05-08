@@ -6,20 +6,16 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:12:21 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/08 15:19:18 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/08 18:31:40 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static int	init_resources(t_resources *resources, int number_of_philosophers)
+static int	init_mutex(t_resources *resources, int number_of_philosophers)
 {
 	int	i;
 
-	resources->forks = ft_calloc(number_of_philosophers, \
-									sizeof(pthread_mutex_t));
-	if (!resources->forks)
-		return (ERROR);
 	i = 0;
 	while (i < number_of_philosophers)
 	{
@@ -37,6 +33,15 @@ static int	init_resources(t_resources *resources, int number_of_philosophers)
 		return (ERROR);
 	if (pthread_mutex_init(&resources->living, NULL) != 0)
 		return (ERROR);
+}
+
+static int	init_resources(t_resources *resources, int number_of_philosophers)
+{
+	resources->forks = ft_calloc(number_of_philosophers, \
+									sizeof(pthread_mutex_t));
+	if (!resources->forks)
+		return (ERROR);
+	init_mutex(resources, number_of_philosophers);
 	resources->stop_all_philos = 0;
 	resources->full_count = 0;
 	return (0);

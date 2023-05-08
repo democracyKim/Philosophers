@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 19:10:16 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/08 15:31:08 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/08 18:31:52 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	take_forks(t_philo *philo)
 
 static int	start_eating(t_philo *philo)
 {
-	int eat_count;
+	int	eat_count;
 
 	print_state(philo, "is eating");
 	time_lapse(philo->info.time_to_eat);

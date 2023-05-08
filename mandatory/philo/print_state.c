@@ -6,13 +6,13 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 19:11:32 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/08 15:38:35 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/08 18:32:29 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static int should_print(t_philo *philo)
+static int	should_print(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->resources->living);
 	if (philo->resources->live == FALSE)
@@ -24,7 +24,8 @@ static int should_print(t_philo *philo)
 	return (TRUE);
 }
 
-static void	print_died(t_philo *philo, unsigned int philo_time, const char *statement)
+static void	print_died(t_philo *philo, unsigned int philo_time, \
+		const char *statement)
 {
 	pthread_mutex_lock(&philo->resources->living);
 	philo->resources->live = FALSE;
@@ -34,7 +35,8 @@ static void	print_died(t_philo *philo, unsigned int philo_time, const char *stat
 	release_forks(philo);
 }
 
-static int	print_eating(t_philo *philo, unsigned int philo_time, const char *statement)
+static int	print_eating(t_philo *philo, unsigned int philo_time,
+		const char *statement)
 {
 	pthread_mutex_lock(&philo->resources->print);
 	if (should_print(philo) == FALSE)
@@ -46,7 +48,8 @@ static int	print_eating(t_philo *philo, unsigned int philo_time, const char *sta
 	return (TRUE);
 }
 
-static int	print_statement(t_philo *philo, unsigned int philo_time, const char *statement)
+static int	print_statement(t_philo *philo, unsigned int philo_time,
+		const char *statement)
 {
 	pthread_mutex_lock(&philo->resources->print);
 	if (should_print(philo) == FALSE)
