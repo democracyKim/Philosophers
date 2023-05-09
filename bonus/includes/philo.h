@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/29 20:26:55 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/09 10:53:23 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,7 @@ int				ft_strcmp(const char *s1, const char *s2);
 unsigned int	get_time(void);
 void			time_lapse(unsigned int time);
 void			fin_philo(t_philo **philo);
+void			release_forks(t_philo *philo);
+int	has_anyone_died(t_philo *philo);
 
 #endif

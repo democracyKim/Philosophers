@@ -43,6 +43,9 @@ typedef struct s_resources
 	sem_t			*print;
 	sem_t			*last_meal;
 	sem_t			*start;
+	sem_t			*living;
+	sem_t			*prevention;
+	int				live;
 }					t_resources;
 
 typedef struct s_philo
@@ -50,7 +53,7 @@ typedef struct s_philo
 	pid_t			pid;
 	t_resources		*resources;
 	pthread_t		*monitor;
-	t_info			info;
+	t_info			*info;
 	int				id;
 	unsigned int	last_meal_time;
 	int				eat_count;

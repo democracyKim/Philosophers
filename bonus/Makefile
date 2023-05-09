@@ -6,13 +6,12 @@
 #    By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/29 13:20:47 by minkim3           #+#    #+#              #
-#    Updated: 2023/04/28 19:38:58 by minkim3          ###   ########.fr        #
+#    Updated: 2023/05/09 10:55:39 by minkim3          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC              = cc
-CFLAGS          = -Wall -Wextra -Werror -MMD -fsanitize=thread
-# CFLAGS          = -Wall -Wextra -Werror -MMD -fsanitize=address
+CFLAGS          = -Wall -Wextra -Werror -MMD
 NAME            = philo_bonus
 RM              = rm -f
 

@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:06:36 by minkim3           #+#    #+#             */
-/*   Updated: 2023/04/29 22:39:54 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/09 11:22:53 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ static int init_resources(t_resources *resources, int number_of_philosophers)
 	sem_unlink("forks");
 	sem_unlink("print");
 	sem_unlink("last_meal");
-	sem_unlink("start_sem");
+	sem_unlink("start");
+	sem_unlink("living");
+	sem_unlink("prevention");
     resources->forks = sem_open("forks", O_CREAT | O_EXCL, 0644, number_of_philosophers);
 	if (resources->forks == SEM_FAILED)
 		return (ERROR);
@@ -27,9 +29,15 @@ static int init_resources(t_resources *resources, int number_of_philosophers)
     resources->last_meal = sem_open("last_meal", O_CREAT | O_EXCL, 0644, 1);
     if (resources->last_meal == SEM_FAILED)
         return (ERROR);
-	resources->start = sem_open("start_sem", O_CREAT | O_EXCL, 0644, 1);
+	resources->start = sem_open("start", O_CREAT | O_EXCL, 0644, 0);
     if (resources->start == SEM_FAILED)
         return (ERROR);
+	resources->living = sem_open("living", O_CREAT | O_EXCL, 0644, 1);
+	if (resources->living == SEM_FAILED)
+		return (ERROR);
+	resources->prevention = sem_open("prevention", O_CREAT | O_EXCL, 0644, 1);
+	if (resources->prevention == SEM_FAILED)
+		return (ERROR);
     return (0);
 }
 
@@ -44,7 +52,7 @@ static int init_philosophers(t_info *info, t_resources *resources, t_philo **phi
     i = 0;
     while (i < info->number_of_philosophers)
     {
-        (*philo)[i].info = *info;
+        (*philo)[i].info = info;
         (*philo)[i].resources = resources;
         (*philo)[i].id = i + 1;
         (*philo)[i].eat_count = 0;
@@ -54,7 +62,6 @@ static int init_philosophers(t_info *info, t_resources *resources, t_philo **phi
 			free(*philo);
 			return (ERROR);
 		}
-		(*philo)[i].last_meal_time = get_time();
         i++;
     }
     return (0);
