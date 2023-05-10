@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:06:36 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/09 11:22:53 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/10 14:57:55 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static int init_resources(t_resources *resources, int number_of_philosophers)
 	sem_unlink("print");
 	sem_unlink("last_meal");
 	sem_unlink("start");
-	sem_unlink("living");
 	sem_unlink("prevention");
     resources->forks = sem_open("forks", O_CREAT | O_EXCL, 0644, number_of_philosophers);
 	if (resources->forks == SEM_FAILED)
@@ -32,9 +31,6 @@ static int init_resources(t_resources *resources, int number_of_philosophers)
 	resources->start = sem_open("start", O_CREAT | O_EXCL, 0644, 0);
     if (resources->start == SEM_FAILED)
         return (ERROR);
-	resources->living = sem_open("living", O_CREAT | O_EXCL, 0644, 1);
-	if (resources->living == SEM_FAILED)
-		return (ERROR);
 	resources->prevention = sem_open("prevention", O_CREAT | O_EXCL, 0644, 1);
 	if (resources->prevention == SEM_FAILED)
 		return (ERROR);

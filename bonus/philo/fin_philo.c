@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:15:03 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/10 14:33:07 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/10 14:57:49 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,11 @@ static void destroy_semaphores(t_resources *resources)
     sem_close(resources->print);
     sem_close(resources->last_meal);
 	sem_close(resources->start);
-	sem_close(resources->living);
 	sem_close(resources->prevention);
 	sem_unlink("forks");
 	sem_unlink("print");
 	sem_unlink("last_meal");
 	sem_unlink("start");
-	sem_unlink("living");
 	sem_unlink("prevention");
 }
 
@@ -79,6 +77,7 @@ void kill_every_philo(t_philo *philo, int philo_count)
 	}
 	return ;
 }
+
 void fin_philo(t_philo **philo)
 {
     t_info *info;

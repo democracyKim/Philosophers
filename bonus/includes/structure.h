@@ -43,9 +43,7 @@ typedef struct s_resources
 	sem_t			*print;
 	sem_t			*last_meal;
 	sem_t			*start;
-	sem_t			*living;
 	sem_t			*prevention;
-	int				live;
 }					t_resources;
 
 typedef struct s_philo

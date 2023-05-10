@@ -6,36 +6,18 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:18:09 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/09 11:36:11 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/10 14:58:04 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static int	should_print(t_philo *philo)
-{
-	sem_wait(philo->resources->living);
-	if (philo->resources->live == FALSE)
-	{
-		sem_post(philo->resources->living);
-		return (FALSE);
-	}
-	sem_post(philo->resources->living);
-	return (TRUE);
-}
-
 static int	print_died(t_philo *philo, unsigned int philo_time, \
 		const char *statement)
 {
 	sem_wait(philo->resources->print);
-	if (should_print(philo) == TRUE)
-	{
-		printf(RED "%u %d %s" DEFAULT "\n", philo_time, philo->id, statement);
-	}
+	printf(RED "%u %d %s" DEFAULT "\n", philo_time, philo->id, statement);
 	sem_post(philo->resources->print);
-	sem_wait(philo->resources->living);
-	philo->resources->live = FALSE;
-	sem_post(philo->resources->living);
 	return (TRUE);
 }
 
@@ -43,11 +25,6 @@ static int	print_eating(t_philo *philo, unsigned int philo_time,
 		const char *statement)
 {
 	sem_wait(philo->resources->print);
-	if (should_print(philo) == FALSE)
-	{
-		sem_post(philo->resources->print);
-		return (FALSE);
-	}
 	printf(GREEN "%u %d %s" DEFAULT "\n", philo_time, philo->id, statement);
 	sem_post(philo->resources->print);
 	return (TRUE);
@@ -57,11 +34,6 @@ static int	print_statement(t_philo *philo, unsigned int philo_time,
 		const char *statement)
 {
 	sem_wait(philo->resources->print);
-	if (should_print(philo) == FALSE)
-	{
-		sem_post(philo->resources->print);
-		return (FALSE);
-	}
 	printf("%u %d %s\n", philo_time, philo->id, statement);
 	sem_post(philo->resources->print);
 	return (TRUE);

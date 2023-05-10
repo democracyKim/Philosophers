@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:18:46 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/09 10:09:29 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/10 15:07:08 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,15 @@ int	start_philo(t_philo *philo)
 		return (ERROR);
 	if (start_even_philo(philo, info) == ERROR)
 		return (ERROR);
-	i = philo->info->number_of_philosophers;
 	philo->info->start_time = get_time();
 	usleep(philo->id * 100);
+	i = 0;
+	while (i)
+	{
+		philo[i].last_meal_time = philo->info->start_time;
+		i++;
+	}
+	i = philo->info->number_of_philosophers;
 	while (i)
 	{
 		sem_post(philo->resources->start);
