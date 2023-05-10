@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:16:23 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/09 11:24:34 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/10 14:33:50 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,11 @@ void	*monitoring(void *arg)
     while (1)
     {
         if (check_philo_state(philo) == FIN)
+		{
+			kill_every_philo(philo, philo_count);
             return (NULL);
-		if (has_anyone_died(philo) == TRUE)
-			return (NULL);
-        usleep(500);
+		}
+		usleep(500);
     }
     return (NULL);
 }

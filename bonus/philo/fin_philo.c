@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:15:03 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/09 11:04:31 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/10 14:33:07 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,7 @@ static void	join_threads(t_philo *philosophers, int num_philosophers)
     }	
 }
 
-
-static void kill_every_philo(t_philo *philo, int philo_count)
+void kill_every_philo(t_philo *philo, int philo_count)
 {
 	int j;
 
@@ -80,7 +79,6 @@ static void kill_every_philo(t_philo *philo, int philo_count)
 	}
 	return ;
 }
-
 void fin_philo(t_philo **philo)
 {
     t_info *info;
