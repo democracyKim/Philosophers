@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 19:10:16 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/08 18:31:52 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/14 17:04:39 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,16 @@ void	release_forks(t_philo *philo)
 {
 	if (philo->id & 1)
 	{
+		philo->resources->forks_status[philo->left_fork] = 0;
 		pthread_mutex_unlock(&philo->resources->forks[philo->left_fork]);
+		philo->resources->forks_status[philo->right_fork] = 0;
 		pthread_mutex_unlock(&philo->resources->forks[philo->right_fork]);
 	}
 	else
 	{
+		philo->resources->forks_status[philo->right_fork] = 0;
 		pthread_mutex_unlock(&philo->resources->forks[philo->right_fork]);
+		philo->resources->forks_status[philo->left_fork] = 0;
 		pthread_mutex_unlock(&philo->resources->forks[philo->left_fork]);
 	}
 }
@@ -31,15 +35,19 @@ static int	take_forks(t_philo *philo)
 	if (philo->id & 1)
 	{
 		pthread_mutex_lock(&philo->resources->forks[philo->left_fork]);
+		philo->resources->forks_status[philo->left_fork] = 1;
 		print_state(philo, "has taken a fork");
 		pthread_mutex_lock(&philo->resources->forks[philo->right_fork]);
+		philo->resources->forks_status[philo->right_fork] = 1;
 		print_state(philo, "has taken a fork");
 	}
 	else
 	{
 		pthread_mutex_lock(&philo->resources->forks[philo->right_fork]);
+		philo->resources->forks_status[philo->right_fork] = 1;
 		print_state(philo, "has taken a fork");
 		pthread_mutex_lock(&philo->resources->forks[philo->left_fork]);
+		philo->resources->forks_status[philo->left_fork] = 1;
 		print_state(philo, "has taken a fork");
 	}
 	return (0);

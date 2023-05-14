@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:58:36 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/09 10:30:59 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/14 17:15:28 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,26 @@ static int	has_anyone_died(t_philo *philo)
 	return (FALSE);
 }
 
+static void	force_sleep(int id)
+{
+	if (id < 10)
+		usleep(id);
+	else if (id < 100)
+		usleep(100);
+	else
+		usleep(200);
+}
+
 void	*life_of_philo(void *arg)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	if (philo->id % 2 == 0)
+		usleep(philo->info.time_to_eat);
 	while (TRUE)
 	{
-		usleep(philo->id);
+		force_sleep(philo->id);
 		if (eating(philo) != 0)
 			return (NULL);
 		sleeping(philo);

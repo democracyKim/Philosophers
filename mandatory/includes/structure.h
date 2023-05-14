@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:11:55 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/08 18:28:28 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/14 17:02:30 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_resources
 	int				stop_all_philos;
 	int				full_count;
 	int				live;
+	int				*forks_status;
 }					t_resources;
 
 typedef struct s_philo

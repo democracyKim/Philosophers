@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 20:03:58 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/08 18:32:06 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/14 17:07:14 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static void	destroy_mutexes(t_resources *resources, int number_of_philosophers)
 
 static void	free_memory(t_philo **philo, t_resources *resources)
 {
+	free(resources->forks_status);
 	free(resources->forks);
 	free(*philo);
 	*philo = NULL;
