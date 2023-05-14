@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 20:03:58 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/14 17:07:14 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/14 17:34:16 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,13 @@ void	fin_philo(t_philo **philo)
 
 	info = &((*philo)[0].info);
 	resources = (*philo)[0].resources;
+	if (info->number_of_philosophers == 1)
+	{
+		pthread_detach((*philo)[0].threads);
+		destroy_mutexes(resources, info->number_of_philosophers);
+		free_memory(philo, resources);
+		return ;
+	}
 	join_threads(philo);
 	destroy_mutexes(resources, info->number_of_philosophers);
 	free_memory(philo, resources);
