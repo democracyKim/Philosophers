@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:16:23 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/10 15:09:31 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/14 18:48:25 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,6 @@ static int is_philo_dead(t_philo *philo)
     time_since_last_meal = current_time - last_meal;
     if (time_since_last_meal > philo->info->time_to_die)
     {
-		printf("%u %d is dead\n", current_time, philo->id);
-		printf("time since last meal: %u\n", time_since_last_meal);
-		printf("last meal: %u\n", last_meal);
-		printf("philo->info->time_to_die: %u\n", philo->info->time_to_die);
-		kill_every_philo(philo, philo->info->number_of_philosophers);
         return (1);
     }
     return (0);
@@ -37,8 +32,13 @@ static int is_philo_dead(t_philo *philo)
 
 static void	check_philo_state(t_philo *philo)
 {
+	int	i;
+
+	i = 0;
 	if (is_philo_dead(philo))
+	{
 		print_state(philo, "died");
+	}
 }
 
 void	*monitoring(void *arg)

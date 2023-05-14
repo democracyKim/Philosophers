@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:15:39 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/10 14:58:54 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/14 18:06:53 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,15 @@ void	*life_of_philo(t_philo	*philo)
 		printf("Error: Failed to create monitoring thread\n");
 		return (NULL);
 	}
+	if (philo->id % 2 == 0)
+		usleep(philo->info->time_to_eat);
+	usleep(philo->id);
 	while (TRUE)
 	{
-		usleep(philo->info->number_of_philosophers);
-		if (eating(philo) != 0)
-		{
-			kill(philo->pid, SIGTERM);
-			return (NULL);
-		}
+		eating(philo);
 		sleeping(philo);
 		thinking(philo);
+		usleep(100);
 	}
 	return (NULL);
 }

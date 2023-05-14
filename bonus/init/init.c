@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:06:36 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/10 14:57:55 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/14 18:35:31 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static int init_resources(t_resources *resources, int number_of_philosophers)
 	sem_unlink("last_meal");
 	sem_unlink("start");
 	sem_unlink("prevention");
+	sem_unlink("death");
     resources->forks = sem_open("forks", O_CREAT | O_EXCL, 0644, number_of_philosophers);
 	if (resources->forks == SEM_FAILED)
 		return (ERROR);
@@ -33,6 +34,9 @@ static int init_resources(t_resources *resources, int number_of_philosophers)
         return (ERROR);
 	resources->prevention = sem_open("prevention", O_CREAT | O_EXCL, 0644, 1);
 	if (resources->prevention == SEM_FAILED)
+		return (ERROR);
+	resources->death = sem_open("death", O_CREAT | O_EXCL, 0644, 0);
+	if (resources->death == SEM_FAILED)
 		return (ERROR);
     return (0);
 }
@@ -53,6 +57,7 @@ static int init_philosophers(t_info *info, t_resources *resources, t_philo **phi
         (*philo)[i].id = i + 1;
         (*philo)[i].eat_count = 0;
 		(*philo)[i].monitor = (pthread_t *)malloc(sizeof(pthread_t));
+		(*philo)[i].last_meal_time = (*philo)[i].info->start_time;
 		if (!(*philo)[i].monitor)
 		{
 			free(*philo);

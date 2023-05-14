@@ -6,31 +6,36 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:15:03 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/10 14:57:49 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/14 18:30:12 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static void wait_processes(t_philo **philo)
+static void	wait_processes(t_philo **philo)
 {
-    int i;
-    t_info *info;
+	int		i;
+	t_info	*info;
+	int		status;
 
-    info = philo[0]->info;
-    i = 0;
-    while (i < info->number_of_philosophers)
-    {
-        waitpid((*philo)[i].pid, NULL, 0);
-        i++;
-    }
+	info = philo[0]->info;
+	i = 0;
+	while (i < info->number_of_philosophers)
+	{
+		waitpid(-1, &status, 0);
+		if (status != 0)
+		{
+			return ;
+		}
+		i++;
+	}
 }
 
-static void destroy_semaphores(t_resources *resources)
+static void	destroy_semaphores(t_resources *resources)
 {
-    sem_close(resources->forks);
-    sem_close(resources->print);
-    sem_close(resources->last_meal);
+	sem_close(resources->forks);
+	sem_close(resources->print);
+	sem_close(resources->last_meal);
 	sem_close(resources->start);
 	sem_close(resources->prevention);
 	sem_unlink("forks");
@@ -40,10 +45,10 @@ static void destroy_semaphores(t_resources *resources)
 	sem_unlink("prevention");
 }
 
-static void free_memory(t_philo **philo)
+static void	free_memory(t_philo **philo)
 {
-	int i;
-	
+	int	i;
+
 	if (!philo || !*philo)
 		return ;
 	i = 0;
@@ -54,23 +59,23 @@ static void free_memory(t_philo **philo)
 		i++;
 	}
 	free(*philo);
-    *philo = NULL;
+	*philo = NULL;
 }
 
 static void	join_threads(t_philo *philosophers, int num_philosophers)
 {
-    for (int i = 0; i < num_philosophers; i++)
-    {
-        pthread_join(*philosophers[i].monitor, NULL);
-    }	
+	for (int i = 0; i < num_philosophers; i++)
+	{
+		pthread_join(*philosophers[i].monitor, NULL);
+	}
 }
 
-void kill_every_philo(t_philo *philo, int philo_count)
+void	kill_every_philo(t_philo *philo, int philo_count)
 {
-	int j;
+	int	j;
 
 	j = 0;
-	while(j < philo_count)
+	while (j < philo_count)
 	{
 		kill(philo[j].pid, SIGTERM);
 		j++;
@@ -78,16 +83,16 @@ void kill_every_philo(t_philo *philo, int philo_count)
 	return ;
 }
 
-void fin_philo(t_philo **philo)
+void	fin_philo(t_philo **philo)
 {
-    t_info *info;
-    t_resources *resources;
+	t_info		*info;
+	t_resources	*resources;
 
-    info = philo[0]->info;
-    resources = (*philo)[0].resources;
+	info = philo[0]->info;
+	resources = (*philo)[0].resources;
 	join_threads(*philo, info->number_of_philosophers);
 	wait_processes(philo);
 	kill_every_philo(*philo, info->number_of_philosophers);
 	destroy_semaphores(resources);
-    free_memory(philo);
+	free_memory(philo);
 }

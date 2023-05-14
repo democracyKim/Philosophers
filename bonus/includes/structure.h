@@ -44,6 +44,7 @@ typedef struct s_resources
 	sem_t			*last_meal;
 	sem_t			*start;
 	sem_t			*prevention;
+	sem_t			*death;
 }					t_resources;
 
 typedef struct s_philo
