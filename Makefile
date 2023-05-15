@@ -6,7 +6,7 @@
 #    By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/15 15:08:23 by minkim3           #+#    #+#              #
-#    Updated: 2023/05/15 15:09:44 by minkim3          ###   ########.fr        #
+#    Updated: 2023/05/15 15:10:33 by minkim3          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,23 +23,19 @@ all:
 	@make -C $(MANDATORY)
 	@$(RM) $(M_NAME)
 	@$(CP) $(MANDATORY)/$(M_NAME) $(M_NAME)
-	@echo -e "$(BLUE)copied!$(DEFAULT)"
 
 bonus:
 	@make -C $(BONUS)
 	@$(CP) $(BONUS)/$(B_NAME) $(B_NAME)
-	@echo -e "$(BLUE)copied!$(DEFAULT)"
 
 clean:
 	@make clean -C $(MANDATORY)
 	@make clean -C $(BONUS)
-	@echo -e "$(YELLOW)object files deleted!$(DEFAULT)"
 
 fclean: clean
 	@$(RM) $(M_NAME) $(B_NAME)
 	@make fclean -C $(MANDATORY)
 	@make fclean -C $(BONUS)
-	@echo -e "$(PINK)all deleted!$(DEFAULT)"
 
 re:
 	@make fclean
