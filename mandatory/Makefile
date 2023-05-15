@@ -6,7 +6,7 @@
 #    By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/29 13:20:47 by minkim3           #+#    #+#              #
-#    Updated: 2023/05/15 14:55:34 by minkim3          ###   ########.fr        #
+#    Updated: 2023/05/15 15:07:32 by minkim3          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,21 +16,21 @@ NAME            = philo
 RM              = rm -f
 
 EXEC            = philo
-SRCS_PATH	    = ./mandatory/
+SRCS_PATH	    = ./
 
-MAIN_PATH  	    = ./main/
+MAIN_PATH  	    = main/
 MAIN_SRCS       = main.c
 MAIN            = $(addprefix $(MAIN_PATH), $(MAIN_SRCS))
 
-INIT_PATH  	    = ./init/
+INIT_PATH  	    = init/
 INIT_SRCS       = init.c get_info.c
 INIT            = $(addprefix $(INIT_PATH), $(INIT_SRCS))
 
-UTILS_PATH      = ./utils/
+UTILS_PATH      = utils/
 UTILS_SRCS      = ft_atoi.c ft_calloc.c ft_strcmp.c get_time.c
 UTILS           = $(addprefix $(UTILS_PATH), $(UTILS_SRCS))
 
-PHILO_PATH      = ./philo/
+PHILO_PATH      = philo_mandatory/
 PHILO_SRCS      = life_of_philo.c start_threads.c monitoring.c \
 				  fin_philo.c eating.c print_state.c
 PHILO           = $(addprefix $(PHILO_PATH), $(PHILO_SRCS))
@@ -42,7 +42,7 @@ SOURCES			= $(addprefix $(SRCS_PATH), $(MAIN))\
 
 OBJECTS         = $(SOURCES:.c=.o)
 
-HEADER_PATH     = ./includes/
+HEADER_PATH     = includes/
 S_HEADER        = philo.h
 HEADER          = $(addprefix $(HEADER_PATH), $(S_HEADER))
 
@@ -54,11 +54,6 @@ $(NAME): $(OBJECTS)
 
 %.o: %.c $(HEADER)
 	@$(CC) $(CFLAGS) -c $< -o $@
-
-bonus:
-	@make -C $(BONUS)
-	@$(CP) $(BONUS)/$(NAME) $(NAME)
-	@echo -e "$(BLUE)bonus compiled!$(DEFAULT)"
 
 clean:
 	@$(RM) $(OBJECTS)

@@ -6,7 +6,7 @@
 #    By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/29 13:20:47 by minkim3           #+#    #+#              #
-#    Updated: 2023/05/15 14:54:11 by minkim3          ###   ########.fr        #
+#    Updated: 2023/05/15 15:06:24 by minkim3          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ SOURCES			= $(addprefix $(SRCS_PATH), $(MAIN))\
 OBJECTS         = $(SOURCES:.c=.o)
 
 HEADER_PATH     = includes/
-S_HEADER        = philo_bonus.h
+S_HEADER        = philo.h
 HEADER          = $(addprefix $(HEADER_PATH), $(S_HEADER))
 
 all: $(NAME)
