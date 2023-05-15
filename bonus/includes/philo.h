@@ -6,12 +6,12 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:51:00 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/14 18:07:11 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/15 14:41:07 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_BONUS_H
-# define PHILO_BONUS_H
+#ifndef PHILO_H
+# define PHILO_H
 # include "structure.h"
 
 int				get_info(int argc, char *argv[], t_info *info);
@@ -30,5 +30,8 @@ void			time_lapse(unsigned int time);
 void			fin_philo(t_philo **philo);
 void			release_forks(t_philo *philo);
 void			kill_every_philo(t_philo *philo, int philo_count);
+int				start_life_of_philo(t_philo *philo, int i);
+void			free_philo(t_info *info, t_resources *resources, \
+					t_philo **philo);
 
 #endif

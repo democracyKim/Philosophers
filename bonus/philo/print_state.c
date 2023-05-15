@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:18:09 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/14 18:48:17 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/15 14:32:03 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,9 @@ int	print_state(t_philo *philo, const char *statement)
 	philo_time = get_time() - philo->info->start_time;
 	if (ft_strcmp(statement, "died") == 0)
 	{
-		sem_wait(philo->resources->death);
 		print_died(philo, philo_time, statement);
 		exit(1);
 	}
-	sem_post(philo->resources->death);
 	if (ft_strcmp(statement, "is eating") == 0)
 	{
 		if (print_eating(philo, philo_time, statement) == FALSE)

@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:15:03 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/14 18:30:12 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/15 14:38:59 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,42 +31,15 @@ static void	wait_processes(t_philo **philo)
 	}
 }
 
-static void	destroy_semaphores(t_resources *resources)
-{
-	sem_close(resources->forks);
-	sem_close(resources->print);
-	sem_close(resources->last_meal);
-	sem_close(resources->start);
-	sem_close(resources->prevention);
-	sem_unlink("forks");
-	sem_unlink("print");
-	sem_unlink("last_meal");
-	sem_unlink("start");
-	sem_unlink("prevention");
-}
-
-static void	free_memory(t_philo **philo)
+static void	join_threads(t_philo *philosophers, int num_philosophers)
 {
 	int	i;
 
-	if (!philo || !*philo)
-		return ;
 	i = 0;
-	while (i < (*philo)->info->number_of_philosophers)
-	{
-		if ((*philo)[i].monitor)
-			free((*philo)[i].monitor);
-		i++;
-	}
-	free(*philo);
-	*philo = NULL;
-}
-
-static void	join_threads(t_philo *philosophers, int num_philosophers)
-{
-	for (int i = 0; i < num_philosophers; i++)
+	while (i < num_philosophers)
 	{
 		pthread_join(*philosophers[i].monitor, NULL);
+		i++;
 	}
 }
 
@@ -93,6 +66,5 @@ void	fin_philo(t_philo **philo)
 	join_threads(*philo, info->number_of_philosophers);
 	wait_processes(philo);
 	kill_every_philo(*philo, info->number_of_philosophers);
-	destroy_semaphores(resources);
-	free_memory(philo);
+	free_philo(info, resources, philo);
 }
