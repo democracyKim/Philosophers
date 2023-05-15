@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:40:31 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/15 14:40:39 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/15 14:43:46 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef struct s_resources
 	sem_t			*last_meal;
 	sem_t			*start;
 	sem_t			*prevention;
-	sem_t			*death;
 }					t_resources;
 
 typedef struct s_philo

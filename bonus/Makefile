@@ -6,7 +6,7 @@
 #    By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/29 13:20:47 by minkim3           #+#    #+#              #
-#    Updated: 2023/05/10 14:51:50 by minkim3          ###   ########.fr        #
+#    Updated: 2023/05/15 14:44:07 by minkim3          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ UTILS           = $(addprefix $(UTILS_PATH), $(UTILS_SRCS))
 
 PHILO_PATH      = philo/
 PHILO_SRCS      = life_of_philo.c start_philo.c monitoring.c \
-				  fin_philo.c eating.c print_state.c
+				  fin_philo.c eating.c print_state.c free_philo.c
 PHILO           = $(addprefix $(PHILO_PATH), $(PHILO_SRCS))
 
 SOURCES			= $(addprefix $(SRCS_PATH), $(MAIN))\

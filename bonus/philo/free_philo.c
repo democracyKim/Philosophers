@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:37:46 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/15 14:38:37 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/15 14:42:48 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	free_memory(t_philo **philo)
 	*philo = NULL;
 }
 
-void	free_philo(t_info *info, t_resources *resources, t_philo **philo)
+void	free_philo(t_resources *resources, t_philo **philo)
 {
 	destroy_semaphores(resources);
 	free_memory(philo);

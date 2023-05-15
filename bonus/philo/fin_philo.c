@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:15:03 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/15 14:38:59 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/15 14:43:08 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,5 @@ void	fin_philo(t_philo **philo)
 	join_threads(*philo, info->number_of_philosophers);
 	wait_processes(philo);
 	kill_every_philo(*philo, info->number_of_philosophers);
-	free_philo(info, resources, philo);
+	free_philo(resources, philo);
 }
