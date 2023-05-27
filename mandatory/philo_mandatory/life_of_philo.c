@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:58:36 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/27 18:32:53 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/27 18:52:43 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	*life_of_philo(void *arg)
 		if (has_anyone_died(philo) == TRUE)
 			return (NULL);
 		usleep(philo->info.time_to_eat / 10);
+		if (philo->info.must_eat_times != -1)
+			usleep(philo->info.time_to_eat / 10);
 	}
 	return (NULL);
 }
