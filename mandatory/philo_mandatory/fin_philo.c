@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 20:03:58 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/14 17:34:16 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/27 18:05:51 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static void	destroy_mutexes(t_resources *resources, int number_of_philosophers)
 	pthread_mutex_destroy(&resources->last_meal_time);
 	pthread_mutex_destroy(&resources->full);
 	pthread_mutex_destroy(&resources->living);
-	pthread_mutex_destroy(&resources->eat_count);
 }
 
 static void	free_memory(t_philo **philo, t_resources *resources)

@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 19:10:16 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/14 17:04:39 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/27 18:05:42 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,12 @@ static int	take_forks(t_philo *philo)
 
 static int	start_eating(t_philo *philo)
 {
-	int	eat_count;
-
 	print_state(philo, "is eating");
 	time_lapse(philo->info.time_to_eat);
 	if (philo->info.must_eat_times != -1)
 	{
-		pthread_mutex_lock(&philo->resources->eat_count);
 		philo->eat_count++;
-		eat_count = philo->eat_count;
-		pthread_mutex_unlock(&philo->resources->eat_count);
-		if (eat_count == philo->info.must_eat_times)
+		if (philo->eat_count == philo->info.must_eat_times)
 		{
 			pthread_mutex_lock(&philo->resources->full);
 			philo->resources->full_count++;

@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:12:21 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/14 17:28:46 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/05/27 18:06:06 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ static int	init_mutex(t_resources *resources, int number_of_philosophers)
 	if (pthread_mutex_init(&resources->last_meal_time, NULL) != 0)
 		return (ERROR);
 	if (pthread_mutex_init(&resources->full, NULL) != 0)
-		return (ERROR);
-	if (pthread_mutex_init(&resources->eat_count, NULL) != 0)
 		return (ERROR);
 	if (pthread_mutex_init(&resources->living, NULL) != 0)
 		return (ERROR);
