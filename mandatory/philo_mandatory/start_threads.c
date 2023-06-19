@@ -6,13 +6,13 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:56:37 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/08 14:31:33 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/06/19 16:54:45 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static int	start_odd_philo(t_philo *philo, t_info *info)
+static int	start_even_philo(t_philo *philo, t_info *info)
 {
 	int	i;
 
@@ -34,7 +34,7 @@ static int	start_odd_philo(t_philo *philo, t_info *info)
 	return (0);
 }
 
-static int	start_even_philo(t_philo *philo, t_info *info)
+static int	start_odd_philo(t_philo *philo, t_info *info)
 {
 	int	i;
 
@@ -61,11 +61,11 @@ int	start_threads(t_philo *philo)
 	t_info	*info;
 
 	info = &(philo[0].info);
-	if (start_odd_philo(philo, info) == ERROR)
+	if (start_even_philo(philo, info) == ERROR)
 	{
 		return (ERROR);
 	}
-	if (start_even_philo(philo, info) == ERROR)
+	if (start_odd_philo(philo, info) == ERROR)
 	{
 		return (ERROR);
 	}

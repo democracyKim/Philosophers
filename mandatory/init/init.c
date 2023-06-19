@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:12:21 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/27 18:22:48 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/06/19 16:55:08 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static int	init_resources(t_resources *resources, int number_of_philosophers)
 		return (ERROR);
 	if (init_mutex(resources, number_of_philosophers) == ERROR)
 		return (ERROR);
-	resources->stop_all_philos = 0;
 	resources->full_count = 0;
 	resources->forks_status = ft_calloc(number_of_philosophers, \
 									sizeof(int));
