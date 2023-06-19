@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:12:21 by minkim3           #+#    #+#             */
-/*   Updated: 2023/06/19 16:55:08 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/06/19 17:49:00 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ static int	init_mutex(t_resources *resources, int number_of_philosophers)
 	{
 		if (pthread_mutex_init(&resources->forks[i], NULL) != 0)
 			return (ERROR);
+		if (pthread_mutex_init(&resources->last_meal_time[i], NULL) != 0)
+			return (ERROR);
 		i++;
 	}
 	if (pthread_mutex_init(&resources->print, NULL) != 0)
-		return (ERROR);
-	if (pthread_mutex_init(&resources->last_meal_time, NULL) != 0)
 		return (ERROR);
 	if (pthread_mutex_init(&resources->full, NULL) != 0)
 		return (ERROR);
@@ -39,6 +39,10 @@ static int	init_resources(t_resources *resources, int number_of_philosophers)
 	resources->forks = ft_calloc(number_of_philosophers, \
 									sizeof(pthread_mutex_t));
 	if (!resources->forks)
+		return (ERROR);
+	resources->last_meal_time = ft_calloc(number_of_philosophers, \
+									sizeof(pthread_mutex_t));
+	if (!resources->last_meal_time)
 		return (ERROR);
 	if (init_mutex(resources, number_of_philosophers) == ERROR)
 		return (ERROR);

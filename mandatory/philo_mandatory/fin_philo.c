@@ -6,7 +6,7 @@
 /*   By: minkim3 <minkim3@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 20:03:58 by minkim3           #+#    #+#             */
-/*   Updated: 2023/05/27 18:22:43 by minkim3          ###   ########.fr       */
+/*   Updated: 2023/06/19 17:50:40 by minkim3          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ static void	destroy_mutexes(t_resources *resources, int number_of_philosophers)
 	while (i < number_of_philosophers)
 	{
 		pthread_mutex_destroy(&resources->forks[i]);
+		pthread_mutex_destroy(&resources->last_meal_time[i]);
 		i++;
 	}
 	pthread_mutex_destroy(&resources->print);
-	pthread_mutex_destroy(&resources->last_meal_time);
 	pthread_mutex_destroy(&resources->full);
 	pthread_mutex_destroy(&resources->living);
 }
@@ -46,6 +46,7 @@ static void	free_memory(t_philo **philo, t_resources *resources)
 {
 	free(resources->forks_status);
 	free(resources->forks);
+	free(resources->last_meal_time);
 	free(*philo);
 	*philo = NULL;
 }
